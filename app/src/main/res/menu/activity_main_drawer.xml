@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_name"
+            android:title="My Profile" />
+        <item
+            android:id="@+id/nav_fav"
+            android:icon="@drawable/wishlist"
+            android:title="My Favorites" />
+        <item
+            android:id="@+id/add_services"
+            android:icon="@drawable/ic_add"
+            android:title="Add Services" />
+        <item
+            android:id="@+id/nav_onsell"
+            android:icon="@drawable/ic_list"
+            android:title="Manage Services" />
+
+        <item
+            android:id="@+id/nav_mysellitem"
+            android:icon="@drawable/ic_approve"
+            android:title="Update Shelter" />
+
+        <item
+            android:id="@+id/nav_news"
+            android:icon="@drawable/ic_news"
+            android:title="News" />
+        <item
+            android:id="@+id/nav_find"
+            android:icon="@drawable/ic_phone"
+            android:title="Crisis Line" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Share" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_info"
+            android:title="About" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout"
+            android:title="Logout" />
+
+    </group>
+
+</menu>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "953369300099",
+    "firebase_url": "https://homelesssavermac.firebaseio.com",
+    "project_id": "homelesssavermac",
+    "storage_bucket": "homelesssavermac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953369300099:android:a0dddcb169a46110",
+        "android_client_info": {
+          "package_name": "com.uyr.yusara.homelesssavermac"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953369300099-t3p73siluiphcqh2onmfpgd7jr0n84n3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.uyr.yusara.homelesssavermac",
+            "certificate_hash": "f4125f1a036c191c8db88fc9bd6cb5a4158e6e90"
+          }
+        },
+        {
+          "client_id": "953369300099-gsinr77mq00c4q65q73i1bfft3758i2k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvG1cORXIyQVUiPMqyr8RmNFehg71yey4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "953369300099-gsinr77mq00c4q65q73i1bfft3758i2k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

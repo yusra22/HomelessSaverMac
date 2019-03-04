@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".Agency.AddServices">
+
+    <include
+        android:id="@+id/find_toolbar"
+        layout="@layout/app_bar_layout">
+
+    </include>
+
+
+    <!--    <EditText
+            android:id="@+id/edit_protype"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/edit_desc"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="215dp"
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:hint=""
+            android:padding="5dp" />-->
+
+
+    <!--    <Spinner
+            android:id="@+id/edit_propertytype"
+            android:layout_width="180dp"
+            android:layout_height="30dp"
+            android:layout_alignEnd="@+id/edit_desc"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="312dp"
+            android:layout_marginEnd="-1dp"
+            android:background="@drawable/edittext_background"></Spinner>
+
+        <Spinner
+            android:id="@+id/edit_bedrooms"
+            android:layout_width="180dp"
+            android:layout_height="30dp"
+            android:layout_alignEnd="@+id/edit_desc"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="354dp"
+            android:layout_marginEnd="0dp"
+            android:background="@drawable/edittext_background"></Spinner>-->
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/find_toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:orientation="vertical">
+
+                <!--           <TextView
+                android:id="@+id/propertytypetitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="25dp"
+                android:text="Property Type :"
+                android:textSize="18sp"
+                android:textStyle="bold" />-->
+
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/silver"
+                    android:layout_marginTop="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    >
+
+                    <EditText
+                        android:id="@+id/edit_agencyname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:background="@null"
+                        android:hint="Community Service Name"
+                        android:layout_marginBottom="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <!--                <View android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/silver"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"/>-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    >
+
+                    <EditText
+                        android:id="@+id/edit_catergories"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:hint="Description or Comment in less than 30 words"
+                        android:layout_marginStart="10dp"
+                        android:paddingBottom="20dp"
+                        android:inputType="textMultiLine"
+                        android:background="@null"
+                        android:layout_marginBottom="7dp"
+                        android:textSize="15dp"
+                        />
+
+                </LinearLayout>
+
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/silver"
+                    />
+
+                <TextView
+                    android:id="@+id/propertytypetitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Address :"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimary" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    android:layout_marginBottom="5dp"
+                    >
+
+                    <EditText
+                        android:id="@+id/edit_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:background="@null"
+                        android:paddingTop="3dp"
+                        android:hint="Address 1"
+                        android:layout_marginBottom="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    >
+
+                    <EditText
+                        android:id="@+id/edit_officenumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:background="@null"
+                        android:hint="Phone #"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:paddingTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    >
+
+                    <EditText
+                        android:id="@+id/edit_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="3dp"
+                        android:inputType="textEmailAddress"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:background="@null"
+                        android:hint="Email"
+                        android:layout_marginBottom="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    >
+
+                    <EditText
+                        android:id="@+id/edit_website"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:paddingTop="3dp"
+                        android:background="@null"
+                        android:hint="Website Address"
+                        android:layout_marginBottom="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    >
+
+                    <EditText
+                        android:id="@+id/edit_facebook"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:background="@null"
+                        android:paddingTop="3dp"
+                        android:hint="Facebook"
+                        android:layout_marginBottom="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    >
+
+                    <EditText
+                        android:id="@+id/edit_twitter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:background="@null"
+                        android:hint="Twitter"
+                        android:paddingTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/silver"
+                    />
+
+                <TextView
+                    android:id="@+id/servicetittle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Services :"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimary" />
+
+                <RadioGroup
+                    android:id="@+id/servicechoice"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:gravity="center"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal">>
+
+                    <RadioButton
+                        android:id="@+id/radioButton_food"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorPrimary"
+                        android:text="Food" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_shelter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorPrimary"
+                        android:text="Shelter" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_health"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorPrimary"
+                        android:text="Health" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_resources"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorPrimary"
+                        android:text="Resource" />
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/categorytittle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Categories :"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimary" />
+
+                <RadioGroup
+                    android:id="@+id/categorychoice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="vertical">>
+
+                    <RadioButton
+                        android:id="@+id/radioButton_men"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+
+                        android:text="Men"
+                        android:textColor="@color/colorPrimary" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_woman"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+
+                        android:text="Woman"
+                        android:textColor="@color/colorPrimary" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_youth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+
+                        android:textColor="@color/colorPrimary"
+                        android:text="Youth/Kids" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_disable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorPrimary"
+                        android:text="Disable/Senior" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_anyone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorPrimary"
+                        android:text="Anyone" />
+                </RadioGroup>
+
+                <ProgressBar
+                    android:id="@+id/progressbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone" />
+
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/silver"
+                    />
+
+                <TextView
+                    android:id="@+id/propertytypetitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Schedule :"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimary" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/edit_scheduletype"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:background="@null"
+                        android:paddingTop="3dp"
+                        android:textColor="@color/black"
+                        android:text="Schedule Type"
+                        android:layout_marginBottom="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/edit_selectday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:background="@null"
+                        android:paddingTop="3dp"
+                        android:text="Select Day"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutstarttime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/edit_starttime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:background="@null"
+                        android:paddingTop="3dp"
+                        android:text="Start Time"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutendtime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/edit_endtime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:background="@null"
+                        android:paddingTop="3dp"
+                        android:text="End Time"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnupdatepost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:background="@drawable/button_background"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textColorLink="@color/silver"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="17dp"
+                    android:text="Add Services" />
+
+            </LinearLayout>
+
+        </ScrollView>
+    </FrameLayout>
+
+</LinearLayout>
