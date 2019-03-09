@@ -3,12 +3,16 @@ package com.uyr.yusara.homelesssavermac.Agency;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -17,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,14 +69,18 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
     private TextView Postagencynametxt,Postcategoriestxt,Postphonenotxt,Postemailtxt,Postwebsitetxt,Postfacebooktxt,Posttwittertxt,Postlocationtxt;
     private TextView btnComment;
 
-    private DatabaseReference ClickPostRef;
+    private DatabaseReference ClickPostRef, BookmarkRef;
+    Boolean BookmarkChecker = false;
 
     private FirebaseAuth mAuth;
     private String currentUserid;
 
     private Toolbar mToolbar;
 
+    FloatingActionButton fab;
+    ImageView button_save;
 
+    private MediaPlayer mp;
 
 
     @Override
@@ -106,6 +115,9 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
         mAuth = FirebaseAuth.getInstance();
         currentUserid = mAuth.getCurrentUser().getUid();
 
+        BookmarkRef = FirebaseDatabase.getInstance().getReference().child("Bookmarks");
+
+
         ClickPostRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(PostKey);
 
         ClickPostRef.addValueEventListener(new ValueEventListener() {
@@ -138,6 +150,9 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
             }
         });
 
+        fab = (FloatingActionButton) findViewById(R.id.save);
+        button_save = (ImageView) findViewById(R.id.save);
+
         mToolbar = (Toolbar) findViewById(R.id.find_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("My Community Services");
@@ -145,6 +160,10 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         findViewById(R.id.btncomment).setOnClickListener(this);
+        findViewById(R.id.save).setOnClickListener(this);
+
+        mp = MediaPlayer.create(this, R.raw.pindrop);
+        //setLikeButtonStatus(PostKey);
 
     }
 
@@ -227,7 +246,72 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
                 commentsIntent.putExtra("PostKey", PostKey);
                 startActivity(commentsIntent);
                 break;
+            case R.id.save:
+                Bookmark();
+                break;
         }
+    }
+
+    private void Bookmark()
+    {
+
+        BookmarkChecker = true;
+
+        BookmarkRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                if(BookmarkChecker.equals(true))
+                {
+                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                    {
+                        BookmarkRef.child(PostKey).child(currentUserid).removeValue();
+                        BookmarkChecker = false;
+                        mp.start();
+                    }
+                    else {
+
+                        BookmarkRef.child(currentUserid).child(PostKey).child(currentUserid).setValue(true);
+                        BookmarkChecker = false;
+                        Toast.makeText(Agency_Details.this, "Save clicked ! ...", Toast.LENGTH_SHORT).show();
+                        mp.start();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError)
+            {
+
+            }
+        });
+    }
+
+    public void setLikeButtonStatus(final String PostKey)
+    {
+        BookmarkRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                {
+                    //Toast.makeText(Agency_Details.this, "Color patut berubah ...", Toast.LENGTH_LONG).show();
+                    fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.sunflower)));
+                }
+                else {
+
+                    //Toast.makeText(Agency_Details.this, "Color asl ...", Toast.LENGTH_SHORT).show();
+                    fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.sunset)));
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -318,7 +402,6 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
         {
             Toast.makeText(this, "Please write any location name", Toast.LENGTH_LONG).show();
         }
-
 
 
         if (googleApiClient != null)

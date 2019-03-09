@@ -36,7 +36,8 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".Profile" />
         <activity android:name=".Agency.AddServices" />
-        <activity android:name=".Agency.Agent_post" />
+        <activity android:name=".News.NewsMainActivity" />
+        <activity android:name=".News.DetailsActivity" />
         <activity android:name=".Agency.Agency_post" />
         <activity android:name=".Agency.MyAgencyPost" />
         <!--
@@ -54,7 +55,8 @@
         <activity
             android:name=".Agency.Agency_Details"
             android:label="@string/title_activity_agency__details" />
-        <activity android:name=".Comment"></activity>
+        <activity android:name=".Comment" />
+        <activity android:name=".MyFavourites"></activity>
     </application>
 
 </manifest>

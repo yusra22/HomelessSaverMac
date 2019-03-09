@@ -30,6 +30,7 @@ import com.uyr.yusara.homelesssavermac.Agency.Agency_post;
 import com.uyr.yusara.homelesssavermac.Agency.MyAgencyPost;
 import com.uyr.yusara.homelesssavermac.Menu.Login;
 import com.uyr.yusara.homelesssavermac.Menu.TestAdd;
+import com.uyr.yusara.homelesssavermac.News.NewsMainActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -184,13 +185,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(find);
         }else if (id == R.id.nav_fav) {
 
-/*            Intent wish = new Intent(MainActivity.this, WishlistActivity.class);
-            startActivity(wish);*/
+            Intent wish = new Intent(MainActivity.this, MyFavourites.class);
+            startActivity(wish);
 
         } else if (id == R.id.nav_news) {
 
-        /*    Intent news = new Intent(MainActivity.this, NewsMainActivity.class);
-            startActivity(news);*/
+            Intent news = new Intent(MainActivity.this, NewsMainActivity.class);
+            startActivity(news);
 
         } else if (id == R.id.nav_share) {
 

@@ -14,11 +14,33 @@
 
     </include>
 
+
     <FrameLayout
         android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            app:backgroundTint="@color/sunset"
+            app:srcCompat="@android:drawable/ic_menu_save" />
+
+
+<!--        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            app:srcCompat="@android:drawable/star_off" />-->
+
+
 
         <ScrollView
             android:layout_width="match_parent"
@@ -309,7 +331,6 @@
                         android:name="com.google.android.gms.maps.SupportMapFragment"
                         android:layout_width="match_parent"
                         android:layout_height="400dp"
-
                         tools:context=".Agency.Agency_Details" />
 
                 </RelativeLayout>

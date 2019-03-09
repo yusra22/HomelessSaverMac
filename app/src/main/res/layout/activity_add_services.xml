@@ -413,20 +413,6 @@
                         android:text="Anyone" />
                 </RadioGroup>
 
-                <ProgressBar
-                    android:id="@+id/progressbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:visibility="gone" />
-
-                <View android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/silver"
-                    />
-
                 <TextView
                     android:id="@+id/propertytypetitle"
                     android:layout_width="wrap_content"
@@ -462,25 +448,47 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/layoutday"
+                    android:id="@+id/layoutstartdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
                     android:orientation="horizontal"
-                    android:paddingTop="20dp"
-                    >
+                    android:paddingTop="20dp">
 
                     <TextView
-                        android:id="@+id/edit_selectday"
+                        android:id="@+id/edit_selectstartdate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
+                        android:layout_marginBottom="3dp"
                         android:background="@null"
                         android:paddingTop="3dp"
-                        android:text="Select Day"
+                        android:text="Start Date"
                         android:textColor="@color/black"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutenddate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp">
+
+                    <TextView
+                        android:id="@+id/edit_selectenddate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
                         android:layout_marginBottom="3dp"
+                        android:background="@null"
+                        android:paddingTop="3dp"
+                        android:text="End Date"
+                        android:textColor="@color/black"
                         android:textSize="16dp" />
 
                 </LinearLayout>
@@ -537,14 +545,14 @@
                     android:id="@+id/btnupdatepost"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginTop="7dp"
+                    android:layout_marginBottom="17dp"
                     android:background="@drawable/button_background"
+                    android:text="Add Services"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textColorLink="@color/silver"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="17dp"
-                    android:text="Add Services" />
+                    android:textColorLink="@color/silver" />
 
             </LinearLayout>
 

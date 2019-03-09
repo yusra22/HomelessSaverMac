@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -118,7 +119,7 @@ public class Agency_post extends AppCompatActivity {
                     @Override
                     public void onClick(View view)
                     {
-/*                        //Untuk dpat id user
+                        //Untuk dpat id user
                         //String PostKey = getSnapshots().get(position).getUid();
 
                         // Untuk dpat Id dalam table post
@@ -129,44 +130,14 @@ public class Agency_post extends AppCompatActivity {
                         Intent click_post = new Intent(Agency_post.this,Agency_Details.class);
                         click_post.putExtra("PostKey", PostKey);
                         //click_post.putExtra("Agencyname", Agencyname);
-                        startActivity(click_post);*/
-                        LikeChecker = true;
-
-                        LikesRef.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-                            {
-                                if(LikeChecker.equals(true))
-                                {
-                                    if(dataSnapshot.child(currentUserid).hasChild(currentUserid))
-                                    {
-                                        LikesRef.child(PostKey).child(currentUserid).removeValue();
-                                        LikeChecker = false;
-                                    }
-                                    else {
-
-                                        LikesRef.child(PostKey).child(currentUserid).setValue(true);
-                                        LikeChecker = false;
-                                        mp.start();
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError)
-                            {
-
-                            }
-                        });
-
-
+                        startActivity(click_post);
 
                     }
                 });
 
                 holder.setLikeButtonStatus(PostKey);
 
-                holder.productlikes.setOnClickListener(new View.OnClickListener() {
+                holder.layout_likes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view)
                     {
@@ -178,10 +149,11 @@ public class Agency_post extends AppCompatActivity {
                             {
                                 if(LikeChecker.equals(true))
                                 {
-                                    if(dataSnapshot.child(currentUserid).hasChild(currentUserid))
+                                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
                                     {
                                         LikesRef.child(PostKey).child(currentUserid).removeValue();
                                         LikeChecker = false;
+                                        mp.start();
                                     }
                                     else {
 
@@ -225,6 +197,7 @@ public class Agency_post extends AppCompatActivity {
         Integer countLikes;
         String currentUserid;
         DatabaseReference LikesRef;
+        LinearLayout layout_likes;
 
 
         public PostsViewHolder(View itemView)
@@ -237,6 +210,9 @@ public class Agency_post extends AppCompatActivity {
             productnumber = itemView.findViewById(R.id.post_product_phoneno);
             productstatus = itemView.findViewById(R.id.post_product_status);
             productlikes = itemView.findViewById(R.id.post_product_likes);
+
+            layout_likes = itemView.findViewById(R.id.layout_likes);
+
 
             button_likes = (ImageView) itemView.findViewById(R.id.button_likes);
 
@@ -260,7 +236,7 @@ public class Agency_post extends AppCompatActivity {
 
                         countLikes = (int) dataSnapshot.child(PostKey).getChildrenCount();
                         button_likes.setImageResource(R.drawable.ic_like);
-                        productlikes.setText(Integer.toString(countLikes));
+                        productlikes.setText(Integer.toString(countLikes) + " Likes");
 
                     }
 
