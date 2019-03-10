@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".Homeless.AddHomelessInfo">
+
+    <include
+        android:id="@+id/find_toolbar"
+        layout="@layout/app_bar_layout">
+
+    </include>
+
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/find_toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Upload Photos :"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/silver" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal"
+                    >
+
+                    <ImageButton
+                        android:id="@+id/select_post1"
+                        android:layout_width="@dimen/image_width_height"
+                        android:layout_height="@dimen/image_width_height"
+                        android:layout_above="@+id/title_id"
+                        android:layout_toEndOf="@+id/price_id"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/shadow"
+                        app:srcCompat="@drawable/ic_camera" />
+
+                    <ImageButton
+                        android:id="@+id/select_post2"
+                        android:layout_width="@dimen/image_width_height"
+                        android:layout_height="@dimen/image_width_height"
+                        android:layout_above="@+id/title_id"
+                        android:layout_toEndOf="@+id/price_id"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/shadow"
+                        app:srcCompat="@drawable/ic_camera" />
+
+                    <ImageButton
+                        android:id="@+id/select_post3"
+                        android:layout_width="@dimen/image_width_height"
+                        android:layout_height="@dimen/image_width_height"
+                        android:layout_above="@+id/title_id"
+                        android:layout_toEndOf="@+id/price_id"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/shadow"
+                        app:srcCompat="@drawable/ic_camera" />
+
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/silver" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Details :"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp">
+
+                    <EditText
+                        android:id="@+id/edit_fullname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@null"
+                        android:hint="Full Name"
+                        android:paddingTop="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp">
+
+                    <EditText
+                        android:id="@+id/edit_age"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@null"
+                        android:hint="Age"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:paddingTop="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp">
+
+                    <TextView
+                        android:id="@+id/edittextview_relationship"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@null"
+                        android:hint="Relationship"
+                        android:inputType="textEmailAddress"
+                        android:paddingTop="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp">
+
+                    <EditText
+                        android:id="@+id/edit_occupation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@null"
+                        android:hint="Occupation"
+                        android:paddingTop="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp">
+
+                    <EditText
+                        android:id="@+id/edit_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@null"
+                        android:hint="Location"
+                        android:paddingTop="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp">
+
+                    <EditText
+                        android:id="@+id/edit_reportnumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@null"
+                        android:hint="Reporter Number"
+                        android:paddingTop="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Description :"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp">
+
+                    <EditText
+                        android:id="@+id/edit_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="7dp"
+                        android:background="@null"
+                        android:hint="Description or Comment in less than 30 words"
+                        android:inputType="textMultiLine"
+                        android:paddingBottom="20dp"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/silver" />
+
+                <Button
+                    android:id="@+id/btnupdatepeoplepost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="17dp"
+                    android:background="@drawable/button_background"
+                    android:text="Report Homeless"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textColorLink="@color/silver" />
+
+            </LinearLayout>
+
+        </ScrollView>
+    </FrameLayout>
+
+</LinearLayout>

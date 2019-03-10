@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="com.google.android.providers.gsf.permisson.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.camera2" />
 
     <application
         android:allowBackup="true"
@@ -56,7 +57,15 @@
             android:name=".Agency.Agency_Details"
             android:label="@string/title_activity_agency__details" />
         <activity android:name=".Comment" />
-        <activity android:name=".MyFavourites"></activity>
+        <activity android:name=".MyFavourites" />
+        <activity android:name=".Homeless.AddHomelessInfo" />
+        <activity
+            android:name=".TestMapsActivity"
+            android:label="@string/title_activity_test_maps" />
+        <activity
+            android:name=".MapTest.MapsActivity"
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".MapTest.Main2Activity"></activity>
     </application>
 
 </manifest>

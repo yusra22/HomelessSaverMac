@@ -163,7 +163,7 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
         findViewById(R.id.save).setOnClickListener(this);
 
         mp = MediaPlayer.create(this, R.raw.pindrop);
-        //setLikeButtonStatus(PostKey);
+        setLikeButtonStatus(PostKey);
 
     }
 
@@ -254,7 +254,6 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
 
     private void Bookmark()
     {
-
         BookmarkChecker = true;
 
         BookmarkRef.addValueEventListener(new ValueEventListener() {
@@ -263,15 +262,17 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
             {
                 if(BookmarkChecker.equals(true))
                 {
-                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                    if(dataSnapshot.child(currentUserid).child(PostKey).hasChild(currentUserid))
                     {
-                        BookmarkRef.child(PostKey).child(currentUserid).removeValue();
+                        //BookmarkRef.child(PostKey).child(currentUserid).removeValue();
+                        BookmarkRef.child(currentUserid).child(PostKey).child(currentUserid).removeValue();
                         BookmarkChecker = false;
                         mp.start();
                     }
                     else {
 
                         BookmarkRef.child(currentUserid).child(PostKey).child(currentUserid).setValue(true);
+                        //BookmarkRef.child(PostKey).child(currentUserid).setValue(true);
                         BookmarkChecker = false;
                         Toast.makeText(Agency_Details.this, "Save clicked ! ...", Toast.LENGTH_SHORT).show();
                         mp.start();
@@ -293,7 +294,7 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                if(dataSnapshot.child(currentUserid).child(PostKey).hasChild(currentUserid))
                 {
                     //Toast.makeText(Agency_Details.this, "Color patut berubah ...", Toast.LENGTH_LONG).show();
                     fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.sunflower)));

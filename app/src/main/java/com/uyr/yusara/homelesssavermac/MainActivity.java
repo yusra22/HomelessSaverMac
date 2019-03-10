@@ -28,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.uyr.yusara.homelesssavermac.Agency.AddServices;
 import com.uyr.yusara.homelesssavermac.Agency.Agency_post;
 import com.uyr.yusara.homelesssavermac.Agency.MyAgencyPost;
+import com.uyr.yusara.homelesssavermac.Homeless.AddHomelessInfo;
+import com.uyr.yusara.homelesssavermac.MapTest.Main2Activity;
 import com.uyr.yusara.homelesssavermac.Menu.Login;
 import com.uyr.yusara.homelesssavermac.Menu.TestAdd;
 import com.uyr.yusara.homelesssavermac.News.NewsMainActivity;
@@ -176,8 +178,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }else if (id == R.id.nav_find) {
 
-/*            Intent allpost = new Intent(MainActivity.this, FindHouseActivity .class);
-            startActivity(allpost);*/
+            Intent test = new Intent(MainActivity.this, TestMapsActivity.class);
+            startActivity(test);
 
         } else if (id == R.id.nav_mysellitem) {
 
@@ -195,8 +197,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_share) {
 
-            Intent post = new Intent(MainActivity.this, TestAdd.class);
-            startActivity(post);
+            Intent addhomelessinfo = new Intent(MainActivity.this, AddHomelessInfo.class);
+            startActivity(addhomelessinfo);
 
 
         } else if (id == R.id.nav_about) {
