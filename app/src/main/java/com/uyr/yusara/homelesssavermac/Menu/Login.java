@@ -1,6 +1,7 @@
 package com.uyr.yusara.homelesssavermac.Menu;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -30,6 +32,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     FirebaseAuth mAuth;
     private DatabaseReference UserRef;
     EditText editTextEmail, editTextPassword;
+    Button login;
     ProgressBar progressBar;
 
     private ImageView loginlogo;
@@ -56,6 +59,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        login = (Button)findViewById(R.id.buttonLogin);
 
         findViewById(R.id.textViewSignup).setOnClickListener(this);
         findViewById(R.id.textResetPassword).setOnClickListener(this);
@@ -69,15 +73,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(" Sign In To Our System");
 
+        // Untuk animation
         R1 = (RelativeLayout) findViewById(R.id.R1);
         R2 = (RelativeLayout) findViewById(R.id.R2);
-
         uptodown = AnimationUtils.loadAnimation(this, R.anim.uptodown);
         downtoup = AnimationUtils.loadAnimation(this, R.anim.downtoup);
-
         R1.setAnimation(uptodown);
         R2.setAnimation(downtoup);
 
+/*        // CHange to gradient
+        Drawable gradient = getResources().getDrawable( R.drawable.gradient_3);
+        mToolbar.setBackgroundDrawable(gradient);
+        login.setBackgroundDrawable(gradient);*/
     }
 
     private void userLogin() {

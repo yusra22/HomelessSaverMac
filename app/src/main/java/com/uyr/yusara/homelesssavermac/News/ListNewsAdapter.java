@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.uyr.yusara.homelesssavermac.R;
 
@@ -65,10 +66,10 @@ class ListNewsAdapter extends BaseAdapter {
             {
                 holder.galleryImage.setVisibility(View.GONE);
             }else{
-                Picasso.get()
+                /*Picasso.get()
                         .load(song.get(NewsMainActivity.KEY_URLTOIMAGE).toString())
                         .resize(300, 200)
-                        .into(holder.galleryImage);
+                        .into(holder.galleryImage);*/
             }
         }catch(Exception e) {}
         return convertView;

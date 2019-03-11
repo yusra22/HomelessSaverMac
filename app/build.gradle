@@ -40,7 +40,9 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.+'
-    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //Jgn lupa fix di listnewsadapter.java ye, bahagian picasso
+    //implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation 'com.firebaseui:firebase-ui-database:4.2.0'
     /*implementation 'com.google.android.gms:play-services-analytics:15.0.0'*/
@@ -48,5 +50,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:15.0.0'
     implementation 'com.google.android.gms:play-services-location:15.0.0'
 
+    //slider
+    implementation 'com.github.therealshabi:AutoImageFlipper:1.4.1'
 
 }

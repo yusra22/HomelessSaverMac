@@ -6,12 +6,14 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.GeolocationPermissions;
 import android.widget.Button;
@@ -27,6 +29,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -65,6 +68,8 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
     Marker marker;
     private double latitude, longitude;
 
+    private MediaPlayer mp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +84,8 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
 
         mUsers= FirebaseDatabase.getInstance().getReference("Location");
         mUsers.push().setValue(marker);
+
+        mp = MediaPlayer.create(this, R.raw.yahello);
 
 
     }
@@ -128,6 +135,16 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
                                 latitude = userAddress.getLatitude();
                                 longitude = userAddress.getLongitude();
 
+                                mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                    @Override
+                                    public boolean onMarkerClick(Marker marker) {
+
+                                        mp.start();
+
+                                        return false;
+                                    }
+                                });
+
                             }
                         }
                         else
@@ -161,7 +178,6 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
             return;
         }
 
-
     }
 
     @Override
@@ -169,8 +185,8 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
     {
 
         locationRequest = new LocationRequest();
-        locationRequest.setInterval(100000);
-        locationRequest.setFastestInterval(100000);
+/*        locationRequest.setInterval(100000);
+        locationRequest.setFastestInterval(100000);*/
         locationRequest.setPriority(locationRequest.PRIORITY_HIGH_ACCURACY);
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
@@ -197,7 +213,9 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
         lastLocation = location;
 
         LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(latLng).title("You are here!"));
+        //mMap.addMarker(new MarkerOptions().position(latLng).title("You are here!"));
+        mMap.addMarker(new MarkerOptions().position(latLng).title("You are here!")).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.peopleresize));
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
     }

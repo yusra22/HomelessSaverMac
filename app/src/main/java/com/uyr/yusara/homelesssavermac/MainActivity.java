@@ -29,6 +29,7 @@ import com.uyr.yusara.homelesssavermac.Agency.AddServices;
 import com.uyr.yusara.homelesssavermac.Agency.Agency_post;
 import com.uyr.yusara.homelesssavermac.Agency.MyAgencyPost;
 import com.uyr.yusara.homelesssavermac.Homeless.AddHomelessInfo;
+import com.uyr.yusara.homelesssavermac.ImageSliderTest.imageslidertest;
 import com.uyr.yusara.homelesssavermac.MapTest.Main2Activity;
 import com.uyr.yusara.homelesssavermac.Menu.Login;
 import com.uyr.yusara.homelesssavermac.Menu.TestAdd;
@@ -157,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_home) {
             // Handle the camera action
-            Intent homeIntent = new Intent(MainActivity.this, MainActivity.class);
+            Intent homeIntent = new Intent(MainActivity.this, imageslidertest.class);
             startActivity(homeIntent);
             finish();
 

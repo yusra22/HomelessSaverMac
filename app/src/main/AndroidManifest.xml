@@ -62,7 +62,8 @@
         <activity
             android:name=".TestMapsActivity"
             android:label="@string/title_activity_test_maps" />
-        <activity android:name=".MapTest.Main2Activity"></activity>
+        <activity android:name=".MapTest.Main2Activity" />
+        <activity android:name=".ImageSliderTest.imageslidertest"></activity>
     </application>
 
 </manifest>
