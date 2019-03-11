@@ -121,7 +121,7 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
 
                                 userMarkerOptions.position(latLng);
                                 userMarkerOptions.title(user.name);
-                                userMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                                userMarkerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.rsz_homeless));
 
                                 marker = mMap.addMarker(userMarkerOptions);
 
@@ -156,9 +156,11 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
         buildGoogleApiClient();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
+            mMap.setMyLocationEnabled(true);
+
             return;
         }
-        mMap.setMyLocationEnabled(true);
+
 
     }
 

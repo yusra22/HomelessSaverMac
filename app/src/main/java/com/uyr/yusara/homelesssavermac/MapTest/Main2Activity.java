@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.uyr.yusara.homelesssavermac.R;
+import com.uyr.yusara.homelesssavermac.TestMapsActivity;
 
 public class Main2Activity extends AppCompatActivity implements View.OnClickListener {
     private DatabaseReference mDatabase;
@@ -35,7 +36,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         btnproceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(Main2Activity.this,MapsActivity.class);
+                Intent i=new Intent(Main2Activity.this,TestMapsActivity.class);
                 startActivity(i);
             }
         });
