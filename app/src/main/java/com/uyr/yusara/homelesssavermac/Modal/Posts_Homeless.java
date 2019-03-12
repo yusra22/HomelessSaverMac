@@ -5,7 +5,9 @@ public class Posts_Homeless
 
     public String uid;
     public String postImage;
-    public String name;
+    public String postImage2;
+    public String postImage3;
+    public String fullname;
     public String age;
     public String relationship;
     public String occupation;
@@ -18,10 +20,12 @@ public class Posts_Homeless
 
     public Posts_Homeless() {}
 
-    public Posts_Homeless(String uid, String postImage, String name, String age, String relationship, String occupation, String decription, String reportnumber, String location, String time, String date, String countPosts) {
+    public Posts_Homeless(String uid, String postImage, String postImage2, String postImage3, String fullname, String age, String relationship, String occupation, String decription, String reportnumber, String location, String time, String date, String countPosts) {
         this.uid = uid;
         this.postImage = postImage;
-        this.name = name;
+        this.postImage2 = postImage2;
+        this.postImage3 = postImage3;
+        this.fullname = fullname;
         this.age = age;
         this.relationship = relationship;
         this.occupation = occupation;
@@ -49,12 +53,28 @@ public class Posts_Homeless
         this.postImage = postImage;
     }
 
-    public String getName() {
-        return name;
+    public String getPostImage2() {
+        return postImage2;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPostImage2(String postImage2) {
+        this.postImage2 = postImage2;
+    }
+
+    public String getPostImage3() {
+        return postImage3;
+    }
+
+    public void setPostImage3(String postImage3) {
+        this.postImage3 = postImage3;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getAge() {

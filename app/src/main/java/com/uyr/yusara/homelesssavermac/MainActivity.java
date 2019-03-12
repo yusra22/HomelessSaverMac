@@ -29,10 +29,9 @@ import com.uyr.yusara.homelesssavermac.Agency.AddServices;
 import com.uyr.yusara.homelesssavermac.Agency.Agency_post;
 import com.uyr.yusara.homelesssavermac.Agency.MyAgencyPost;
 import com.uyr.yusara.homelesssavermac.Homeless.AddHomelessInfo;
+import com.uyr.yusara.homelesssavermac.Homeless.Myhomelesspost;
 import com.uyr.yusara.homelesssavermac.ImageSliderTest.imageslidertest;
-import com.uyr.yusara.homelesssavermac.MapTest.Main2Activity;
 import com.uyr.yusara.homelesssavermac.Menu.Login;
-import com.uyr.yusara.homelesssavermac.Menu.TestAdd;
 import com.uyr.yusara.homelesssavermac.News.NewsMainActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -175,6 +174,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_onsell) {
 
             Intent post = new Intent(MainActivity.this, Agency_post.class);
+            startActivity(post);
+
+        } else if (id == R.id.nav_peopleads){
+
+            Intent post = new Intent(MainActivity.this, Myhomelesspost.class);
             startActivity(post);
 
         }else if (id == R.id.nav_find) {

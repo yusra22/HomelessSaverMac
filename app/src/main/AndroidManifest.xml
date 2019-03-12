@@ -28,7 +28,6 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-        <activity android:name=".Menu.TestAdd" />
         <activity android:name=".Menu.Register2" />
         <activity android:name=".Menu.ResetPasswordActivity" />
         <activity
@@ -63,7 +62,11 @@
             android:name=".TestMapsActivity"
             android:label="@string/title_activity_test_maps" />
         <activity android:name=".MapTest.Main2Activity" />
-        <activity android:name=".ImageSliderTest.imageslidertest"></activity>
+        <activity android:name=".ImageSliderTest.imageslidertest" />
+        <activity android:name=".Homeless.Myhomelesspost" />
+        <activity
+            android:name=".Homeless.activity_homeless_details"
+            android:label="@string/title_activity_homeless_details"></activity>
     </application>
 
 </manifest>

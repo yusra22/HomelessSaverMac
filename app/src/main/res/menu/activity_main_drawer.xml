@@ -27,6 +27,11 @@
             android:title="Manage Services" />
 
         <item
+            android:id="@+id/nav_peopleads"
+            android:icon="@drawable/ic_person"
+            android:title="Manage Reports" />
+
+        <item
             android:id="@+id/nav_mysellitem"
             android:icon="@drawable/ic_approve"
             android:title="Update Shelter" />
