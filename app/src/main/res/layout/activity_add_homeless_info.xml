@@ -40,7 +40,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
                     android:text="Upload Photos :"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <View
@@ -65,7 +65,7 @@
                         android:layout_toEndOf="@+id/price_id"
                         android:scaleType="centerCrop"
                         android:background="@drawable/shadow"
-                        app:srcCompat="@drawable/ic_camera" />
+                        app:srcCompat="@drawable/ic_camera2" />
 
                     <ImageButton
                         android:id="@+id/select_post2"
@@ -75,7 +75,7 @@
                         android:layout_toEndOf="@+id/price_id"
                         android:scaleType="centerCrop"
                         android:background="@drawable/shadow"
-                        app:srcCompat="@drawable/ic_camera" />
+                        app:srcCompat="@drawable/ic_camera2" />
 
                     <ImageButton
                         android:id="@+id/select_post3"
@@ -85,7 +85,7 @@
                         android:layout_toEndOf="@+id/price_id"
                         android:scaleType="centerCrop"
                         android:background="@drawable/shadow"
-                        app:srcCompat="@drawable/ic_camera" />
+                        app:srcCompat="@drawable/ic_camera2" />
 
                 </LinearLayout>
 
@@ -103,7 +103,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
                     android:text="Details :"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <LinearLayout
@@ -248,7 +248,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
                     android:text="Description :"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <LinearLayout
@@ -286,7 +286,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="7dp"
                     android:layout_marginBottom="17dp"
-                    android:background="@drawable/button_background"
+                    android:background="@drawable/button_background2"
                     android:text="Report Homeless"
                     android:textAllCaps="false"
                     android:textColor="@color/white"

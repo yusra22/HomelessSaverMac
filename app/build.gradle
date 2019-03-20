@@ -53,4 +53,8 @@ dependencies {
     //slider
     implementation 'com.github.therealshabi:AutoImageFlipper:1.4.1'
 
+    //circular circle
+    implementation 'com.github.Hitomis:CircleMenu:v1.1.0'
+
+
 }

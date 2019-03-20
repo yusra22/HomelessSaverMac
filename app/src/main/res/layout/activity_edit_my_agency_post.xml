@@ -44,6 +44,8 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />-->
 
+
+
                 <View android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/silver"
@@ -516,7 +518,7 @@
                     android:layout_marginTop="7dp"
                     android:layout_marginBottom="17dp"
                     android:background="@drawable/button_background2"
-                    android:text="Add Services"
+                    android:text="Update Services"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textColorLink="@color/silver" />

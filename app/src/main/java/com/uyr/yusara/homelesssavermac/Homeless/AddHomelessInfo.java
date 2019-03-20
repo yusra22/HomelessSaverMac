@@ -146,19 +146,14 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == gallerypick && resultCode == RESULT_OK && data!= null)
+/*        if(requestCode == gallerypick && resultCode == RESULT_OK && data!= null)
         {
                 //Display user in image button
                 ImageUri = data.getData();
                 SelectPostImage.setImageURI(ImageUri);
 
-        }
-        if(requestCode == TAKE_PICTURE && resultCode == RESULT_OK && data!= null)
-        {
-            ImageUri = data.getData();
-            SelectPostImage.setImageURI(ImageUri);
 
-        }
+        }*/
         if(requestCode == gallerypick2 && resultCode == RESULT_OK && data!= null)
         {
             ImageUri2 = data.getData();
@@ -169,22 +164,50 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
             ImageUri3 = data.getData();
             SelectPostImage3.setImageURI(ImageUri3);
         }
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
+        {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+
+                ImageUri = result.getUri();
+                SelectPostImage.setImageURI(ImageUri);
+
+            }
+            if (resultCode == RESULT_OK && requestCode == gallerypick2) {
+
+                ImageUri2 = result.getUri();
+                SelectPostImage.setImageURI(ImageUri2);
+
+            }/*else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }*/
+        }
+
+
     }
 
     public void OpenGallery()
     {
-        Intent galleryIntent = new Intent();
+/*        Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, gallerypick);
+        startActivityForResult(galleryIntent, gallerypick);*/
+        CropImage.activity(ImageUri)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(this);
+
     }
 
     public void OpenGallery1()
     {
-        Intent galleryIntent = new Intent();
+/*        Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, gallerypick2);
+        startActivityForResult(galleryIntent, gallerypick2);*/
+        CropImage.activity(ImageUri2)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(this);
     }
 
     public void OpenGallery2()
@@ -271,7 +294,7 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
 
         postRandomName = saveCurrentDate + saveCurrentTime;
 
-        final StorageReference filePath = PostImageRef.child("Homeless Reported Images").child(ImageUri.getLastPathSegment() + postRandomName + ".jpg");
+        final StorageReference filePath = PostImageRef.child("Homeless Reported Images").child(ImageUri + postRandomName + ".jpg");
         final StorageReference filePath2 = PostImageRef.child("Homeless Reported Images").child(ImageUri2.getLastPathSegment() + postRandomName + ".jpg");
         final StorageReference filePath3 = PostImageRef.child("Homeless Reported Images").child(ImageUri3.getLastPathSegment() + postRandomName + ".jpg");
 

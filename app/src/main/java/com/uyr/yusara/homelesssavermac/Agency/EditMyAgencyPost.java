@@ -5,9 +5,7 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Handler;
-import android.os.strictmode.CleartextNetworkViolation;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +17,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -35,16 +32,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.uyr.yusara.homelesssavermac.MainActivity;
 import com.uyr.yusara.homelesssavermac.R;
-import com.uyr.yusara.homelesssavermac.TimePickerFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
-//public class AddServices extends AppCompatActivity implements View.OnClickListener,TimePickerDialog.OnTimeSetListener
-public class AddServices extends AppCompatActivity implements View.OnClickListener
+public class EditMyAgencyPost extends AppCompatActivity implements View.OnClickListener
 {
     private Button UpdatePostButton;
     private EditText post_agencyname,post_categories,post_location,post_officenumber,post_email,post_website,post_facebook,post_twitter;
@@ -54,17 +48,20 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
 
     private RadioGroup servicechoice,categorychoice;
     private RadioButton radioButtonServicesoption,radioButtonCatergoryoption;
+    private RadioButton radioButton_food,radioButton_shelter,radioButton_health,radioButton_resources;
+    private RadioButton radioButton_men,radioButton_woman,radioButton_youth,radioButton_disable,radioButton_anyone;
 
     private String agencyname,categories,location,officenumber,email,website,facebook,twitter,scheduletype;
 
     private FirebaseAuth mAuth;
     private String currentUserid;
-    private DatabaseReference UsersRef,PostsRef,NotisRef;
+    private DatabaseReference UsersRef,PostsRef,PostsRef2;
 
     private long countPosts = 0;
 
     private String saveCurrentDate, saveCurrentTime, postRandomName;
     private String service,tags;
+    private String PostKey;
 
     private Toolbar mToolbar;
     private ProgressDialog progressDialog;
@@ -81,14 +78,14 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_services);
+        setContentView(R.layout.activity_edit_my_agency_post);
 
         mAuth = FirebaseAuth.getInstance();
         currentUserid = mAuth.getCurrentUser().getUid();
 
+        PostKey = getIntent().getExtras().get("PostKey").toString();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserid);
-        PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
-        NotisRef = FirebaseDatabase.getInstance().getReference().child("Notification");
+        PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(PostKey);
 
         UpdatePostButton = findViewById(R.id.btnupdatepost);
         post_agencyname = findViewById(R.id.edit_agencyname);
@@ -100,6 +97,17 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
         post_facebook = findViewById(R.id.edit_facebook);
         post_twitter = findViewById(R.id.edit_twitter);
         post_selectscheduletype = findViewById(R.id.edit_scheduletype);
+
+        radioButton_food = (RadioButton) findViewById(R.id.radioButton_food);
+        radioButton_shelter = (RadioButton) findViewById(R.id.radioButton_shelter);
+        radioButton_health = (RadioButton) findViewById(R.id.radioButton_health);
+        radioButton_resources = (RadioButton) findViewById(R.id.radioButton_resources);
+
+        radioButton_men = (RadioButton)findViewById(R.id.radioButton_men);
+        radioButton_woman = (RadioButton)findViewById(R.id.radioButton_woman);
+        radioButton_youth = (RadioButton)findViewById(R.id.radioButton_youth);
+        radioButton_disable = (RadioButton)findViewById(R.id.radioButton_disable);
+        radioButton_anyone = (RadioButton)findViewById(R.id.radioButton_anyone);
 
         layoutstartdate = findViewById(R.id.layoutstartdate);
         layoutenddate = findViewById(R.id.layoutenddate);
@@ -141,7 +149,7 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
         //Custom Toolbar
         mToolbar = (Toolbar) findViewById(R.id.find_toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Add Services");
+        getSupportActionBar().setTitle("Update Services");
         //getSupportActionBar().setIcon(getDrawable(R.drawable.logo));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -206,6 +214,7 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
         layoutstarttime.setVisibility(View.GONE);
         layoutendtime.setVisibility(View.GONE);
 
+        displaydata();
     }
 
     @Override
@@ -228,6 +237,128 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
         String uid = user.getUid();
     }
 
+    private void displaydata() {
+
+        PostsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+
+                agencyname = dataSnapshot.child("agencyname").getValue().toString();
+                categories = dataSnapshot.child("categories").getValue().toString();
+                officenumber = dataSnapshot.child("officenumber").getValue().toString();
+                email = dataSnapshot.child("email").getValue().toString();
+                website = dataSnapshot.child("website").getValue().toString();
+                facebook = dataSnapshot.child("facebook").getValue().toString();
+                twitter = dataSnapshot.child("twitter").getValue().toString();
+                location = dataSnapshot.child("location").getValue().toString();
+                service = dataSnapshot.child("service").getValue().toString();
+                tags =dataSnapshot.child("tags").getValue().toString();
+                scheduletype = dataSnapshot.child("scheduletype").getValue().toString();
+
+                post_agencyname.setText(agencyname);
+                post_categories.setText(categories);
+                post_officenumber.setText(officenumber);
+                post_email.setText(email);
+                post_website.setText(website);
+                post_facebook.setText(facebook);
+                post_twitter.setText(twitter);
+                post_location.setText(location);
+
+                //radioButton_shelter.setText(service);
+
+                if(service.equalsIgnoreCase("Food"))
+                {
+                    radioButton_food.setChecked(true);
+                }
+                else if(service.equalsIgnoreCase("Shelter"))
+                {
+                    radioButton_shelter.setChecked(true);
+                }
+                else if(service.equalsIgnoreCase("Health"))
+                {
+                    radioButton_health.setChecked(true);
+                }
+                else if(service.equalsIgnoreCase("Resource"))
+                {
+                    radioButton_resources.setChecked(true);
+                }
+
+                if(tags.equalsIgnoreCase("Men"))
+                {
+                    radioButton_men.setChecked(true);
+                }
+                else if(tags.equalsIgnoreCase("Woman"))
+                {
+                    radioButton_woman.setChecked(true);
+                }
+                else if(tags.equalsIgnoreCase("Youth/Kids"))
+                {
+                    radioButton_youth.setChecked(true);
+                }
+                else if(tags.equalsIgnoreCase("Disable/Senior"))
+                {
+                    radioButton_disable.setChecked(true);
+                }
+                else if(tags.equalsIgnoreCase("Anyone"))
+                {
+                    radioButton_anyone.setChecked(true);
+                }
+
+                if(scheduletype.equalsIgnoreCase("Open 24/7") || scheduletype.equalsIgnoreCase("Permanently Closed") || scheduletype.equalsIgnoreCase("Please contact this service"))
+                {
+                    post_selectscheduletype.setText(scheduletype);
+
+                    layoutstartdate.setVisibility(View.GONE);
+                    layoutenddate.setVisibility(View.GONE);
+                    layoutstarttime.setVisibility(View.GONE);
+                    layoutendtime.setVisibility(View.GONE);
+                }
+                else
+                {
+
+                        PostsRef.child("scheduletype").addValueEventListener(new ValueEventListener()
+                        {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                startdate = dataSnapshot.child("startdate").getValue().toString();
+                                enddate = dataSnapshot.child("enddate").getValue().toString();
+                                starttime = dataSnapshot.child("starttime").getValue().toString();
+                                endtime = dataSnapshot.child("endtime").getValue().toString();
+
+                                String scheduletype1 = dataSnapshot.child("scheduletype1").getValue().toString();
+
+                                post_selectscheduletype.setText(scheduletype1);
+
+                                layoutstartdate.setVisibility(View.VISIBLE);
+                                layoutenddate.setVisibility(View.VISIBLE);
+                                layoutstarttime.setVisibility(View.VISIBLE);
+                                layoutendtime.setVisibility(View.VISIBLE);
+
+                                edit_selectstartdate.setText(startdate);
+                                edit_selectenddate.setText(enddate);
+                                edit_starttime.setText(starttime);
+                                edit_endtime.setText(endtime);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void scheduletype()
     {
         final CharSequence options[] = new CharSequence[]
@@ -237,7 +368,7 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
                         "Please contact this service",
                         "Permanently Closed"
                 };
-        AlertDialog.Builder builder = new AlertDialog.Builder(AddServices.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditMyAgencyPost.this);
         builder.setTitle("Please Select One");
 
         builder.setIcon(R.drawable.ic_list);
@@ -326,13 +457,11 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
         {
             post_email.setError("Please add the email address");
             post_email.requestFocus();
-
         }
         if(scheduletype.equals("Schedule Type"))
         {
             post_selectscheduletype.setError("Please choose schedule type");
             post_selectscheduletype.requestFocus();
-
         }
         else
         {
@@ -368,7 +497,6 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
                         countPosts = 0;
                     }
                 }
-
             }
 
             @Override
@@ -408,12 +536,12 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
 /*                        postMap.put("name", name);
                         postMap.put("profileimage2", userprofile);*/
 
-                        PostsRef.child(currentUserid + postRandomName).updateChildren(postMap).addOnCompleteListener(new OnCompleteListener() {
+                        PostsRef.updateChildren(postMap).addOnCompleteListener(new OnCompleteListener() {
                             @Override
                             public void onComplete(@NonNull Task task)
                             {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(AddServices.this, "Post update successfully ", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(EditMyAgencyPost.this, "Post update successfully ", Toast.LENGTH_SHORT).show();
 
                                     progressDialog.show();
                                     Handler handler = new Handler();
@@ -426,67 +554,6 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
 
                                         }
                                     }, 2000);
-
-                                    HashMap postnotification = new HashMap();
-                                    postnotification.put("from", currentUserid);
-                                    postnotification.put("type", "new post noti");
-                                    SendUserToMainActivity();
-
-                                    NotisRef.updateChildren(postnotification).addOnCompleteListener(new OnCompleteListener() {
-                                        @Override
-                                        public void onComplete(@NonNull Task task) {
-                                            if (task.isSuccessful()) {
-                                                Toast.makeText(AddServices.this, "Notification Work!", Toast.LENGTH_SHORT).show();
-
-                                            } else {
-                                                Toast.makeText(AddServices.this, "Update Post error ", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    });
-
-
-                                    if(scheduletype.equals("Date Range"))
-                                    {
-                                        startdate = edit_selectstartdate.getText().toString();
-                                        enddate = edit_selectenddate.getText().toString();
-                                        starttime = edit_starttime.getText().toString();
-                                        endtime = edit_endtime.getText().toString();
-
-                                        HashMap tabletime = new HashMap();
-                                        tabletime.put("scheduletype1", scheduletype);
-                                        tabletime.put("startdate", startdate);
-                                        tabletime.put("enddate", enddate);
-                                        tabletime.put("starttime", starttime);
-                                        tabletime.put("endtime", endtime);
-
-                                        PostsRef.child(currentUserid + postRandomName).child("scheduletype").setValue(tabletime);
-
-                                    } else if(scheduletype.equals("Open 24/7")) {
-
-                                        scheduletype = post_selectscheduletype.getText().toString();
-
-                                        HashMap scheduletype1 = new HashMap();
-                                        scheduletype1.put("scheduletype", scheduletype);
-
-                                        PostsRef.child(currentUserid + postRandomName).updateChildren(scheduletype1);
-
-                                    } else if(scheduletype.equals("Please contact this service")) {
-
-                                        scheduletype = post_selectscheduletype.getText().toString();
-
-                                        HashMap scheduletype1 = new HashMap();
-                                        scheduletype1.put("scheduletype", scheduletype);
-
-                                        PostsRef.child(currentUserid + postRandomName).updateChildren(scheduletype1);
-                                    } else if(scheduletype.equals("Permanently Closed")) {
-
-                                        scheduletype = post_selectscheduletype.getText().toString();
-
-                                        HashMap scheduletype1 = new HashMap();
-                                        scheduletype1.put("scheduletype", scheduletype);
-
-                                        PostsRef.child(currentUserid + postRandomName).updateChildren(scheduletype1);
-                                    }
                                 }
                                 else {
                                     Log.d("LOGGER", "No such document");
@@ -494,9 +561,52 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
                             }
                         });
 
+                        if(scheduletype.equalsIgnoreCase("Date Range"))
+                        {
+                            startdate = edit_selectstartdate.getText().toString();
+                            enddate = edit_selectenddate.getText().toString();
+                            starttime = edit_starttime.getText().toString();
+                            endtime = edit_endtime.getText().toString();
+
+                            HashMap tabletime = new HashMap();
+                            tabletime.put("scheduletype1", scheduletype);
+                            tabletime.put("startdate", startdate);
+                            tabletime.put("enddate", enddate);
+                            tabletime.put("starttime", starttime);
+                            tabletime.put("endtime", endtime);
+
+                            PostsRef.child("scheduletype").setValue(tabletime);
+
+                        } else if(scheduletype.equalsIgnoreCase("Open 24/7")) {
+
+                            scheduletype = post_selectscheduletype.getText().toString();
+
+                            HashMap scheduletype1 = new HashMap();
+                            scheduletype1.put("scheduletype", scheduletype);
+
+                            PostsRef.updateChildren(scheduletype1);
+
+                        } else if(scheduletype.equalsIgnoreCase("Please contact this service")) {
+
+                            scheduletype = post_selectscheduletype.getText().toString();
+
+                            HashMap scheduletype1 = new HashMap();
+                            scheduletype1.put("scheduletype", scheduletype);
+
+                            PostsRef.updateChildren(scheduletype1);
+                        } else if(scheduletype.equals("Permanently Closed")) {
+
+                            scheduletype = post_selectscheduletype.getText().toString();
+
+                            HashMap scheduletype1 = new HashMap();
+                            scheduletype1.put("scheduletype", scheduletype);
+
+                            PostsRef.updateChildren(scheduletype1);
+                        }
+
+
                     }
                 }
-
             }
 
             @Override
@@ -506,12 +616,6 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
         });
     }
 
-/*    @Override
-    public void onTimeSet(TimePicker view, int hourofDay, int minute)
-    {
-        edit_starttime.setText(hourofDay + " : " + minute);
-
-    }*/
 
     public void selectTimeFormat(int hour)
     {
@@ -549,7 +653,7 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
                 scheduletype();
                 break;
             case R.id.edit_selectstartdate:
-                datePickerDialog = new DatePickerDialog(AddServices.this, new DatePickerDialog.OnDateSetListener() {
+                datePickerDialog = new DatePickerDialog(EditMyAgencyPost.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
                     {
@@ -561,7 +665,7 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
                 datePickerDialog.show();
                 break;
             case R.id.edit_selectenddate:
-                datePickerDialog = new DatePickerDialog(AddServices.this, new DatePickerDialog.OnDateSetListener() {
+                datePickerDialog = new DatePickerDialog(EditMyAgencyPost.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
                     {
@@ -573,7 +677,7 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
                 datePickerDialog.show();
                 break;
             case R.id.edit_starttime:
-                timePickerDialog = new TimePickerDialog(AddServices.this, new TimePickerDialog.OnTimeSetListener() {
+                timePickerDialog = new TimePickerDialog(EditMyAgencyPost.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute)
                     {
@@ -584,7 +688,7 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
                 timePickerDialog.show();
                 break;
             case R.id.edit_endtime:
-                timePickerDialog = new TimePickerDialog(AddServices.this, new TimePickerDialog.OnTimeSetListener() {
+                timePickerDialog = new TimePickerDialog(EditMyAgencyPost.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute)
                     {
@@ -595,5 +699,6 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
                 timePickerDialog.show();
                 break;
         }
+
     }
 }

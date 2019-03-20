@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:text="Product Name"
                     android:textSize="15sp"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <LinearLayout

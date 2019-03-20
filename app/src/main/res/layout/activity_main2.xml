@@ -22,6 +22,11 @@
     android:layout_marginTop="36dp"
     android:hint="Latitude" />
 
+    <com.hitomi.cmlibrary.CircleMenu
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/circleshare"/>
+
     <EditText
         android:id="@+id/editTextLongitude"
         android:layout_width="match_parent"

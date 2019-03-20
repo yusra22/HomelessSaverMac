@@ -49,4 +49,28 @@
     <string name="title_activity_agency__details">Map</string>
     <string name="title_activity_test_maps">Map</string>
     <string name="title_activity_homeless_details">Map</string>
+
+    <!--Intro slider texts -->
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Hello People!</string>
+    <string name="slide_1_desc">The easiest way!
+    </string>
+
+    <string name="slide_2_title">We also</string>
+    <string name="slide_2_desc">Hahahaha nice try</string>
+
+    <string name="slide_3_title">Great Discounts</string>
+    <string name="slide_3_desc">Best discounts</string>
+
+    <string name="slide_4_title">See our system</string>
+    <string name="slide_4_desc">Book</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome
+        slider -> clear data
+    </string>
+    <string name="play_again">Play Again</string>
 </resources>

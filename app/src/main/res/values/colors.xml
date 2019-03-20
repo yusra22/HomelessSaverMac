@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#375E97</color>
+    <color name="colorPrimary">#e04d58</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="red">#f42b00</color>
@@ -23,7 +23,7 @@
     <color name="colorButtonTransparent">#be050505</color>
     <color name="mainBackground">#D7D7D7</color>
     <color name="rednew">#E13E3E</color>
-    <color name="darkred">	#FF0000</color>
+    <color name="darkred">	#970024</color>
     <color name="greennew">#006837</color>
     <color name="startblue">#09c6df</color>
     <color name="endblue">#0bcce6</color>
@@ -38,4 +38,6 @@
     <color name="darkpurple">#a569bd</color>
     <color name="sunset">#FB6542</color>
     <color name="sunflower">#FFBB00</color>
+    <color name="bluefa">#375E97</color>
+    <color name="bluetinder">#5B8AFD</color>
 </resources>

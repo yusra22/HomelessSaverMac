@@ -1,6 +1,7 @@
 package com.uyr.yusara.homelesssavermac.MapTest;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.hitomi.cmlibrary.CircleMenu;
+import com.hitomi.cmlibrary.OnMenuSelectedListener;
 import com.uyr.yusara.homelesssavermac.R;
 import com.uyr.yusara.homelesssavermac.TestMapsActivity;
 
@@ -20,6 +23,10 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     private EditText editTextName;
     private EditText editTextLatitude;
     private EditText editTextLongitude;
+    CircleMenu circleMenu;
+
+    String arrayname[] = { "ABD", "AUDIO", "CHILD", "ANDROID", "LAUCHER"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +47,23 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 startActivity(i);
             }
         });
+
+        circleMenu = (CircleMenu) findViewById(R.id.circleshare);
+
+        circleMenu=(CircleMenu)findViewById(R.id.circleshare);
+        circleMenu.setMainMenu(Color.parseColor("#970024"),R.drawable.ic_menu_camera, R.drawable.ic_add)
+                .addSubMenu(Color.parseColor("#970024"),R.drawable.ic_train)
+                .addSubMenu(Color.parseColor("#970024"),R.drawable.ic_bathroom)
+                .addSubMenu(Color.parseColor("#970024"),R.drawable.ic_approve)
+                .addSubMenu(Color.parseColor("#970024"),R.drawable.ic_date)
+                .addSubMenu(Color.parseColor("#970024"),R.drawable.ic_shop)
+                .setOnMenuSelectedListener(new OnMenuSelectedListener() {
+                    @Override
+                    public void onMenuSelected(int index)
+                    {
+                        Toast.makeText(Main2Activity.this, "you select" + arrayname, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
     private void saveUserInformation(){
         String name =editTextName.getText().toString().trim();

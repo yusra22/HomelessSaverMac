@@ -30,7 +30,6 @@
             app:backgroundTint="@color/sunset"
             app:srcCompat="@android:drawable/ic_menu_save" />
 
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,11 +43,10 @@
                 android:paddingRight="10dp"
                 android:orientation="vertical">
 
-
                 <technolifestyle.com.imageslider.FlipperLayout
                     android:id="@+id/flipper"
-                    android:background="@color/black"
                     android:layout_width="match_parent"
+                    android:background="@color/black"
                     android:layout_height="200dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp">
@@ -62,62 +60,77 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorPrimary"
                     android:orientation="horizontal"
-                    android:layout_marginTop="8dp"
                     android:weightSum="3">
 
-                    <LinearLayout android:id="@+id/layout_action1"
+                    <LinearLayout
+                        android:id="@+id/layout_action1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:weightSum="2">
-                        <ImageView android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/wishlist2"/>
-                        <TextView android:id="@+id/text_action1"
+
+                        <ImageView
+                            android:id="@+id/bookmark"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:src="@drawable/wishlist2" />
+
+                        <TextView
+                            android:id="@+id/bookmarkbtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
+                            android:layout_weight="1"
+                            android:gravity="left"
                             android:text="Bookmark"
-                            android:textSize="12dp"
-                            android:textColor="@color/black"
-                            android:gravity="left"/>
+                            android:textColor="@color/white"
+                            android:textSize="12dp" />
                     </LinearLayout>
 
-                    <View android:layout_width="1dp"
+                    <View
+                        android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@color/black"/>
+                        android:background="@color/black" />
 
-                    <LinearLayout android:id="@+id/layout_action2"
+                    <LinearLayout
+                        android:id="@+id/layout_action2"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:weightSum="2">
-                        <ImageView android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_menu_share"/>
-                        <TextView android:id="@+id/text_action2"
+
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:src="@drawable/ic_share" />
+
+                        <TextView
+                            android:id="@+id/sharebtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
+                            android:layout_weight="1"
+                            android:gravity="left"
                             android:text="Share"
-                            android:textSize="12dp"
-                            android:textColor="@color/black"
-                            android:gravity="left"/>
+                            android:textColor="@color/white"
+                            android:textSize="12dp" />
                     </LinearLayout>
 
-                    <View android:layout_width="1dp"
+                    <View
+                        android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@color/black"/>
+                        android:background="@color/black" />
 
-                    <LinearLayout android:id="@+id/layout_action3"
+                    <LinearLayout
+                        android:id="@+id/layout_action3"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -125,25 +138,27 @@
                         android:orientation="horizontal"
                         android:weightSum="2">
 
-                        <ImageView android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_comment"/>
-
-                        <TextView android:id="@+id/btncomment"
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:src="@drawable/ic_comment" />
+
+                        <TextView
+                            android:id="@+id/btncomment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
+                            android:layout_weight="1"
+                            android:gravity="left"
                             android:text="Comment"
-                            android:textSize="12dp"
-                            android:textColor="@color/black"
-                            android:gravity="left"/>
+                            android:textColor="@color/white"
+                            android:textSize="12dp" />
                     </LinearLayout>
                 </LinearLayout>
                 <View android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/black"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="5dp"/>
 
 
                 <!--                <View android:layout_width="match_parent"
@@ -172,7 +187,8 @@
                         android:hint="Description or Comment in less than 30 words"
                         android:inputType="textMultiLine"
                         android:paddingBottom="20dp"
-                        android:textAlignment="center"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/black"
                         android:textSize="15dp" />
 
                 </LinearLayout>
@@ -192,7 +208,7 @@
                     android:layout_marginBottom="5dp"
                     android:text="Details:"
                     android:textSize="16sp"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/black" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -208,7 +224,7 @@
                         android:paddingLeft="5dp"
                         android:layout_width="32dp"
                         android:layout_height="32sp"
-                        android:src="@drawable/people_logo" />
+                        android:src="@drawable/ic_person" />
 
                     <TextView
                         android:id="@+id/text_fullname"
@@ -217,9 +233,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:background="@null"
+                        android:textColor="@color/black"
                         android:hint="Full Name"
-                        android:inputType="number"
-                        android:maxLength="10"
                         android:paddingTop="3dp"
                         android:layout_marginBottom="3dp"
                         android:textSize="16dp" />
@@ -237,10 +252,11 @@
 
                     <ImageView
                         android:id="@+id/wishlistbtn"
-                        android:paddingLeft="5dp"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/logo_ages" />
+                        android:paddingLeft="5dp"
+                        android:src="@drawable/ic_date"
+                        />
 
                     <TextView
                         android:id="@+id/text_ages"
@@ -250,6 +266,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:background="@null"
+                        android:textColor="@color/black"
                         android:hint="Ages"
                         android:layout_marginBottom="3dp"
                         android:textSize="16dp" />
@@ -270,7 +287,7 @@
                         android:paddingLeft="5dp"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/logo_relationship" />
+                        android:src="@drawable/ic_relationship" />
 
                     <TextView
                         android:id="@+id/text_relationship"
@@ -279,6 +296,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:paddingTop="3dp"
+                        android:textColor="@color/black"
                         android:background="@null"
                         android:hint="Relationship"
                         android:layout_marginBottom="3dp"
@@ -300,7 +318,7 @@
                         android:paddingLeft="5dp"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/logo_occupation" />
+                        android:src="@drawable/ic_occupation" />
 
                     <TextView
                         android:id="@+id/text_occupation"
@@ -309,6 +327,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="3dp"
+                        android:textColor="@color/black"
                         android:background="@null"
                         android:hint="Occupation"
                         android:paddingTop="3dp"
@@ -327,10 +346,10 @@
 
                     <ImageView
                         android:id="@+id/wishlistbtn"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
                         android:paddingLeft="5dp"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/phone_logo" />
+                        android:src="@drawable/ic_phone" />
 
                     <TextView
                         android:id="@+id/text_reportnumber"
@@ -341,6 +360,7 @@
                         android:layout_marginBottom="3dp"
                         android:background="@null"
                         android:hint="Informer Phone Number"
+                        android:textColor="@color/black"
                         android:paddingTop="3dp"
                         android:textSize="16dp" />
 
@@ -359,8 +379,8 @@
                         android:id="@+id/wishlistbtn"
                         android:paddingLeft="5dp"
                         android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/map_logo" />
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_maps" />
 
                     <TextView
                         android:id="@+id/text_location"
@@ -369,6 +389,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:background="@null"
+                        android:textColor="@color/black"
                         android:hint="Location"
                         android:paddingTop="3dp"
                         android:layout_marginBottom="3dp"

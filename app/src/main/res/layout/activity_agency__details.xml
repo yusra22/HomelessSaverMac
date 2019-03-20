@@ -135,7 +135,7 @@
                     android:layout_marginBottom="5dp"
                     android:text="Details:"
                     android:textSize="16sp"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/black" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -149,9 +149,9 @@
                     <ImageView
                         android:id="@+id/wishlistbtn"
                         android:paddingLeft="5dp"
-                        android:layout_width="32dp"
-                        android:layout_height="32sp"
-                        android:src="@drawable/phone_logo" />
+                        android:layout_width="28dp"
+                        android:layout_height="28sp"
+                        android:src="@drawable/ic_phone" />
 
                     <TextView
                         android:id="@+id/text_officenumber"
@@ -160,6 +160,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:background="@null"
+                        android:textColor="@color/black"
                         android:hint="Phone #"
                         android:inputType="number"
                         android:maxLength="10"
@@ -183,7 +184,7 @@
                         android:paddingLeft="5dp"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/email_logo" />
+                        android:src="@drawable/ic_email" />
 
                     <TextView
                         android:id="@+id/text_email"
@@ -191,6 +192,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="3dp"
                         android:inputType="textEmailAddress"
+                        android:textColor="@color/black"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:background="@null"
@@ -214,7 +216,7 @@
                         android:paddingLeft="5dp"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/website_logo" />
+                        android:src="@drawable/ic_internet" />
 
                     <TextView
                         android:id="@+id/text_website"
@@ -222,6 +224,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
+                        android:textColor="@color/black"
                         android:paddingTop="3dp"
                         android:background="@null"
                         android:hint="Website Address"
@@ -244,7 +247,7 @@
                         android:paddingLeft="5dp"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/facebook_logo" />
+                        android:src="@drawable/ic_facebook" />
 
                     <TextView
                         android:id="@+id/text_facebook"
@@ -253,6 +256,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="3dp"
+                        android:textColor="@color/black"
                         android:background="@null"
                         android:hint="Facebook"
                         android:paddingTop="3dp"
@@ -274,7 +278,7 @@
                         android:paddingLeft="5dp"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/twitter_logo" />
+                        android:src="@drawable/ic_twitter" />
 
                     <TextView
                         android:id="@+id/text_twitter"
@@ -285,6 +289,7 @@
                         android:background="@null"
                         android:hint="Twitter"
                         android:paddingTop="3dp"
+                        android:textColor="@color/black"
                         android:layout_marginBottom="3dp"
                         android:textSize="16dp" />
 
@@ -303,8 +308,8 @@
                         android:id="@+id/wishlistbtn"
                         android:paddingLeft="5dp"
                         android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/map_logo" />
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_maps" />
 
                     <TextView
                         android:id="@+id/text_location"
@@ -314,6 +319,7 @@
                         android:layout_marginStart="10dp"
                         android:background="@null"
                         android:hint="Location"
+                        android:textColor="@color/black"
                         android:paddingTop="3dp"
                         android:layout_marginBottom="3dp"
                         android:textSize="16dp" />
@@ -340,6 +346,83 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/silver" />
+
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/silver"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Schedule :"
+                    android:textSize="16sp"
+                    android:textColor="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/wishlistbtn"
+                        android:paddingLeft="5dp"
+                        android:layout_width="28dp"
+                        android:layout_height="28sp"
+                        android:src="@drawable/ic_date" />
+
+                    <TextView
+                        android:id="@+id/text_schedule"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:background="@null"
+                        android:textColor="@color/black"
+                        android:hint="Schedule"
+                        android:paddingTop="3dp"
+                        android:layout_marginBottom="2dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    >
+
+                    <ImageView
+                        android:paddingLeft="5dp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_person" />
+
+                    <TextView
+                        android:id="@+id/text_tags"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:background="@null"
+                        android:hint="Tags"
+                        android:paddingTop="3dp"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
 
                 <LinearLayout android:id="@+id/layout_allcomment"
                     android:layout_width="match_parent"

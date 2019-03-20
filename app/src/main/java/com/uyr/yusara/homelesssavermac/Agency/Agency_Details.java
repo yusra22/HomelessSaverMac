@@ -20,6 +20,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -64,9 +65,10 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
     private int ProximityRadius = 10000;
 
 
-    private String PostKey,Agencyname,agencyname,categories,phoneno,email,website,facebook,twitter,location;
+    private String PostKey,Agencyname,agencyname,categories,phoneno,email,website,facebook,twitter,location,schedule,tags;
+    private String startdate,enddate,starttime,endtime;
 
-    private TextView Postagencynametxt,Postcategoriestxt,Postphonenotxt,Postemailtxt,Postwebsitetxt,Postfacebooktxt,Posttwittertxt,Postlocationtxt;
+    private TextView Postagencynametxt,Postcategoriestxt,Postphonenotxt,Postemailtxt,Postwebsitetxt,Postfacebooktxt,Posttwittertxt,Postlocationtxt,PostScheduletxt,PostTagstxt;
     private TextView btnComment;
 
     private DatabaseReference ClickPostRef, BookmarkRef;
@@ -106,6 +108,8 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
         Postfacebooktxt = findViewById(R.id.text_facebook);
         Posttwittertxt = findViewById(R.id.text_twitter);
         Postlocationtxt = findViewById(R.id.text_location);
+        PostScheduletxt = findViewById(R.id.text_schedule);
+        PostTagstxt = findViewById(R.id.text_tags);
 
         btnComment = (TextView) findViewById(R.id.btncomment);
 
@@ -133,6 +137,8 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
                 facebook = dataSnapshot.child("facebook").getValue().toString();
                 twitter = dataSnapshot.child("twitter").getValue().toString();
                 location = dataSnapshot.child("location").getValue().toString();
+                tags = dataSnapshot.child("tags").getValue().toString();
+                schedule = dataSnapshot.child("").getValue().toString();
 
                 Postagencynametxt.setText(agencyname);
                 Postcategoriestxt.setText(categories);
@@ -142,6 +148,35 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
                 Postfacebooktxt.setText(facebook);
                 Posttwittertxt.setText(twitter);
                 Postlocationtxt.setText(location);
+                PostTagstxt.setText(tags);
+
+                if(schedule.equalsIgnoreCase("Open 24/7") || schedule.equalsIgnoreCase("Permanently Closed") || schedule.equalsIgnoreCase("Please contact this service"))
+                {
+                    PostScheduletxt.setText(schedule);
+                } else {
+
+                    ClickPostRef.child("scheduletype").addValueEventListener(new ValueEventListener()
+                    {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                        {
+                            startdate = dataSnapshot.child("startdate").getValue().toString();
+                            enddate = dataSnapshot.child("enddate").getValue().toString();
+                            starttime = dataSnapshot.child("starttime").getValue().toString();
+                            endtime = dataSnapshot.child("endtime").getValue().toString();
+
+                            PostScheduletxt.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+                            PostScheduletxt.setText(startdate +" - "+ enddate +"    "+ starttime +" - "+ endtime);
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    }
             }
 
             @Override
@@ -376,7 +411,7 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
 
                         userMarkerOptions.position(latLng);
                         userMarkerOptions.title(address);
-                        userMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                        userMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                         //mMap.addMarker(userMarkerOptions);
 
                         currentUserLocationMarker = mMap.addMarker(userMarkerOptions);

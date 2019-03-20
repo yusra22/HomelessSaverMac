@@ -18,7 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Menu.Login">
+        <activity android:name=".Menu.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -66,7 +66,9 @@
         <activity android:name=".Homeless.Myhomelesspost" />
         <activity
             android:name=".Homeless.activity_homeless_details"
-            android:label="@string/title_activity_homeless_details"></activity>
+            android:label="@string/title_activity_homeless_details" />
+        <activity android:name=".Agency.EditMyAgencyPost" />
+        <activity android:name=".Menu.Login"></activity>
     </application>
 
 </manifest>

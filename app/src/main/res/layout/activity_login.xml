@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="7dp"
-                android:background="@drawable/button_background"
+                android:background="@drawable/button_background2"
                 android:text="Login"
                 android:textAllCaps="false"
                 android:textColor="@color/white"

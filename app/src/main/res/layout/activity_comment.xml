@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed"
         android:text="Comments :"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -42,7 +42,7 @@
         android:selectAllOnFocus="true"
         android:singleLine="false"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/black"
         android:visibility="visible" />
 
     <ImageButton

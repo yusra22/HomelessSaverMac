@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -43,6 +44,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.hitomi.cmlibrary.CircleMenu;
+import com.hitomi.cmlibrary.OnMenuSelectedListener;
 import com.uyr.yusara.homelesssavermac.Comment;
 import com.uyr.yusara.homelesssavermac.R;
 
@@ -81,6 +84,9 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
     FloatingActionButton fab;
     ImageView button_save;
 
+    TextView bookmarkbtn,sharebtn;
+    ImageView bookmark;
+
     private MediaPlayer mp;
 
     FlipperLayout flipper;
@@ -90,9 +96,10 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homeless_details);
 
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
-            //checkUserLocationPermission();
+            checkUserLocationPermission();
         }
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -117,7 +124,6 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
         currentUserid = mAuth.getCurrentUser().getUid();
 
         BookmarkRef = FirebaseDatabase.getInstance().getReference().child("Bookmarks");
-
         ClickPostRef = FirebaseDatabase.getInstance().getReference().child("People Report Post").child(PostKey);
 
         ClickPostRef.addValueEventListener(new ValueEventListener() {
@@ -151,6 +157,14 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
         fab = (FloatingActionButton) findViewById(R.id.save);
         button_save = (ImageView) findViewById(R.id.save);
 
+        //Hilangkan fab tpi xpadam sebab mlas nk ubah
+        fab.setVisibility(View.GONE);
+
+        bookmarkbtn = (TextView) findViewById(R.id.bookmarkbtn);
+        bookmark = (ImageView) findViewById(R.id.bookmark);
+
+        sharebtn = (TextView) findViewById(R.id.sharebtn);
+
         mToolbar = (Toolbar) findViewById(R.id.find_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("My Community Services");
@@ -159,6 +173,10 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
 
         findViewById(R.id.btncomment).setOnClickListener(this);
         findViewById(R.id.save).setOnClickListener(this);
+
+        findViewById(R.id.bookmarkbtn).setOnClickListener(this);
+        findViewById(R.id.bookmark).setOnClickListener(this);
+        findViewById(R.id.sharebtn).setOnClickListener(this);
 
         mp = MediaPlayer.create(this, R.raw.pindrop);
         setLikeButtonStatus(PostKey);
@@ -237,6 +255,13 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
                 break;
             case R.id.save:
                 Bookmark();
+                break;
+            case R.id.bookmarkbtn:
+                Bookmark();
+                break;
+            case R.id.sharebtn:
+                Toast.makeText(activity_homeless_details.this, "Hai", Toast.LENGTH_SHORT).show();
+
                 break;
         }
 
@@ -335,11 +360,13 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
                 {
                     //Toast.makeText(Agency_Details.this, "Color patut berubah ...", Toast.LENGTH_LONG).show();
                     fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.sunflower)));
+                    bookmark.setImageResource(R.drawable.wishlist3);
                 }
                 else {
 
                     //Toast.makeText(Agency_Details.this, "Color asl ...", Toast.LENGTH_SHORT).show();
                     fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.sunset)));
+                    bookmark.setImageResource(R.drawable.wishlist2);
                 }
             }
 
@@ -394,7 +421,7 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
 
                         userMarkerOptions.position(latLng);
                         userMarkerOptions.title(address);
-                        userMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                        userMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                         //mMap.addMarker(userMarkerOptions);
 
                         currentUserLocationMarker = mMap.addMarker(userMarkerOptions);

@@ -41,8 +41,7 @@ public class MyAgencyPost extends AppCompatActivity {
 
     private DatabaseReference PostsRef2;
 
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -165,8 +164,11 @@ public class MyAgencyPost extends AppCompatActivity {
                             @Override
                             public void onClick(View v)
                             {
+                                String PostKey = getSnapshots().getSnapshot(position).getKey();
 
-
+                                Intent click_edit_post = new Intent(MyAgencyPost.this,EditMyAgencyPost.class);
+                                click_edit_post.putExtra("PostKey", PostKey);
+                                startActivity(click_edit_post);
                             }
                         });
                     }
