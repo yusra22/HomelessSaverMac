@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.uyr.yusara.homelesssavermac.MainActivity;
 import com.uyr.yusara.homelesssavermac.R;
 
@@ -149,7 +150,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void DetermineRole(){
         final FirebaseUser user = mAuth.getCurrentUser();
         final String uid = user.getUid();
+        final String deviceToken = FirebaseInstanceId.getInstance().getToken();
 
+        //replace noti setiap tukar devices
+        UserRef.child(uid).child("devicetoken").setValue(deviceToken);
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference xx = db.getReference();

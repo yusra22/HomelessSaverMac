@@ -114,7 +114,7 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
                     UserInformation user = s.getValue(UserInformation.class);
 
                     MarkerOptions userMarkerOptions = new MarkerOptions();
-
+                    
                     try
                     {
                         addressList = geocoder.getFromLocationName(user.name,6);
@@ -185,8 +185,8 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
     {
 
         locationRequest = new LocationRequest();
-/*        locationRequest.setInterval(100000);
-        locationRequest.setFastestInterval(100000);*/
+        locationRequest.setInterval(5000);
+        locationRequest.setFastestInterval(5000);
         locationRequest.setPriority(locationRequest.PRIORITY_HIGH_ACCURACY);
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)

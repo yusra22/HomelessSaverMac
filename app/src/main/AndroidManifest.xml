@@ -68,7 +68,9 @@
             android:name=".Homeless.activity_homeless_details"
             android:label="@string/title_activity_homeless_details" />
         <activity android:name=".Agency.EditMyAgencyPost" />
-        <activity android:name=".Menu.Login"></activity>
+        <activity android:name=".Menu.Login" />
+        <activity android:name=".BottomSheetTest.BottomSheetTest" />
+        <activity android:name=".TestNotification.test_notification"></activity>
     </application>
 
 </manifest>

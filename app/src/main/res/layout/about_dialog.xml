@@ -13,7 +13,7 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="130dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             app:srcCompat="@drawable/logo" />
@@ -52,7 +52,6 @@
                 android:id="@+id/closebtn"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/button_background2"
                 android:text="Close"
                 android:textColor="@color/white" />

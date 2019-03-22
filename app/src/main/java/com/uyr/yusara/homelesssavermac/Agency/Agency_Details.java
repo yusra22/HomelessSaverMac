@@ -138,7 +138,7 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
                 twitter = dataSnapshot.child("twitter").getValue().toString();
                 location = dataSnapshot.child("location").getValue().toString();
                 tags = dataSnapshot.child("tags").getValue().toString();
-                schedule = dataSnapshot.child("").getValue().toString();
+                schedule = dataSnapshot.child("scheduletype").getValue().toString();
 
                 Postagencynametxt.setText(agencyname);
                 Postcategoriestxt.setText(categories);

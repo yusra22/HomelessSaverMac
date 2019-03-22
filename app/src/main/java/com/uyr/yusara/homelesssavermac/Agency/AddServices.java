@@ -36,6 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uyr.yusara.homelesssavermac.MainActivity;
+import com.uyr.yusara.homelesssavermac.Modal.Notification;
 import com.uyr.yusara.homelesssavermac.R;
 import com.uyr.yusara.homelesssavermac.TimePickerFragment;
 
@@ -427,22 +428,34 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
                                         }
                                     }, 2000);
 
-                                    HashMap postnotification = new HashMap();
+
+                                    final HashMap postnotification = new HashMap();
                                     postnotification.put("from", currentUserid);
                                     postnotification.put("type", "new post noti");
                                     SendUserToMainActivity();
 
-                                    NotisRef.updateChildren(postnotification).addOnCompleteListener(new OnCompleteListener() {
-                                        @Override
-                                        public void onComplete(@NonNull Task task) {
-                                            if (task.isSuccessful()) {
-                                                Toast.makeText(AddServices.this, "Notification Work!", Toast.LENGTH_SHORT).show();
+                                    NotisRef.child(currentUserid).setValue(postnotification);
 
-                                            } else {
-                                                Toast.makeText(AddServices.this, "Update Post error ", Toast.LENGTH_SHORT).show();
+/*                                    NotisRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                                        {
+                                            for(DataSnapshot s: dataSnapshot.getChildren())
+                                            {
+                                                Notification noti = s.getValue(Notification.class);
+
+                                                NotisRef.child(noti.from).setValue(postnotification);
+
                                             }
                                         }
-                                    });
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });*/
+
+                                    //NotisRef.child("DkE8oJW4EufKlETbLnyedyqKdJI3").setValue(postnotification);
 
 
                                     if(scheduletype.equals("Date Range"))

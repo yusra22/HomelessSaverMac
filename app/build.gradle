@@ -45,7 +45,7 @@ dependencies {
     //implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation 'com.firebaseui:firebase-ui-database:4.2.0'
-    /*implementation 'com.google.android.gms:play-services-analytics:15.0.0'*/
+    implementation 'com.google.android.gms:play-services-analytics:15.0.0'
 
     implementation 'com.google.android.gms:play-services-maps:15.0.0'
     implementation 'com.google.android.gms:play-services-location:15.0.0'
@@ -56,5 +56,15 @@ dependencies {
     //circular circle
     implementation 'com.github.Hitomis:CircleMenu:v1.1.0'
 
+    // butter knife
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    //Volley
+    implementation 'com.android.volley:volley:1.0.0'
+
 
 }
+apply plugin: 'com.google.gms.google-services'
+// Work around
+com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

@@ -53,7 +53,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         circleMenu=(CircleMenu)findViewById(R.id.circleshare);
         circleMenu.setMainMenu(Color.parseColor("#970024"),R.drawable.ic_menu_camera, R.drawable.ic_add)
                 .addSubMenu(Color.parseColor("#970024"),R.drawable.ic_train)
-                .addSubMenu(Color.parseColor("#970024"),R.drawable.ic_bathroom)
+                .addSubMenu(Color.parseColor("#970024"),R.drawable.ic_menu_gallery)
                 .addSubMenu(Color.parseColor("#970024"),R.drawable.ic_approve)
                 .addSubMenu(Color.parseColor("#970024"),R.drawable.ic_date)
                 .addSubMenu(Color.parseColor("#970024"),R.drawable.ic_shop)

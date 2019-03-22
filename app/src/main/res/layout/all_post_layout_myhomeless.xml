@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/post_border">
+    android:background="@drawable/shadow">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="5dp"
         android:layout_marginBottom="4dp"
         android:backgroundTint="@color/colorPrimary"
         android:orientation="vertical">
@@ -23,12 +23,24 @@
             android:orientation="horizontal"
             android:padding="5dp">
 
-            <ImageView
+<!--            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/post_image"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 android:layout_marginLeft="4dp"
                 android:scaleType="centerCrop"
+                android:src="@drawable/ic_menu_camera"
+                app:civ_border_color="@color/silver"
+                app:civ_border_width="2dp"
+                />-->
+
+            <ImageView
+                android:id="@+id/post_image"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginRight="3dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/border"
                 app:srcCompat="@drawable/ic_menu_camera" />
 
             <LinearLayout
@@ -42,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Full Name"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
