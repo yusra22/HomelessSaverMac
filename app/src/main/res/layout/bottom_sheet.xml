@@ -4,7 +4,7 @@
     android:id="@+id/bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#fff"
+    android:background="@drawable/shadow"
     android:orientation="vertical"
     android:padding="10dp"
     app:behavior_hideable="true"
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_weight="2"
-            android:text="Order Details"
+            android:text="Homeless Details"
             android:textColor="#444"
             android:textSize="18dp"
             android:textStyle="bold" />
@@ -40,35 +40,38 @@
 
 
     <TextView
+        android:id="@+id/fullnameid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chicken Fried Rice 1x1" />
+        android:text="Full Name" />
 
     <TextView
+        android:id="@+id/ageid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Paneer Tikka 1x2" />
+        android:text="Age" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Delivery Address"
+        android:text="Location Address"
         android:textColor="#444"
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/locationhomelessid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Flat No 404, Skyline Apartments, Vizag - 500576" />
 
     <Button
+        android:id="@+id/moredetailsid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:background="@color/bluetinder"
-        android:foreground="?attr/selectableItemBackground"
-        android:text="PROCEED PAYMENT"
-        android:textColor="#fff" />
+        android:background="@drawable/button_background2"
+        android:text="More Details"
+        android:textColor="@color/white" />
 
 </LinearLayout>

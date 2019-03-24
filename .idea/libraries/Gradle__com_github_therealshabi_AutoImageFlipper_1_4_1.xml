@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.therealshabi:AutoImageFlipper-1.4.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/AutoImageFlipper-1.4.1.aar/b2ee7ff0ae43796094d274adf4610a38/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/AutoImageFlipper-1.4.1.aar/b2ee7ff0ae43796094d274adf4610a38/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.therealshabi/AutoImageFlipper/1.4.1/d984dac6c62c2b5b6ee23269fa00d663a5079d66/AutoImageFlipper-1.4.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -35,6 +35,7 @@ import com.uyr.yusara.homelesssavermac.ImageSliderTest.imageslidertest;
 import com.uyr.yusara.homelesssavermac.Menu.Login;
 import com.uyr.yusara.homelesssavermac.Modal.Users;
 import com.uyr.yusara.homelesssavermac.News.NewsMainActivity;
+import com.uyr.yusara.homelesssavermac.TestBottomSheet.MainTestBottomSheet;
 import com.uyr.yusara.homelesssavermac.TestNotification.test_notification;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -258,13 +259,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_share) {
 
-/*
-            Intent news = new Intent(MainActivity.this, BottomSheetTest.class);
+            Intent news = new Intent(MainActivity.this, MainTestBottomSheet.class);
             startActivity(news);
-*/
 
-            Intent news = new Intent(MainActivity.this, test_notification.class);
-            startActivity(news);
+/*            Intent news = new Intent(MainActivity.this, test_notification.class);
+            startActivity(news);*/
 
         } else if (id == R.id.nav_about) {
 

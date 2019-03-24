@@ -1,6 +1,7 @@
 package com.uyr.yusara.homelesssavermac;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -9,6 +10,7 @@ import android.location.LocationListener;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -17,6 +19,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.GeolocationPermissions;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -42,10 +46,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.uyr.yusara.homelesssavermac.Agency.Agency_Details;
+import com.uyr.yusara.homelesssavermac.Agency.MyAgencyPost;
+import com.uyr.yusara.homelesssavermac.Homeless.activity_homeless_details;
 import com.uyr.yusara.homelesssavermac.MapTest.UserInformation;
+import com.uyr.yusara.homelesssavermac.Modal.Posts_Homeless;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class TestMapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
@@ -60,8 +73,6 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
 
     private FirebaseAuth mAuth;
     private String currentUserid;
-    private LatLng CustomerPickUpLocation;
-
 
     private ChildEventListener mChildEventListener;
     private DatabaseReference mUsers;
@@ -70,10 +81,22 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
 
     private MediaPlayer mp;
 
+    BottomSheetBehavior sheetBehavior;
+
+    //@BindView(R.id.btn_bottom_sheet)
+    Button btnBottomSheet;
+
+    @BindView(R.id.bottom_sheet)
+    LinearLayout layoutBottomSheet;
+
+    private TextView locationhomelessid, fullnameid,ageid;
+    private Button moredetailsid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_maps);
+        ButterKnife.bind(this);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -82,12 +105,17 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
         mAuth = FirebaseAuth.getInstance();
         currentUserid = mAuth.getCurrentUser().getUid();
 
-        mUsers= FirebaseDatabase.getInstance().getReference("Location");
-        mUsers.push().setValue(marker);
+        mUsers= FirebaseDatabase.getInstance().getReference("People Report Post");
+        //mUsers.push().setValue(marker);
 
         mp = MediaPlayer.create(this, R.raw.yahello);
 
+        sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
 
+        fullnameid = (TextView)findViewById(R.id.fullnameid);
+        locationhomelessid = (TextView)findViewById(R.id.locationhomelessid);
+        ageid = (TextView)findViewById(R.id.ageid);
+        moredetailsid = (Button) findViewById(R.id.moredetailsid);
     }
 
 
@@ -104,20 +132,25 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
 
         mUsers.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot s : dataSnapshot.getChildren())
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+
+               //final MarkerOptions userMarkerOptions;
+
+                for (final DataSnapshot s : dataSnapshot.getChildren())
                 {
                     List<Address> addressList = null;
 
                     Geocoder geocoder = new Geocoder(TestMapsActivity.this);
 
-                    UserInformation user = s.getValue(UserInformation.class);
+                    //final UserInformation user = s.getValue(UserInformation.class);
 
-                    MarkerOptions userMarkerOptions = new MarkerOptions();
+                    final Posts_Homeless phomeless = s.getValue(Posts_Homeless.class);
+
+                    final MarkerOptions userMarkerOptions = new MarkerOptions();
                     
                     try
                     {
-                        addressList = geocoder.getFromLocationName(user.name,6);
+                        addressList = geocoder.getFromLocationName(phomeless.location,6);
 
                         if(addressList != null)
                         {
@@ -127,24 +160,75 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
                                 LatLng latLng = new LatLng(userAddress.getLatitude(), userAddress.getLongitude());
 
                                 userMarkerOptions.position(latLng);
-                                userMarkerOptions.title(user.name);
+                                userMarkerOptions.title(phomeless.location);
+                                userMarkerOptions.draggable(true);
                                 userMarkerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.rsz_homeless));
 
                                 marker = mMap.addMarker(userMarkerOptions);
-
                                 latitude = userAddress.getLatitude();
                                 longitude = userAddress.getLongitude();
 
+                                //locationhomelessid.setText(message);
+
+
+
                                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                     @Override
-                                    public boolean onMarkerClick(Marker marker) {
+                                    public boolean onMarkerClick(final Marker marker) {
 
                                         mp.start();
+                                        sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
+                                        final String a = marker.getTitle();
+                                        //Toast.makeText(TestMapsActivity.this, a, Toast.LENGTH_LONG).show();
+
+
+                                        mUsers.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                                            {
+                                                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                                                    //Cara get parent dri children
+                                                    final String father = ds.getKey();
+
+                                                    String name = ds.child("fullname").getValue().toString();
+                                                    String age = ds.child("age").getValue().toString();
+                                                    String location = ds.child("location").getValue().toString();
+
+                                                    if(a.equalsIgnoreCase(location))
+                                                    {
+                                                        //Toast.makeText(TestMapsActivity.this, father, Toast.LENGTH_LONG).show();
+                                                        fullnameid.setText(name);
+                                                        ageid.setText("Age : " + age);
+                                                        locationhomelessid.setText(location);
+
+                                                        moredetailsid.setOnClickListener(new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View v)
+                                                            {
+                                                                Intent click_post = new Intent(TestMapsActivity.this,activity_homeless_details.class);
+                                                                click_post.putExtra("PostKey", father);
+                                                                //click_post.putExtra("Agencyname", Agencyname);
+                                                                startActivity(click_post);
+                                                            }
+                                                        });
+                                                    }
+
+                                                } return;
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
+
+                                        /*UserInformation user = dataSnapshot.getValue(UserInformation.class);*/
                                         return false;
                                     }
                                 });
-
                             }
                         }
                         else
@@ -156,12 +240,12 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
                     {
                         e.printStackTrace();
                     }
-
-
                     /*UserInformation user = s.getValue(UserInformation.class);
                     LatLng location=new LatLng(user.latitude,user.longitude);
                     mMap.addMarker(new MarkerOptions().position(location).title(user.name)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));*/
                 }
+
+
             }
 
             @Override
@@ -185,8 +269,8 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
     {
 
         locationRequest = new LocationRequest();
-        locationRequest.setInterval(5000);
-        locationRequest.setFastestInterval(5000);
+/*        locationRequest.setInterval(5000);
+        locationRequest.setFastestInterval(5000);*/
         locationRequest.setPriority(locationRequest.PRIORITY_HIGH_ACCURACY);
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)

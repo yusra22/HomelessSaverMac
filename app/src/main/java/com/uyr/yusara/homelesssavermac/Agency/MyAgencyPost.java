@@ -119,6 +119,8 @@ public class MyAgencyPost extends AppCompatActivity {
                                 String PostKey = getSnapshots().getSnapshot(position).getKey();
                                 String Agencyname = getSnapshots().get(position).getAgencyname();
 
+                                //Toast.makeText(MyAgencyPost.this, PostKey, Toast.LENGTH_SHORT).show();
+
 
                                 Intent click_post = new Intent(MyAgencyPost.this,Agency_Details.class);
                                 click_post.putExtra("PostKey", PostKey);

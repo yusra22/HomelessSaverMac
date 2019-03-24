@@ -70,7 +70,8 @@
         <activity android:name=".Agency.EditMyAgencyPost" />
         <activity android:name=".Menu.Login" />
         <activity android:name=".BottomSheetTest.BottomSheetTest" />
-        <activity android:name=".TestNotification.test_notification"></activity>
+        <activity android:name=".TestNotification.test_notification" />
+        <activity android:name=".TestBottomSheet.MainTestBottomSheet"></activity>
     </application>
 
 </manifest>

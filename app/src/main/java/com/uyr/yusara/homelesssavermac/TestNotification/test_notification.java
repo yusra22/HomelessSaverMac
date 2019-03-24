@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -44,12 +45,9 @@ public class test_notification extends AppCompatActivity {
 
     }
 
-
-
-
     private void sendNotification() {
 
-        JSONObject json = new JSONObject();
+        final JSONObject json = new JSONObject();
         try {
             json.put("to","/topics/"+"news");
             JSONObject notificationObj = new JSONObject();
@@ -57,13 +55,14 @@ public class test_notification extends AppCompatActivity {
             notificationObj.put("body","any body");
             json.put("notification",notificationObj);
 
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL,
+            final JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL,
                     json,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
 
                             Log.d("MUR", "onResponse: ");
+                            Toast.makeText(test_notification.this, "Noti work", Toast.LENGTH_LONG).show();
                         }
                     }, new Response.ErrorListener() {
                 @Override
