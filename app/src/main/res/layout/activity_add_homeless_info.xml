@@ -137,6 +137,30 @@
                     android:paddingTop="20dp">
 
                     <EditText
+                        android:id="@+id/edit_ic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@null"
+                        android:hint="IC Number (if any)"
+                        android:inputType="number"
+                        android:maxLength="12"
+                        android:paddingTop="3dp"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp">
+
+                    <EditText
                         android:id="@+id/edit_age"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -152,50 +176,6 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/border"
-                    android:orientation="horizontal"
-                    android:paddingTop="20dp">
-
-                    <TextView
-                        android:id="@+id/edittextview_relationship"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@null"
-                        android:hint="Relationship"
-                        android:inputType="textEmailAddress"
-                        android:paddingTop="3dp"
-                        android:textSize="16dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/border"
-                    android:orientation="horizontal"
-                    android:paddingTop="20dp">
-
-                    <EditText
-                        android:id="@+id/edit_occupation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@null"
-                        android:hint="Occupation"
-                        android:paddingTop="3dp"
-                        android:textSize="16dp" />
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -219,27 +199,103 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/gendertittle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Gender :"
+                    android:textSize="16sp"
+                    android:textColor="@color/black" />
+
+                <RadioGroup
+                    android:id="@+id/genderchoice"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:gravity="center"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal">>
+
+                    <RadioButton
+                        android:id="@+id/radioButton_male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:text="Male" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:text="Female" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/martialtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Martial Status :"
+                    android:textSize="16sp"
+                    android:textColor="@color/black" />
+
+                <RadioGroup
+                    android:id="@+id/martialchoice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:background="@drawable/border"
-                    android:orientation="horizontal"
-                    android:paddingTop="20dp">
+                    android:orientation="vertical">>
 
-                    <EditText
-                        android:id="@+id/edit_reportnumber"
+                    <RadioButton
+                        android:id="@+id/radioButton_single"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@null"
-                        android:hint="Reporter Number"
-                        android:paddingTop="3dp"
-                        android:textSize="16dp" />
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:text="Single"
+                        android:textColor="@color/black" />
 
-                </LinearLayout>
+                    <RadioButton
+                        android:id="@+id/radioButton_married"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Married"
+                        android:textColor="@color/black" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_divorced"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:text="Divorced" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_legallyseparated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:text="Legally separated" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_widowed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:text="Widowed" />
+                </RadioGroup>
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -260,13 +316,13 @@
 
                     <EditText
                         android:id="@+id/edit_description"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="7dp"
                         android:background="@null"
-                        android:hint="Description or Comment in less than 30 words"
+                        android:hint="Description about the homeless"
                         android:inputType="textMultiLine"
                         android:paddingBottom="20dp"
                         android:textSize="15dp" />

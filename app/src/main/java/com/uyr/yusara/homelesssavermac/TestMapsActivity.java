@@ -3,6 +3,7 @@ package com.uyr.yusara.homelesssavermac;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -16,6 +17,9 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.webkit.GeolocationPermissions;
 import android.widget.Button;
@@ -46,6 +50,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.uyr.yusara.homelesssavermac.Agency.AddServices;
 import com.uyr.yusara.homelesssavermac.Agency.Agency_Details;
 import com.uyr.yusara.homelesssavermac.Agency.MyAgencyPost;
 import com.uyr.yusara.homelesssavermac.Homeless.activity_homeless_details;
@@ -59,6 +64,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import lib.kingja.switchbutton.SwitchMultiButton;
 
 public class TestMapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
@@ -89,8 +95,13 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
     @BindView(R.id.bottom_sheet)
     LinearLayout layoutBottomSheet;
 
-    private TextView locationhomelessid, fullnameid,ageid;
+    private TextView locationhomelessid, fullnameid,ageid,dateid;
     private Button moredetailsid;
+
+    //Map Toggle
+    private SwitchMultiButton switchMultiButton;
+    String Map = "Map";
+    String List = "List";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +126,24 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
         fullnameid = (TextView)findViewById(R.id.fullnameid);
         locationhomelessid = (TextView)findViewById(R.id.locationhomelessid);
         ageid = (TextView)findViewById(R.id.ageid);
+        dateid = (TextView)findViewById(R.id.dateid);
         moredetailsid = (Button) findViewById(R.id.moredetailsid);
+
+        switchMultiButton = findViewById(R.id.switchmultibutton2);
+
+        switchMultiButton.setText(Map, List).setOnSwitchListener(new SwitchMultiButton.OnSwitchListener() {
+            @Override
+            public void onSwitch(int position, String tabText) {
+
+                if (tabText.equalsIgnoreCase(Map)){
+                    /*Intent intent = new Intent(TestMapsActivity.this, AddServices.class);
+                    startActivity(intent);*/
+                }else {
+                    Intent intent = new Intent(TestMapsActivity.this, TestMapsActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
 
@@ -192,6 +220,7 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
                                                     //Cara get parent dri children
                                                     final String father = ds.getKey();
 
+                                                    String date = ds.child("date").getValue().toString();
                                                     String name = ds.child("fullname").getValue().toString();
                                                     String age = ds.child("age").getValue().toString();
                                                     String location = ds.child("location").getValue().toString();
@@ -199,6 +228,7 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
                                                     if(a.equalsIgnoreCase(location))
                                                     {
                                                         //Toast.makeText(TestMapsActivity.this, father, Toast.LENGTH_LONG).show();
+                                                        dateid.setText(date);
                                                         fullnameid.setText(name);
                                                         ageid.setText("Age : " + age);
                                                         locationhomelessid.setText(location);
@@ -209,7 +239,6 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
                                                             {
                                                                 Intent click_post = new Intent(TestMapsActivity.this,activity_homeless_details.class);
                                                                 click_post.putExtra("PostKey", father);
-                                                                //click_post.putExtra("Agencyname", Agencyname);
                                                                 startActivity(click_post);
                                                             }
                                                         });

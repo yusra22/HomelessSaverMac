@@ -20,6 +20,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -68,9 +69,9 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
     private double latitude, longitude;
     private int ProximityRadius = 10000;
 
-    private String PostKey,img1,img2,img3,fullname,age,relationship,occupation,location,description,reportnumber;
+    private String PostKey,img1,img2,img3,fullname,ic,age,location,gender,martialstatus,description;
 
-    private TextView Postfullname,Postage,Postrelationship,Postoccupation,Postlocation,Postdescription,Postreportnumber;
+    private TextView Postfullname,Postic,Postage,Postlocation,Postgender,Postmartialstatus,Postdescription;
     private TextView btnComment;
 
     private DatabaseReference ClickPostRef, BookmarkRef;
@@ -110,10 +111,10 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
 
         Postfullname = findViewById(R.id.text_fullname);
         Postage = findViewById(R.id.text_ages);
-        Postrelationship = findViewById(R.id.text_relationship);
-        Postoccupation = findViewById(R.id.text_occupation);
+        Postic = findViewById(R.id.text_ic);
+        Postgender = findViewById(R.id.text_gender);
+        Postmartialstatus = findViewById(R.id.text_martialstatus);
         Postlocation = findViewById(R.id.text_location);
-        Postreportnumber = findViewById(R.id.text_reportnumber);
         Postdescription = findViewById(R.id.text_description);
 
         btnComment = (TextView) findViewById(R.id.btncomment);
@@ -132,19 +133,19 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
             {
 
                 fullname = dataSnapshot.child("fullname").getValue().toString();
+                ic = dataSnapshot.child("ic").getValue().toString();
                 age = dataSnapshot.child("age").getValue().toString();
-                relationship = dataSnapshot.child("relationship").getValue().toString();
-                occupation = dataSnapshot.child("occupation").getValue().toString();
                 location = dataSnapshot.child("location").getValue().toString();
-                reportnumber = dataSnapshot.child("reportnumber").getValue().toString();
+                gender = dataSnapshot.child("gender").getValue().toString();
+                martialstatus = dataSnapshot.child("martialstatus").getValue().toString();
                 description = dataSnapshot.child("description").getValue().toString();
 
                 Postfullname.setText(fullname);
                 Postage.setText("Age " + age);
-                Postrelationship.setText(relationship);
-                Postoccupation.setText(occupation);
+                Postic.setText(ic);
                 Postlocation.setText(location);
-                Postreportnumber.setText(reportnumber);
+                Postgender.setText(gender);
+                Postmartialstatus.setText(martialstatus);
                 Postdescription.setText(description);
             }
 
@@ -182,6 +183,18 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
         setLikeButtonStatus(PostKey);
         setLayout();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+
+        if(id == android.R.id.home)
+        {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -328,6 +341,7 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
                 {
                     FlipperView view = new FlipperView(getBaseContext());
                     view.setImageUrl(url[i])
+                            //.setImageScaleType(ImageView.ScaleType.FIT_XY)
                             .setDescription("Image "+(i+1));
                     flipper.addFlipperView(view);
                     view.setOnFlipperClickListener(new FlipperView.OnFlipperClickListener() {

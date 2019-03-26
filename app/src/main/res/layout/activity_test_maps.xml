@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".News.DetailsActivity">
 
-
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -17,6 +16,31 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         tools:context=".TestMapsActivity" />
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        >
+
+        <lib.kingja.switchbutton.SwitchMultiButton
+            android:id="@+id/switchmultibutton2"
+            android:background="@color/colorPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="14dp"
+            android:paddingBottom="4dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="4dp"
+            app:selectedColor="@color/black"
+            app:selectedTab="0"
+            app:strokeRadius="5dp"
+            app:strokeWidth="1dp"
+            app:textSize="14sp"/>
+
+    </android.support.v7.widget.Toolbar>
 
     <include layout="@layout/bottom_sheet" />
 

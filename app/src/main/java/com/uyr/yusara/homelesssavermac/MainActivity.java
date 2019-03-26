@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,13 +28,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.uyr.yusara.homelesssavermac.Agency.AddServices;
 import com.uyr.yusara.homelesssavermac.Agency.Agency_post;
 import com.uyr.yusara.homelesssavermac.Agency.MyAgencyPost;
+import com.uyr.yusara.homelesssavermac.Favourites.MainFavourites;
 import com.uyr.yusara.homelesssavermac.Homeless.AddHomelessInfo;
 import com.uyr.yusara.homelesssavermac.Homeless.Myhomelesspost;
-import com.uyr.yusara.homelesssavermac.ImageSliderTest.imageslidertest;
 import com.uyr.yusara.homelesssavermac.Menu.Login;
 import com.uyr.yusara.homelesssavermac.Modal.Users;
 import com.uyr.yusara.homelesssavermac.News.NewsMainActivity;
-import com.uyr.yusara.homelesssavermac.TestBottomSheet.MainTestBottomSheet;
 import com.uyr.yusara.homelesssavermac.TestNotification.test_notification;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -204,9 +202,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_home) {
             // Handle the camera action
-            Intent homeIntent = new Intent(MainActivity.this, imageslidertest.class);
+/*            Intent homeIntent = new Intent(MainActivity.this, imageslidertest.class);
             startActivity(homeIntent);
-            finish();
+            finish();*/
+            Intent profile = new Intent(MainActivity.this, MainFavourites.class);
+            startActivity(profile);
+
 
         } else if (id == R.id.nav_profile) {
 
@@ -259,11 +260,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_share) {
 
-            Intent news = new Intent(MainActivity.this, MainTestBottomSheet.class);
+            Intent news = new Intent(MainActivity.this, test_notification.class);
             startActivity(news);
-
-/*            Intent news = new Intent(MainActivity.this, test_notification.class);
-            startActivity(news);*/
 
         } else if (id == R.id.nav_about) {
 

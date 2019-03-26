@@ -50,7 +50,6 @@
                     android:layout_height="200dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp">
-
                 </technolifestyle.com.imageslider.FlipperLayout>
 
                 <View android:layout_width="match_parent"
@@ -290,16 +289,16 @@
                         android:src="@drawable/ic_relationship" />
 
                     <TextView
-                        android:id="@+id/text_relationship"
+                        android:id="@+id/text_ic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@null"
+                        android:hint="IC Number"
                         android:paddingTop="3dp"
                         android:textColor="@color/black"
-                        android:background="@null"
-                        android:hint="Relationship"
-                        android:layout_marginBottom="3dp"
                         android:textSize="16dp" />
 
                 </LinearLayout>
@@ -321,16 +320,16 @@
                         android:src="@drawable/ic_occupation" />
 
                     <TextView
-                        android:id="@+id/text_occupation"
+                        android:id="@+id/text_gender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="3dp"
-                        android:textColor="@color/black"
                         android:background="@null"
-                        android:hint="Occupation"
+                        android:hint="gender"
                         android:paddingTop="3dp"
+                        android:textColor="@color/black"
                         android:textSize="16dp" />
 
                 </LinearLayout>
@@ -352,7 +351,7 @@
                         android:src="@drawable/ic_phone" />
 
                     <TextView
-                        android:id="@+id/text_reportnumber"
+                        android:id="@+id/text_martialstatus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -360,8 +359,8 @@
                         android:layout_marginBottom="3dp"
                         android:background="@null"
                         android:hint="Informer Phone Number"
-                        android:textColor="@color/black"
                         android:paddingTop="3dp"
+                        android:textColor="@color/black"
                         android:textSize="16dp" />
 
                 </LinearLayout>

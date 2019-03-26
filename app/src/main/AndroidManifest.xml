@@ -71,7 +71,8 @@
         <activity android:name=".Menu.Login" />
         <activity android:name=".BottomSheetTest.BottomSheetTest" />
         <activity android:name=".TestNotification.test_notification" />
-        <activity android:name=".TestBottomSheet.MainTestBottomSheet"></activity>
+        <activity android:name=".TestBottomSheet.MainTestBottomSheet" />
+        <activity android:name=".Favourites.MainFavourites"></activity>
     </application>
 
 </manifest>

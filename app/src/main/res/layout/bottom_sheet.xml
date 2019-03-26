@@ -29,13 +29,14 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/dateid"
             android:layout_width="0dp"
             android:gravity="right"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="15dp"
-            android:text="₹435.00"></TextView>
+            android:text="Date"></TextView>
     </LinearLayout>
 
 

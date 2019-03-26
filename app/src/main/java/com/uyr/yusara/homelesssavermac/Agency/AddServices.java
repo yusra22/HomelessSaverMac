@@ -216,7 +216,8 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
 
         if(id == android.R.id.home)
         {
-            SendUserToMainActivity();
+            //SendUserToMainActivity();
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -393,6 +394,7 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
                         postMap.put("uid", currentUserid);
                         postMap.put("date", saveCurrentDate);
                         postMap.put("time", saveCurrentTime);
+
                         postMap.put("agencyname", agencyname);
                         postMap.put("categories", categories);
                         postMap.put("officenumber", officenumber);
