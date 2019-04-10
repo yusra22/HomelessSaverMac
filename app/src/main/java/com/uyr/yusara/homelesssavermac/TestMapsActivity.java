@@ -170,8 +170,6 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
 
                     Geocoder geocoder = new Geocoder(TestMapsActivity.this);
 
-                    //final UserInformation user = s.getValue(UserInformation.class);
-
                     final Posts_Homeless phomeless = s.getValue(Posts_Homeless.class);
 
                     final MarkerOptions userMarkerOptions = new MarkerOptions();
@@ -197,7 +195,6 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
                                 longitude = userAddress.getLongitude();
 
                                 //locationhomelessid.setText(message);
-
 
 
                                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -245,7 +242,6 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
                                                     }
 
                                                 } return;
-
                                             }
 
                                             @Override
@@ -340,7 +336,6 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
 
     @Override
     public void onProviderEnabled(String s) {
-
     }
 
     @Override

@@ -33,8 +33,9 @@ public class Agency_post extends AppCompatActivity {
 
     private RecyclerView postList;
 
-    private DatabaseReference UsersRef,Postsref,LikesRef;
+    private DatabaseReference UsersRef,Postsref,LikesRef, DisLikesRef;
     Boolean LikeChecker = false;
+    Boolean DislikeChecker = false;
 
     private FirebaseAuth mAuth;
     private String currentUserid;
@@ -60,6 +61,7 @@ public class Agency_post extends AppCompatActivity {
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserid);
         Postsref = FirebaseDatabase.getInstance().getReference().child("Posts");
         LikesRef = FirebaseDatabase.getInstance().getReference().child("Likes");
+        DisLikesRef = FirebaseDatabase.getInstance().getReference().child("DisLikes");
 
         mToolbar = (Toolbar) findViewById(R.id.find_toolbar);
         setSupportActionBar(mToolbar);
@@ -136,6 +138,7 @@ public class Agency_post extends AppCompatActivity {
                 });
 
                 holder.setLikeButtonStatus(PostKey);
+                //holder.setDisLikeButtonStatus(PostKey);
 
                 holder.layout_likes.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -158,6 +161,7 @@ public class Agency_post extends AppCompatActivity {
                                     else {
 
                                         LikesRef.child(PostKey).child(currentUserid).setValue(true);
+                                        DisLikesRef.child(PostKey).child(currentUserid).removeValue();
                                         LikeChecker = false;
                                         mp.start();
                                     }
@@ -170,6 +174,45 @@ public class Agency_post extends AppCompatActivity {
 
                             }
                         });
+                    }
+                });
+
+                holder.layout_dislikes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        DislikeChecker = true;
+
+                        DisLikesRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                if(DislikeChecker.equals(true))
+                                {
+                                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                                    {
+                                        DisLikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        DislikeChecker = false;
+                                        mp.start();
+                                    }
+                                    else {
+
+                                        DisLikesRef.child(PostKey).child(currentUserid).setValue(true);
+                                        LikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        DislikeChecker = false;
+                                        mp.start();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+
+                            }
+                        });
+
+
                     }
                 });
 
@@ -192,12 +235,13 @@ public class Agency_post extends AppCompatActivity {
 
     public static class PostsViewHolder extends RecyclerView.ViewHolder
     {
-        TextView productname, productprice, productdate, productstatus,productnumber,productlikes;
-        ImageView button_likes;
+        TextView productname, productprice, productdate, productstatus,productnumber,productlikes,productdislikes;
+        ImageView button_likes, button_dislikes;
         Integer countLikes;
+        long countDisLikes;
         String currentUserid;
-        DatabaseReference LikesRef;
-        LinearLayout layout_likes;
+        DatabaseReference LikesRef,DisLikesRef;
+        LinearLayout layout_likes,layout_dislikes;
 
 
         public PostsViewHolder(View itemView)
@@ -210,13 +254,17 @@ public class Agency_post extends AppCompatActivity {
             productnumber = itemView.findViewById(R.id.post_product_phoneno);
             productstatus = itemView.findViewById(R.id.post_product_status);
             productlikes = itemView.findViewById(R.id.post_product_likes);
+            productdislikes = itemView.findViewById(R.id.post_product_dislikes);
 
             layout_likes = itemView.findViewById(R.id.layout_likes);
+            layout_dislikes = itemView.findViewById(R.id.layout_dislikes);
 
 
             button_likes = (ImageView) itemView.findViewById(R.id.button_likes);
+            button_dislikes = (ImageView) itemView.findViewById(R.id.button_dislikes);
 
             LikesRef = FirebaseDatabase.getInstance().getReference().child("Likes");
+            DisLikesRef = FirebaseDatabase.getInstance().getReference().child("DisLikes");
             currentUserid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         }
 
@@ -247,6 +295,37 @@ public class Agency_post extends AppCompatActivity {
 
                 }
             });
+
+            DisLikesRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                    {
+                        countDisLikes = dataSnapshot.child(PostKey).getChildrenCount();
+                        button_dislikes.setImageResource(R.drawable.ic_dislike);
+                        productdislikes.setText(Integer.toString((int) countDisLikes) + " Dislikes");
+
+                    }
+                    else {
+
+                        countDisLikes = dataSnapshot.child(PostKey).getChildrenCount();
+                        button_dislikes.setImageResource(R.drawable.ic_like);
+                        productdislikes.setText(Integer.toString((int) countDisLikes) + " Dislikes");
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        public void setDisLikeButtonStatus(final String PostKey2) {
+
         }
     }
 }

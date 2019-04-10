@@ -3,6 +3,7 @@ package com.uyr.yusara.homelesssavermac.Agency;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.strictmode.CleartextNetworkViolation;
@@ -15,6 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -206,6 +209,9 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
         layoutenddate.setVisibility(View.GONE);
         layoutstarttime.setVisibility(View.GONE);
         layoutendtime.setVisibility(View.GONE);
+
+        //Close Keyboard
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
     }
 
@@ -437,27 +443,6 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
                                     SendUserToMainActivity();
 
                                     NotisRef.child(currentUserid).setValue(postnotification);
-
-/*                                    NotisRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-                                        {
-                                            for(DataSnapshot s: dataSnapshot.getChildren())
-                                            {
-                                                Notification noti = s.getValue(Notification.class);
-
-                                                NotisRef.child(noti.from).setValue(postnotification);
-
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                        }
-                                    });*/
-
-                                    //NotisRef.child("DkE8oJW4EufKlETbLnyedyqKdJI3").setValue(postnotification);
 
 
                                     if(scheduletype.equals("Date Range"))

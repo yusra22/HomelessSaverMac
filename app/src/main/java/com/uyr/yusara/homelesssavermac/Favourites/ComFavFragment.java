@@ -20,9 +20,12 @@ import android.widget.Toast;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.uyr.yusara.homelesssavermac.Agency.Agency_Details;
 import com.uyr.yusara.homelesssavermac.Modal.Posts;
 import com.uyr.yusara.homelesssavermac.MyFavourites;
@@ -42,10 +45,6 @@ public class ComFavFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private String currentUserid;
-
-    private Toolbar mToolbar;
-
-    private DatabaseReference PostsRef2;
 
     //Query SortAgentPost;
 
@@ -96,16 +95,46 @@ public class ComFavFragment extends Fragment {
 
             FirebaseRecyclerOptions<Posts> options = new FirebaseRecyclerOptions.Builder<Posts>().setQuery(SortBookmarkPost, Posts.class).build();
 
-            FirebaseRecyclerAdapter<Posts, PostsViewHolder> adapter =
-                    new FirebaseRecyclerAdapter<Posts, PostsViewHolder>(options) {
+            FirebaseRecyclerAdapter<Posts, PostsViewHolder> adapter = new FirebaseRecyclerAdapter<Posts, PostsViewHolder>(options) {
                         @Override
-                        protected void onBindViewHolder(@NonNull PostsViewHolder holder, final int position, @NonNull Posts model) {
-                            holder.productname.setText(model.getAgencyname());
-                            holder.productprice.setText(model.getCategories());
-                            holder.productdate.setText(model.getDate());
-                            holder.productstatus.setText(model.getTags());
-                            holder.productnumber.setText(model.getOfficenumber());
+                        protected void onBindViewHolder(@NonNull final PostsViewHolder holder, final int position, @NonNull Posts model) {
                             //Glide.with(MyAgencyPost.this).load(model.getPostImage()).into(holder.productimage);
+
+                            PostTest.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                    String Postkey = getSnapshots().getSnapshot(position).getKey();
+
+                                    PostTest.child(Postkey).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                            String agencyname = dataSnapshot.child("agencyname").getValue().toString();
+                                            String categories = dataSnapshot.child("categories").getValue().toString();
+                                            String date = dataSnapshot.child("date").getValue().toString();
+                                            String tags = dataSnapshot.child("tags").getValue().toString();
+                                            String phoneno = dataSnapshot.child("officenumber").getValue().toString();
+
+                                            holder.productname.setText(agencyname);
+                                            holder.productprice.setText(categories);
+                                            holder.productdate.setText(date);
+                                            holder.productstatus.setText(tags);
+                                            holder.productnumber.setText(phoneno);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
 
                             holder.itemView.setOnClickListener(new View.OnClickListener() {
                                 @Override

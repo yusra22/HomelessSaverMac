@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -14,7 +13,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -45,9 +43,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.hitomi.cmlibrary.CircleMenu;
-import com.hitomi.cmlibrary.OnMenuSelectedListener;
-import com.uyr.yusara.homelesssavermac.Comment;
+import com.uyr.yusara.homelesssavermac.Agency.Comment;
 import com.uyr.yusara.homelesssavermac.R;
 
 import java.io.IOException;
@@ -124,7 +120,7 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
         mAuth = FirebaseAuth.getInstance();
         currentUserid = mAuth.getCurrentUser().getUid();
 
-        BookmarkRef = FirebaseDatabase.getInstance().getReference().child("Bookmarks");
+        BookmarkRef = FirebaseDatabase.getInstance().getReference().child("BookmarksHomeless");
         ClickPostRef = FirebaseDatabase.getInstance().getReference().child("People Report Post").child(PostKey);
 
         ClickPostRef.addValueEventListener(new ValueEventListener() {
@@ -262,7 +258,7 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
         switch (view.getId())
         {
             case R.id.btncomment:
-                Intent commentsIntent = new Intent(activity_homeless_details.this, Comment.class);
+                Intent commentsIntent = new Intent(activity_homeless_details.this, CommentHomeless.class);
                 commentsIntent.putExtra("PostKey", PostKey);
                 startActivity(commentsIntent);
                 break;

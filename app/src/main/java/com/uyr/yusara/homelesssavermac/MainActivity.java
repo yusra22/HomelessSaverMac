@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.Layout;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,9 +14,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,12 +38,16 @@ import com.uyr.yusara.homelesssavermac.Agency.MyAgencyPost;
 import com.uyr.yusara.homelesssavermac.Favourites.MainFavourites;
 import com.uyr.yusara.homelesssavermac.Homeless.AddHomelessInfo;
 import com.uyr.yusara.homelesssavermac.Homeless.Myhomelesspost;
+import com.uyr.yusara.homelesssavermac.ImageSliderTest.imageslidertest;
 import com.uyr.yusara.homelesssavermac.Menu.Login;
 import com.uyr.yusara.homelesssavermac.Modal.Users;
 import com.uyr.yusara.homelesssavermac.News.NewsMainActivity;
 import com.uyr.yusara.homelesssavermac.TestNotification.test_notification;
+import com.uyr.yusara.homelesssavermac.testpayment.paypaltest;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import technolifestyle.com.imageslider.FlipperLayout;
+import technolifestyle.com.imageslider.FlipperView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
@@ -50,8 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private CircleImageView NavProfileImage;
 
-    private Toolbar mToolbar;
-
+    private FlipperLayout flipper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +164,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
+
+        flipper = (FlipperLayout) findViewById(R.id.flipper);
+        setLayout();
+    }
+
+    private void setLayout() {
+
+        String url [] = new String[] {
+
+                "https:firebasestorage.googleapis.com/v0/b/homelesssavermac.appspot.com/o/Homeless%20Reported%20Images%2F135909-March-201923%3A10%3A.jpg?alt=media&token=7c0b9380-72b9-45a8-840e-1291083c310a",
+                "https://firebasestorage.googleapis.com/v0/b/homelesssavermac.appspot.com/o/profile%20Images%2FITy9PkXq35ZQGPk5Pi1GbbnyWz12.jpg?alt=media&token=add9d874-5173-410b-9452-a2fa86df56a0",
+                "https://firebasestorage.googleapis.com/v0/b/homelesssavermac.appspot.com/o/profile%20Images%2FjZfAQBuf8WeEoyv3Xz6DsKxoYg23.jpg?alt=media&token=a9e4085c-a325-4463-b24a-2f42b0c650c7",
+        };
+
+        for(int i =0; i<3; i++)
+        {
+            FlipperView view = new FlipperView(getBaseContext());
+            view.setImageUrl(url[i]).setImageScaleType(ImageView.ScaleType.FIT_XY);
+            flipper.addFlipperView(view);
+            view.setOnFlipperClickListener(new FlipperView.OnFlipperClickListener() {
+                @Override
+                public void onFlipperClick(FlipperView flipperView) {
+
+                    Toast.makeText(MainActivity.this,"Active" +(flipper.getCurrentPagePosition()+1),Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+
     }
 
     @Override
@@ -241,6 +280,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }else if (id == R.id.nav_find) {
 
+            Intent post = new Intent(MainActivity.this, paypaltest.class);
+            startActivity(post);
 
 
         } else if (id == R.id.nav_communityads) {
@@ -286,6 +327,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         MyDialog.requestWindowFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         MyDialog.setContentView(R.layout.about_dialog);
         MyDialog.setTitle("My Custom Dialog");
+
+/*        ((ViewGroup)MyDialog.getWindow().getDecorView())
+                .getChildAt(0).startAnimation(AnimationUtils.loadAnimation(
+                MainActivity.this,android.R.anim.slide_out_right));*/
 
         //hello = (Button)MyDialog.findViewById(R.id.hello);
         Button close = (Button)MyDialog.findViewById(R.id.closebtn);

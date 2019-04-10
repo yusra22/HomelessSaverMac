@@ -35,6 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/find_toolbar">
 
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,132 +48,18 @@
                 <technolifestyle.com.imageslider.FlipperLayout
                     android:id="@+id/flipper"
                     android:layout_width="match_parent"
-                    android:background="@color/black"
+                    android:background="@drawable/border_round"
                     android:layout_height="200dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp">
                 </technolifestyle.com.imageslider.FlipperLayout>
-
-                <View android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    android:layout_marginTop="8dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/colorPrimary"
-                    android:orientation="horizontal"
-                    android:weightSum="3">
-
-                    <LinearLayout
-                        android:id="@+id/layout_action1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <ImageView
-                            android:id="@+id/bookmark"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/wishlist2" />
-
-                        <TextView
-                            android:id="@+id/bookmarkbtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_weight="1"
-                            android:gravity="left"
-                            android:text="Bookmark"
-                            android:textColor="@color/white"
-                            android:textSize="12dp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/black" />
-
-                    <LinearLayout
-                        android:id="@+id/layout_action2"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_share" />
-
-                        <TextView
-                            android:id="@+id/sharebtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_weight="1"
-                            android:gravity="left"
-                            android:text="Share"
-                            android:textColor="@color/white"
-                            android:textSize="12dp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/black" />
-
-                    <LinearLayout
-                        android:id="@+id/layout_action3"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_comment" />
-
-                        <TextView
-                            android:id="@+id/btncomment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_weight="1"
-                            android:gravity="left"
-                            android:text="Comment"
-                            android:textColor="@color/white"
-                            android:textSize="12dp" />
-                    </LinearLayout>
-                </LinearLayout>
-                <View android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    android:layout_marginTop="5dp"/>
-
-
-                <!--                <View android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:background="@color/silver"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginBottom="10dp"/>-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:paddingTop="7dp"
                     >
 
@@ -212,7 +100,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="10dp"
                     android:layout_marginBottom="10dp"
@@ -223,7 +111,7 @@
                         android:paddingLeft="5dp"
                         android:layout_width="32dp"
                         android:layout_height="32sp"
-                        android:src="@drawable/ic_person" />
+                        android:src="@drawable/ic_name" />
 
                     <TextView
                         android:id="@+id/text_fullname"
@@ -243,7 +131,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="10dp"
                     android:layout_marginBottom="10dp"
@@ -275,7 +163,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="10dp"
                     android:layout_marginBottom="10dp"
@@ -286,7 +174,7 @@
                         android:paddingLeft="5dp"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/ic_relationship" />
+                        android:src="@drawable/ic_person" />
 
                     <TextView
                         android:id="@+id/text_ic"
@@ -309,15 +197,14 @@
                     android:orientation="horizontal"
                     android:paddingTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/border"
-                    >
+                    android:background="@drawable/border_round">
 
                     <ImageView
                         android:id="@+id/wishlistbtn"
                         android:paddingLeft="5dp"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/ic_occupation" />
+                        android:src="@drawable/ic_gender" />
 
                     <TextView
                         android:id="@+id/text_gender"
@@ -337,7 +224,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="10dp"
                     android:layout_marginBottom="10dp"
@@ -368,7 +255,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="10dp"
 
@@ -379,7 +266,7 @@
                         android:paddingLeft="5dp"
                         android:layout_width="32dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_maps" />
+                        android:src="@drawable/ic_location" />
 
                     <TextView
                         android:id="@+id/text_location"
@@ -411,20 +298,115 @@
 
                 </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
+                <View android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
-                    android:background="@color/silver" />
+                    android:background="@color/silver"
+                    />
 
-                <ProgressBar
-                    android:id="@+id/progressbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:visibility="gone" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border_round"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
+                    <LinearLayout
+                        android:id="@+id/layout_action1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <ImageView
+                            android:id="@+id/bookmark"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/wishlist2" />
+
+                        <TextView
+                            android:id="@+id/bookmarkbtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="Bookmark"
+                            android:textColor="@color/black"
+                            android:textSize="12dp" />
+                    </LinearLayout>
+
+                                        <View
+                                            android:layout_width="1dp"
+                                            android:layout_height="match_parent"
+                                            android:background="@color/silver" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_action2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_share" />
+
+                        <TextView
+                            android:id="@+id/sharebtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="Share"
+                            android:textColor="@color/black"
+                            android:textSize="12dp" />
+                    </LinearLayout>
+
+                                        <View
+                                            android:layout_width="1dp"
+                                            android:layout_height="match_parent"
+                                            android:background="@color/silver" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_action3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_comment" />
+
+                        <TextView
+                            android:id="@+id/btncomment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="Comment"
+                            android:textColor="@color/black"
+                            android:textSize="12dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/silver"
+                    />
             </LinearLayout>
 
         </ScrollView>

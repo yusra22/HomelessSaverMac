@@ -48,6 +48,7 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
     implementation 'com.google.android.gms:play-services-location:15.0.1'
+    implementation 'com.google.android.gms:play-services-places:15.0.1'
 
     //slider
     implementation 'com.github.therealshabi:AutoImageFlipper:1.4.1'
@@ -64,6 +65,9 @@ dependencies {
 
     //Map Toolbar
     implementation 'lib.kingja.switchbutton:switchbutton:1.1.8'
+
+    //Paypal integration
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.15.3'
 
 
 }

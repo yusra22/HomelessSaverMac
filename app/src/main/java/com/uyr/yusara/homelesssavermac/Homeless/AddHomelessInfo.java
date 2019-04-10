@@ -1,36 +1,32 @@
 package com.uyr.yusara.homelesssavermac.Homeless;
 
 import android.app.ProgressDialog;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Handler;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -45,17 +41,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
-import com.uyr.yusara.homelesssavermac.Agency.AddServices;
 import com.uyr.yusara.homelesssavermac.R;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class AddHomelessInfo extends AppCompatActivity implements View.OnClickListener {
 
@@ -87,6 +78,10 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
 
     private Toolbar mToolbar;
     private ProgressDialog progressDialog;
+
+    //Auto COmplete
+    private int PLACE_AUTOCOMPLETE_REQUEST_CODE = 10;
+    private String TAG = "Location Check";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +117,7 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.select_post2).setOnClickListener(this);
         findViewById(R.id.select_post3).setOnClickListener(this);
         findViewById(R.id.btnupdatepeoplepost).setOnClickListener(this);
+        findViewById(R.id.edit_location).setOnClickListener(this);
 
         //Custom Toolbar
         mToolbar = (Toolbar) findViewById(R.id.find_toolbar);
@@ -194,6 +190,9 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
         String ageS = ageInt.toString();
 
         Toast.makeText(AddHomelessInfo.this, ageS,Toast.LENGTH_SHORT).show();
+
+        //Close Keyboard
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
     }
 
@@ -275,6 +274,21 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
             }*/
         }
 
+        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                edit_location.setText(place.getAddress());
+                Log.i(TAG, "Place: " + place.getAddress());
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                // TODO: Handle the error.
+                Log.i(TAG, status.getStatusMessage());
+
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+
 
     }
 
@@ -342,8 +356,8 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
                 }
                 if (which == 1)
                 {
-                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, TAKE_PICTURE1);
+                    /*Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, TAKE_PICTURE1);*/
                 }
             }
         });
@@ -457,33 +471,6 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
                 }
             });
         }
-        if(photo1 !=null) {
-
-            ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
-            photo1.compress(Bitmap.CompressFormat.JPEG, 100, stream1);
-
-            byte[] b2 = stream1.toByteArray();
-
-            filePath2.putBytes(b2).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        filePath2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                uriurl2 = uri.toString();
-                                downloadUrl = filePath2.getDownloadUrl().toString();
-                                SavingPostInformationToDB();
-                            }
-                        });
-                    } else {
-                        String message = task.getException().getMessage();
-                        Toast.makeText(AddHomelessInfo.this, "Error occurt" + message, Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-
         if(ImageUri !=null)
         {
             filePath.putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -664,6 +651,19 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
         return ageS;
     }
 
+    private void AutoCompleteMap() {
+
+        try {
+            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
+                    .build(AddHomelessInfo.this); // notice CrateRide.this
+            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onClick(View view)
     {
@@ -682,6 +682,11 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
             case R.id.btnupdatepeoplepost:
                 UpdateBtnPost();
                 break;
+            case R.id.edit_location:
+                AutoCompleteMap();
+                break;
         }
     }
+
+
 }

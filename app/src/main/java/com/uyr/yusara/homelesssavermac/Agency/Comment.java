@@ -1,4 +1,4 @@
-package com.uyr.yusara.homelesssavermac;
+package com.uyr.yusara.homelesssavermac.Agency;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.uyr.yusara.homelesssavermac.Modal.CommentModal;
+import com.uyr.yusara.homelesssavermac.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -105,7 +106,6 @@ public class Comment extends AppCompatActivity {
                         else {
 
                             countPosts = 0;
-
                         }
                     }
 

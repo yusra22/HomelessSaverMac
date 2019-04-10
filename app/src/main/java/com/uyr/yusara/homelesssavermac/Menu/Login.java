@@ -160,6 +160,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         Intent intent = new Intent(Login.this, MainActivity.class);
         startActivity(intent);
+        finish();
 
 /*        xx.addValueEventListener(new ValueEventListener() {
             @Override

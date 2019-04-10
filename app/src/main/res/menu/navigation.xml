@@ -3,12 +3,12 @@
 
     <item
         android:id="@+id/navigation_homeless"
-        android:icon="@drawable/ic_facebook"
+        android:icon="@drawable/ic_homeless2"
         android:title="Homeless" />
 
     <item
         android:id="@+id/navigation_community"
-        android:icon="@drawable/ic_maps"
+        android:icon="@drawable/ic_community2"
         android:title="Community" />
 
 </menu>

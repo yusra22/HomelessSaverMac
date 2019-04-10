@@ -55,7 +55,7 @@
         <activity
             android:name=".Agency.Agency_Details"
             android:label="@string/title_activity_agency__details" />
-        <activity android:name=".Comment" />
+        <activity android:name=".Agency.Comment" />
         <activity android:name=".MyFavourites" />
         <activity android:name=".Homeless.AddHomelessInfo" />
         <activity
@@ -72,7 +72,9 @@
         <activity android:name=".BottomSheetTest.BottomSheetTest" />
         <activity android:name=".TestNotification.test_notification" />
         <activity android:name=".TestBottomSheet.MainTestBottomSheet" />
-        <activity android:name=".Favourites.MainFavourites"></activity>
+        <activity android:name=".Favourites.MainFavourites" />
+        <activity android:name=".testpayment.paypaltest" />
+        <activity android:name=".Homeless.CommentHomeless"></activity>
     </application>
 
 </manifest>

@@ -54,7 +54,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="20dp"
                     android:layout_marginBottom="10dp"
@@ -82,7 +82,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="20dp"
                     >
@@ -123,7 +123,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="20dp"
                     android:layout_marginBottom="5dp"
@@ -146,7 +146,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="20dp"
                     android:layout_marginBottom="10dp"
@@ -171,7 +171,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="20dp"
                     android:layout_marginBottom="10dp"
@@ -195,7 +195,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="20dp"
                     android:layout_marginBottom="10dp"
@@ -218,7 +218,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="20dp"
                     android:layout_marginBottom="10dp"
@@ -241,7 +241,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="20dp"
                     android:layout_marginBottom="10dp"
@@ -283,7 +283,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:gravity="center"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal">>
 
                     <RadioButton
@@ -334,7 +334,7 @@
                     android:id="@+id/categorychoice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="vertical">>
 
                     <RadioButton
@@ -396,7 +396,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="20dp"
                     >
@@ -420,7 +420,7 @@
                     android:id="@+id/layoutstartdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="20dp">
 
@@ -443,7 +443,7 @@
                     android:id="@+id/layoutenddate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="20dp">
 
@@ -466,7 +466,7 @@
                     android:id="@+id/layoutstarttime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="20dp"
                     >
@@ -490,7 +490,7 @@
                     android:id="@+id/layoutendtime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="20dp"
                     >

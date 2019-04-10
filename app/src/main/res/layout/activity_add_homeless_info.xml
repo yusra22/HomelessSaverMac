@@ -110,7 +110,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="20dp">
 
@@ -132,7 +132,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="20dp">
 
@@ -156,7 +156,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="20dp">
 
@@ -181,7 +181,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="20dp">
 
@@ -215,7 +215,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:gravity="center"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal">>
 
                     <RadioButton
@@ -251,7 +251,7 @@
                     android:id="@+id/martialchoice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="vertical">>
 
                     <RadioButton
@@ -310,7 +310,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@drawable/border_round"
                     android:orientation="horizontal"
                     android:paddingTop="20dp">
 

@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MyFavourites">
 
-    <include
-        android:id="@+id/find_toolbar"
-        layout="@layout/app_bar_layout">
-
-    </include>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview_myfavourites"

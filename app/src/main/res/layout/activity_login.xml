@@ -15,22 +15,32 @@
 
 
     <RelativeLayout
+        android:paddingTop="10dp"
         android:id="@+id/R1"
         android:layout_width="match_parent"
         android:layout_height="42sp"
         android:layout_below="@+id/find_toolbar"
         android:layout_weight="1"
+        android:gravity="center"
         android:background="@color/white">
 
 
-        <ImageView
-            android:id="@+id/loginlogo"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="7dp"
-            android:background="@drawable/logo" />
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="300dp">
+
+            <ImageView
+                android:id="@+id/loginlogo"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/logo" />
+
+        </RelativeLayout>
+
+
 
     </RelativeLayout>
 
@@ -39,7 +49,7 @@
         android:id="@+id/R2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"
+        android:layout_weight="0.3"
         android:background="@color/white">
 
         <LinearLayout
