@@ -217,7 +217,7 @@
                         android:paddingLeft="5dp"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/ic_world2" />
+                        android:src="@drawable/ic_world3" />
 
                     <TextView
                         android:id="@+id/text_website"
@@ -248,7 +248,7 @@
                         android:paddingLeft="5dp"
                         android:layout_width="32dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/ic_facebook2" />
+                        android:src="@drawable/ic_facebook3" />
 
                     <TextView
                         android:id="@+id/text_facebook"
@@ -279,7 +279,7 @@
                         android:paddingLeft="5dp"
                         android:layout_width="32dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/ic_twitter2" />
+                        android:src="@drawable/ic_twitter3" />
 
                     <TextView
                         android:id="@+id/text_twitter"

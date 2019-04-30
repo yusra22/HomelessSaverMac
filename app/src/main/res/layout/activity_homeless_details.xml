@@ -204,7 +204,7 @@
                         android:paddingLeft="5dp"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/ic_gender" />
+                        android:src="@drawable/ic_gender2" />
 
                     <TextView
                         android:id="@+id/text_gender"
@@ -235,7 +235,7 @@
                         android:layout_width="28dp"
                         android:layout_height="28dp"
                         android:paddingLeft="5dp"
-                        android:src="@drawable/ic_phone" />
+                        android:src="@drawable/ic_info" />
 
                     <TextView
                         android:id="@+id/text_martialstatus"
@@ -245,7 +245,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="3dp"
                         android:background="@null"
-                        android:hint="Informer Phone Number"
+                        android:hint="Status Relationship"
                         android:paddingTop="3dp"
                         android:textColor="@color/black"
                         android:textSize="16dp" />

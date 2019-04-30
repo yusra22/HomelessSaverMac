@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#20b2aa</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#007299</color>
+    <color name="colorPrimaryDark">#005f7f</color>
+    <color name="colorAccent">#ed2125</color>
+
+    <color name="colorGrey">#757575</color>
+    <color name="colorGreySubTextView">#BAB8BA</color>
+    <color name="colorGreyDivider">#E0E0E0</color>
+
     <color name="red">#f42b00</color>
     <color name="aqua">#009688</color>
     <color name="white">#ffffff</color>
@@ -12,14 +17,13 @@
     <color name="yellow">#FFFF00</color>
     <color name="olive">#808000</color>
     <color name="lime">#dde7dd</color>
-    <color name="green">#008000</color>
     <color name="teal">#01a0a0</color>
     <color name="blue">#0000ff</color>
     <color name="navy">#000080</color>
     <color name="fuchsia">#FF00FF</color>
     <color name="purple">#800080</color>
     <color name="colorText">#dddddd</color>
-    <color name="colorHint">#959595</color>
+    <color name="colorHint">#4f4f4f</color>
     <color name="colorButtonTransparent">#be050505</color>
     <color name="mainBackground">#D7D7D7</color>
     <color name="rednew">#E13E3E</color>
@@ -34,7 +38,6 @@
     <color name="purple1">#7c4dff</color>
     <color name="yellow1">#ffb300</color>
     <color name="pinky">#fe104d</color>
-    <color name="darkblue">#2980b9</color>
     <color name="darkpurple">#a569bd</color>
     <color name="sunset">#FB6542</color>
     <color name="sunflower">#FFBB00</color>
@@ -47,10 +50,12 @@
     <color name="deeppurple">#7c4dff</color>
     <color name="yello">#ffb300</color>
     <color name="green">#00bfa5</color>
-    <color name="colorAccent">#FF4081</color>
     <color name="darkblue">#23283a</color>
     <color name="testcolorblue">#152b38</color>
     <color name="pink">#fe104d</color>
-
     <color name="black_overlay">#66000000</color>
+    <color name="primaryold">#20b2aa</color>
+    <color name="primarydarkold">#20b2aa</color>
+    <color name="accentold">#20b2aa</color>
+
 </resources>

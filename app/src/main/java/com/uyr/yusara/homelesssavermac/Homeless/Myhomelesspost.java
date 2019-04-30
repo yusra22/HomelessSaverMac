@@ -106,9 +106,10 @@ public class Myhomelesspost extends AppCompatActivity {
                     {
                         holder.name.setText(model.getFullname());
                         holder.ages.setText("Ages: " + model.getAge());
+                        holder.gender.setText(model.getGender());
                         holder.date.setText(model.getDate());
-                        holder.relationship.setText(model.getRelationship());
-                        Glide.with(Myhomelesspost.this).load(model.getPostImage()).into(holder.productimage);
+                        holder.relationship.setText(model.getMartialstatus());
+                        //Glide.with(Myhomelesspost.this).load(model.getPostImage()).into(holder.productimage);
 
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -178,7 +179,7 @@ public class Myhomelesspost extends AppCompatActivity {
 
 
     public static class PostsViewHolder extends RecyclerView.ViewHolder {
-        TextView name, ages, relationship, date;
+        TextView name, ages, gender, relationship, date;
         ImageView productimage;
         LinearLayout layout_action1, layout_action2;
 
@@ -188,9 +189,10 @@ public class Myhomelesspost extends AppCompatActivity {
             name = itemView.findViewById(R.id.post_name);
             ages = itemView.findViewById(R.id.post_ages);
             relationship = itemView.findViewById(R.id.post_relationship);
+            gender = itemView.findViewById(R.id.post_gender);
             date = itemView.findViewById(R.id.post_date);
 
-            productimage = itemView.findViewById(R.id.post_image);
+            //productimage = itemView.findViewById(R.id.post_image);
             layout_action1 = itemView.findViewById(R.id.layout_action1);
             layout_action2 = itemView.findViewById(R.id.layout_action2);
         }

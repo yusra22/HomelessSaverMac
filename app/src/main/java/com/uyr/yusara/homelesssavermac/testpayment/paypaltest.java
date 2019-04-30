@@ -7,22 +7,37 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
+import com.uyr.yusara.homelesssavermac.Modal.Posts;
 import com.uyr.yusara.homelesssavermac.R;
 
 import org.json.JSONException;
@@ -30,16 +45,28 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 
-public class paypaltest extends AppCompatActivity {
+public class paypaltest extends AppCompatActivity implements View.OnClickListener {
 
     Button mPayment;
     TextView totalmoneyid,balanceid;
-    private Double a, Balance = 0.0;
+    private int totaldonate, Balance = 0;
 
     private FirebaseAuth mAuth;
     private String currentUserid;
     private DatabaseReference PaymentRefs;
+    private DatabaseReference UsersRef,Postsref;
+
+    private Toolbar mToolbar;
+    private RecyclerView postList;
+
+    private ImageButton SearchButton;
+    private EditText SearchInputText;
+
+    private Button button10,button20,button30,button40,button50,button100;
+    TextView test;
+    String PostKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,33 +75,56 @@ public class paypaltest extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         currentUserid = mAuth.getCurrentUser().getUid();
+
+
         PaymentRefs = FirebaseDatabase.getInstance().getReference().child("Payment");
+        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserid);
+        Postsref = FirebaseDatabase.getInstance().getReference().child("Posts");
+
+        SearchButton = (ImageButton) findViewById(R.id.search_community_button);
+        SearchInputText = (EditText) findViewById(R.id.search_box_input);
+
+        button10 = (Button) findViewById(R.id.button10);
+        button20 = (Button) findViewById(R.id.button20);
+        button30 = (Button) findViewById(R.id.button30);
+        button40 = (Button) findViewById(R.id.button40);
+        button50 = (Button) findViewById(R.id.button50);
+        button100 = (Button) findViewById(R.id.button100);
+
+        test = (TextView)findViewById(R.id.test);
 
         Intent intent = new Intent(this, PayPalService.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
         startService(intent);
 
         mPayment = (Button)findViewById(R.id.paymentid);
-        totalmoneyid = (TextView) findViewById(R.id.totalmoneyid);
+        //totalmoneyid = (TextView) findViewById(R.id.totalmoneyid);
         balanceid = (TextView)findViewById(R.id.balanceid);
 
-        a = 50.0;
-        
-        mPayment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                payPalPayment();
-            }
-        });
+        postList = findViewById(R.id.search_result_list);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        postList.setLayoutManager(linearLayoutManager);
+
+        mToolbar = (Toolbar) findViewById(R.id.find_toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("Donate");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+        //Toast.makeText(this, b, Toast.LENGTH_LONG).show();
 
         PaymentRefs.child(currentUserid).addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if(dataSnapshot.child("customerPaid").getValue() != null && dataSnapshot.child("communityPayout").getValue() == null)
+                if(dataSnapshot.child("donatePaid").getValue() != null)
                 {
-                    balanceid.setText("Balance: " + String.valueOf(Balance) + "$" + " Details :");
+                    //balanceid.setText("Balance: " + String.valueOf(Balance) + "$" + " Details :");
+                    Toast.makeText(getApplicationContext(), "msuk paymentrefbalance hehe", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -83,6 +133,23 @@ public class paypaltest extends AppCompatActivity {
 
             }
         });
+
+        findViewById(R.id.button10).setOnClickListener(this);
+        findViewById(R.id.button20).setOnClickListener(this);
+        findViewById(R.id.button30).setOnClickListener(this);
+        findViewById(R.id.button40).setOnClickListener(this);
+        findViewById(R.id.button50).setOnClickListener(this);
+        findViewById(R.id.button100).setOnClickListener(this);
+        findViewById(R.id.paymentid).setOnClickListener(this);
+        findViewById(R.id.search_community_button).setOnClickListener(this);
+
+        mPayment.setEnabled(false);
+        button10.setEnabled(false);
+        button20.setEnabled(false);
+        button30.setEnabled(false);
+        button40.setEnabled(false);
+        button50.setEnabled(false);
+        button100.setEnabled(false);
 
     }
 
@@ -93,7 +160,12 @@ public class paypaltest extends AppCompatActivity {
 
     private void payPalPayment()
     {
-        PayPalPayment payment = new PayPalPayment(new BigDecimal(a), "USD", "Homeless Donation",
+
+        String a = test.getText().toString();
+        int numbera = Integer.parseInt(a);
+        totaldonate = numbera;
+
+        PayPalPayment payment = new PayPalPayment(new BigDecimal(String.valueOf(totaldonate)), "MYR", "Homeless Donation",
                 PayPalPayment.PAYMENT_INTENT_SALE);
 
         Intent intent = new Intent(this, PaymentActivity.class);
@@ -122,7 +194,13 @@ public class paypaltest extends AppCompatActivity {
                         if(paymentResponse.equals("approved"))
                         {
                             Toast.makeText(getApplicationContext(), "Payment Successful", Toast.LENGTH_LONG).show();
-                            PaymentRefs.child(currentUserid).child("customerPaid").setValue(true);
+
+                            HashMap paymentdetails = new HashMap();
+                            paymentdetails.put("cpostid",PostKey);
+                            paymentdetails.put("donatePaid", true);
+                            paymentdetails.put("uid", currentUserid);
+
+                            PaymentRefs.child(currentUserid).setValue(paymentdetails);
                         }
 
                     } catch (JSONException e) {
@@ -131,7 +209,7 @@ public class paypaltest extends AppCompatActivity {
                 }
 
             } else {
-                Toast.makeText(getApplicationContext(), "Payment unsuccessful", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Payment unsuccessful or Payment cancel", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -140,5 +218,159 @@ public class paypaltest extends AppCompatActivity {
     protected void onDestroy() {
         stopService(new Intent(this, PayPalService.class));
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+
+        if(id == android.R.id.home)
+        {
+            //SendUserToMainActivity();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void SearchHouseType(String searchBoxInput) {
+
+        String query = searchBoxInput.toLowerCase();
+
+        Query SortAgentPost = Postsref.orderByChild("agencyname").startAt(query).endAt(query + "\uf8ff");
+        //Query SortAgentPost = Postsref.orderByChild("counter");
+
+        FirebaseRecyclerOptions<Posts> options = new FirebaseRecyclerOptions.Builder<Posts>().setQuery(SortAgentPost, Posts.class).build();
+
+        FirebaseRecyclerAdapter<Posts,PostsViewHolder> adapter = new FirebaseRecyclerAdapter<Posts, PostsViewHolder>(options)
+        {
+            @Override
+            protected void onBindViewHolder(@NonNull PostsViewHolder holder, final int position, @NonNull Posts model)
+            {
+
+                //final String PostKey = getRef(position).getKey();
+
+                holder.setProductname(model.getAgencyname());
+                holder.setProductprice(model.getCategories());
+                holder.setProductdate(model.getDate());
+                holder.setProductnumber(model.getOfficenumber());
+                holder.setProductstatus(model.getTags());
+
+                PostKey = getSnapshots().getSnapshot(position).getKey();
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        mPayment.setEnabled(true);
+                        button10.setEnabled(true);
+                        button20.setEnabled(true);
+                        button30.setEnabled(true);
+                        button40.setEnabled(true);
+                        button50.setEnabled(true);
+                        button100.setEnabled(true);
+
+                    }
+                });
+
+            }
+
+            @NonNull
+            @Override
+            public PostsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
+            {
+                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.all_post_layout_donatesearch, viewGroup, false);
+                PostsViewHolder viewHolder = new PostsViewHolder(view);
+
+                return viewHolder;
+            }
+        };
+
+        postList.setAdapter(adapter);
+        adapter.startListening();
+    }
+
+    public static class PostsViewHolder extends RecyclerView.ViewHolder
+    {
+        TextView post_product_name, post_product_price, post_product_status, post_product_date,post_product_phoneno;
+        String currentUserid;
+
+
+        public PostsViewHolder(View itemView)
+        {
+            super(itemView);
+/*          productstatus = itemView.findViewById(R.id.post_product_status);*/
+
+            currentUserid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }
+
+        public void setProductname(String productname)
+        {
+            post_product_name = itemView.findViewById(R.id.post_product_name);
+            post_product_name.setText(productname);
+        }
+
+        public void setProductprice(String productprice)
+        {
+            post_product_price = itemView.findViewById(R.id.post_product_price);
+            post_product_price.setText(productprice);
+        }
+
+        public void setProductstatus(String productstatus)
+        {
+            post_product_status = itemView.findViewById(R.id.post_product_status);
+            post_product_status.setText(productstatus);
+        }
+
+        public void setProductdate(String productdate)
+        {
+            post_product_date = itemView.findViewById(R.id.post_product_date);
+            post_product_date.setText(productdate);
+        }
+
+        public void setProductnumber(String productnumber)
+        {
+            post_product_phoneno = itemView.findViewById(R.id.post_product_phoneno);
+            post_product_phoneno.setText(productnumber);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId())
+        {
+            case R.id.paymentid:
+                payPalPayment();
+                break;
+            case R.id.search_community_button:
+                String searchBoxInput = SearchInputText.getText().toString();
+                SearchHouseType(searchBoxInput);
+                break;
+            case R.id.button10:
+                String button1 = button10.getContentDescription().toString().trim();
+                test.setText(button1);
+                break;
+            case R.id.button20:
+                String button2 = button20.getContentDescription().toString().trim();
+                test.setText(button2);
+                break;
+            case R.id.button30:
+                String button3 = button30.getContentDescription().toString().trim();
+                test.setText(button3);
+                break;
+            case R.id.button40:
+                String button4 = button40.getContentDescription().toString().trim();
+                test.setText(button4);
+                break;
+            case R.id.button50:
+                String button5 = button50.getContentDescription().toString().trim();
+                test.setText(button5);
+                break;
+            case R.id.button100:
+                String button10 = button100.getContentDescription().toString().trim();
+                test.setText(button10);
+                break;
+        }
+
     }
 }

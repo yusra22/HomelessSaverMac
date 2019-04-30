@@ -74,7 +74,8 @@
         <activity android:name=".TestBottomSheet.MainTestBottomSheet" />
         <activity android:name=".Favourites.MainFavourites" />
         <activity android:name=".testpayment.paypaltest" />
-        <activity android:name=".Homeless.CommentHomeless"></activity>
+        <activity android:name=".Homeless.CommentHomeless" />
+        <activity android:name=".Homeless.Homeless_post"></activity>
     </application>
 
 </manifest>

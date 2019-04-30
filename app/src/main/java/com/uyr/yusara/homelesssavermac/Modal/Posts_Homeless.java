@@ -9,7 +9,8 @@ public class Posts_Homeless
     public String postImage3;
     public String fullname;
     public String age;
-    public String relationship;
+    public String gender;
+    public String martialstatus;
     public String occupation;
     public String location;
     public String decription;
@@ -20,14 +21,13 @@ public class Posts_Homeless
 
     public Posts_Homeless() {}
 
-    public Posts_Homeless(String uid, String postImage, String postImage2, String postImage3, String fullname, String age, String relationship, String occupation, String decription, String reportnumber, String location, String time, String date, String countPosts) {
+    public Posts_Homeless(String uid, String postImage, String postImage2, String postImage3, String fullname, String age, String relationship, String occupation, String decription, String reportnumber, String location, String time, String date, String countPosts, String gender) {
         this.uid = uid;
         this.postImage = postImage;
         this.postImage2 = postImage2;
         this.postImage3 = postImage3;
         this.fullname = fullname;
         this.age = age;
-        this.relationship = relationship;
         this.occupation = occupation;
         this.decription = decription;
         this.reportnumber = reportnumber;
@@ -35,6 +35,7 @@ public class Posts_Homeless
         this.time = time;
         this.date = date;
         this.countPosts = countPosts;
+        this.gender = gender;
     }
 
     public String getUid() {
@@ -85,12 +86,20 @@ public class Posts_Homeless
         this.age = age;
     }
 
-    public String getRelationship() {
-        return relationship;
+    public String getGender() {
+        return gender;
     }
 
-    public void setRelationship(String relationship) {
-        this.relationship = relationship;
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getMartialstatus() {
+        return martialstatus;
+    }
+
+    public void setMartialstatus(String martialstatus) {
+        this.martialstatus = martialstatus;
     }
 
     public String getOccupation() {

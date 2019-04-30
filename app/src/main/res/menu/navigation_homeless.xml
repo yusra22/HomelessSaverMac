@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_homeless"
+        android:icon="@drawable/ic_gender"
+        android:title="Gender" />
+
+    <item
+        android:id="@+id/navigation_community"
+        android:icon="@drawable/ic_info"
+        android:title="Marial Status" />
+
+</menu>

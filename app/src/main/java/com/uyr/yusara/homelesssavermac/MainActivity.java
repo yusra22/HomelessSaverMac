@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.text.Layout;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private CircleImageView NavProfileImage;
 
-    private FlipperLayout flipper;
+    private CardView homelessid,communityid,mapviewid,bookmarkid,aboutid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         View navView = navigationView.getHeaderView(0);
         NavProfileImage = (CircleImageView)navView.findViewById(R.id.nav_image);
-
 
 
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
@@ -143,7 +143,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-
         UsersRef.child(currentUserid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
@@ -165,33 +164,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        flipper = (FlipperLayout) findViewById(R.id.flipper);
-        setLayout();
-    }
+        homelessid = (CardView) findViewById(R.id.homelessid);
+        communityid = (CardView) findViewById(R.id.communityid);
+        mapviewid = (CardView) findViewById(R.id.mapviewid);
+        bookmarkid = (CardView) findViewById(R.id.bookmarkid);
+        aboutid = (CardView) findViewById(R.id.aboutid);
 
-    private void setLayout() {
-
-        String url [] = new String[] {
-
-                "https:firebasestorage.googleapis.com/v0/b/homelesssavermac.appspot.com/o/Homeless%20Reported%20Images%2F135909-March-201923%3A10%3A.jpg?alt=media&token=7c0b9380-72b9-45a8-840e-1291083c310a",
-                "https://firebasestorage.googleapis.com/v0/b/homelesssavermac.appspot.com/o/profile%20Images%2FITy9PkXq35ZQGPk5Pi1GbbnyWz12.jpg?alt=media&token=add9d874-5173-410b-9452-a2fa86df56a0",
-                "https://firebasestorage.googleapis.com/v0/b/homelesssavermac.appspot.com/o/profile%20Images%2FjZfAQBuf8WeEoyv3Xz6DsKxoYg23.jpg?alt=media&token=a9e4085c-a325-4463-b24a-2f42b0c650c7",
-        };
-
-        for(int i =0; i<3; i++)
-        {
-            FlipperView view = new FlipperView(getBaseContext());
-            view.setImageUrl(url[i]).setImageScaleType(ImageView.ScaleType.FIT_XY);
-            flipper.addFlipperView(view);
-            view.setOnFlipperClickListener(new FlipperView.OnFlipperClickListener() {
-                @Override
-                public void onFlipperClick(FlipperView flipperView) {
-
-                    Toast.makeText(MainActivity.this,"Active" +(flipper.getCurrentPagePosition()+1),Toast.LENGTH_SHORT).show();
-
-                }
-            });
-        }
+        homelessid.setOnClickListener(this);
+        communityid.setOnClickListener(this);
+        mapviewid.setOnClickListener(this);
+        bookmarkid.setOnClickListener(this);
+        aboutid.setOnClickListener(this);
 
     }
 
@@ -253,12 +236,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent profile = new Intent(MainActivity.this, Profile.class);
             startActivity(profile);
 
-        } else if (id == R.id.nav_mapview) {
-
-            Intent test = new Intent(MainActivity.this, TestMapsActivity.class);
-            startActivity(test);
-
-        }else if (id == R.id.add_services) {
+        } else if (id == R.id.add_services) {
 
             Intent profile = new Intent(MainActivity.this, AddServices.class);
             startActivity(profile);
@@ -268,12 +246,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent addhomelessinfo = new Intent(MainActivity.this, AddHomelessInfo.class);
             startActivity(addhomelessinfo);
 
-        }else if (id == R.id.nav_onsell) {
-
-            Intent post = new Intent(MainActivity.this, Agency_post.class);
-            startActivity(post);
-
-        } else if (id == R.id.nav_peopleads){
+        }else if (id == R.id.nav_peopleads){
 
             Intent post = new Intent(MainActivity.this, Myhomelesspost.class);
             startActivity(post);
@@ -288,12 +261,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             Intent find = new Intent(MainActivity.this,  MyAgencyPost.class);
             startActivity(find);
-        }
-        else if (id == R.id.nav_fav) {
-
-            Intent wish = new Intent(MainActivity.this, MyFavourites.class);
-            startActivity(wish);
-
         } else if (id == R.id.nav_news) {
 
             Intent news = new Intent(MainActivity.this, NewsMainActivity.class);
@@ -304,11 +271,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent news = new Intent(MainActivity.this, test_notification.class);
             startActivity(news);
 
-        } else if (id == R.id.nav_about) {
-
-            MyCustomAlertDialog();
-
-        } else if (id == R.id.nav_logout) {
+        }else if (id == R.id.nav_logout) {
 
             FirebaseAuth.getInstance().signOut();
             finish();
@@ -348,8 +311,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onClick(View view)
+    public void onClick(View v)
     {
+        switch (v.getId())
+        {
+            case R.id.homelessid:
+
+/*                Intent fav = new Intent(MainActivity.this, MainFavourites.class);
+                startActivity(fav);*/
+                break;
+            case R.id.communityid:
+
+                Intent post = new Intent(MainActivity.this, Agency_post.class);
+                startActivity(post);
+                break;
+            case R.id.mapviewid:
+
+                Intent test = new Intent(MainActivity.this, TestMapsActivity.class);
+                startActivity(test);
+                break;
+            case R.id.bookmarkid:
+
+                Intent fav = new Intent(MainActivity.this, MainFavourites.class);
+                startActivity(fav);
+                break;
+            case R.id.aboutid:
+
+                MyCustomAlertDialog();
+                break;
+
+        }
 
     }
 }

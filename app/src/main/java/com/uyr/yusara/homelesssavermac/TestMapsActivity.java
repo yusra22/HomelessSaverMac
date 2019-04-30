@@ -224,7 +224,7 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
 
                                                     if(a.equalsIgnoreCase(location))
                                                     {
-                                                        //Toast.makeText(TestMapsActivity.this, father, Toast.LENGTH_LONG).show();
+                                                        //Toast.makeText(TestMapsActivity.this, a, Toast.LENGTH_LONG).show();
                                                         dateid.setText(date);
                                                         fullnameid.setText(name);
                                                         ageid.setText("Age : " + age);
