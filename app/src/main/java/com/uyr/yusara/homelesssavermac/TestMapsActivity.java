@@ -12,6 +12,7 @@ import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -103,6 +104,8 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
     String Map = "Map";
     String List = "List";
 
+    Boolean SwitchkChecker = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,7 +122,7 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
         mUsers= FirebaseDatabase.getInstance().getReference("People Report Post");
         //mUsers.push().setValue(marker);
 
-        mp = MediaPlayer.create(this, R.raw.yahello);
+        mp = MediaPlayer.create(this, R.raw.imhere);
 
         sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
 
@@ -144,6 +147,8 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
                 }
             }
         });
+
+
     }
 
 
@@ -151,10 +156,13 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-/*        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
+/*        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });*/
 
 
 
@@ -173,7 +181,7 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
                     final Posts_Homeless phomeless = s.getValue(Posts_Homeless.class);
 
                     final MarkerOptions userMarkerOptions = new MarkerOptions();
-                    
+
                     try
                     {
                         addressList = geocoder.getFromLocationName(phomeless.location,6);
@@ -323,7 +331,7 @@ public class TestMapsActivity extends FragmentActivity implements OnMapReadyCall
 
         LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
         //mMap.addMarker(new MarkerOptions().position(latLng).title("You are here!"));
-        mMap.addMarker(new MarkerOptions().position(latLng).title("You are here!")).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.peopleresize));
+        mMap.addMarker(new MarkerOptions().position(latLng).title("You are here!")).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.iconmarker2));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(13));

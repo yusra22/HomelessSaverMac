@@ -232,10 +232,13 @@
             android:id="@+id/paymentid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:gravity="center_horizontal"
-            android:text="Donate" />
+            android:layout_gravity="center"
+            android:layout_margin="7dp"
+            android:background="@drawable/button_background2"
+            android:text="Donation"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textColorLink="@color/silver" />
 
 
 

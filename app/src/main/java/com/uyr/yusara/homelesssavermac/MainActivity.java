@@ -42,8 +42,6 @@ import com.uyr.yusara.homelesssavermac.Homeless.Myhomelesspost;
 import com.uyr.yusara.homelesssavermac.ImageSliderTest.imageslidertest;
 import com.uyr.yusara.homelesssavermac.Menu.Login;
 import com.uyr.yusara.homelesssavermac.Modal.Users;
-import com.uyr.yusara.homelesssavermac.News.NewsMainActivity;
-import com.uyr.yusara.homelesssavermac.TestNotification.test_notification;
 import com.uyr.yusara.homelesssavermac.testpayment.paypaltest;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -227,8 +225,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 /*            Intent homeIntent = new Intent(MainActivity.this, imageslidertest.class);
             startActivity(homeIntent);
             finish();*/
-            Intent profile = new Intent(MainActivity.this, MainFavourites.class);
-            startActivity(profile);
+            Intent home = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(home);
+            finish();
 
 
         } else if (id == R.id.nav_profile) {
@@ -256,6 +255,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent post = new Intent(MainActivity.this, paypaltest.class);
             startActivity(post);
 
+        }else if (id == R.id.nav_donation) {
+
+        Intent post = new Intent(MainActivity.this, paypaltest.class);
+        startActivity(post);
+
 
         } else if (id == R.id.nav_communityads) {
 
@@ -263,12 +267,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(find);
         } else if (id == R.id.nav_news) {
 
-            Intent news = new Intent(MainActivity.this, NewsMainActivity.class);
-            startActivity(news);
+/*            Intent news = new Intent(MainActivity.this, NewsMainActivity.class);
+            startActivity(news);*/
 
         } else if (id == R.id.nav_share) {
 
-            Intent news = new Intent(MainActivity.this, test_notification.class);
+            Intent news = new Intent(MainActivity.this, Notification.class);
             startActivity(news);
 
         }else if (id == R.id.nav_logout) {

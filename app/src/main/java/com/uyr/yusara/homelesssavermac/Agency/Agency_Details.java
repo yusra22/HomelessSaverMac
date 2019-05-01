@@ -188,7 +188,7 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
 
         mToolbar = (Toolbar) findViewById(R.id.find_toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("My Community Services");
+        getSupportActionBar().setTitle("Service Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 

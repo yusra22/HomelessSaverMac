@@ -46,6 +46,8 @@ public class ComFavFragment extends Fragment {
     private FirebaseAuth mAuth;
     private String currentUserid;
 
+    private LinearLayout layout;
+
     //Query SortAgentPost;
 
     public ComFavFragment() {
@@ -75,6 +77,9 @@ public class ComFavFragment extends Fragment {
 
         BookmarkRef = FirebaseDatabase.getInstance().getReference().child("Bookmarks");
 
+        layout = (LinearLayout) ComFavView.findViewById(R.id.my_layout_bookmark);
+        layout.setVisibility(View.VISIBLE);
+
         return ComFavView;
     }
 
@@ -89,7 +94,7 @@ public class ComFavFragment extends Fragment {
 
         } else {
 
-            Toast.makeText(getContext(), "Successfully Masuk Bookmark ", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Successfully Masuk Bookmark ", Toast.LENGTH_SHORT).show();
 
             Query SortBookmarkPost = BookmarksRef.orderByChild(currentUserid);
 
@@ -121,6 +126,9 @@ public class ComFavFragment extends Fragment {
                                             holder.productdate.setText(date);
                                             holder.productstatus.setText(tags);
                                             holder.productnumber.setText(phoneno);
+
+                                            layout = (LinearLayout) ComFavView.findViewById(R.id.my_layout_bookmark);
+                                            layout.setVisibility(View.GONE);
                                         }
 
                                         @Override
@@ -170,6 +178,9 @@ public class ComFavFragment extends Fragment {
 
                                             BookmarkRef.child(currentUserid).child(PostKey).child(currentUserid).removeValue();
                                             Toast.makeText(getContext(), "Favourites delete successfully ", Toast.LENGTH_SHORT).show();
+
+                                            layout = (LinearLayout) ComFavView.findViewById(R.id.my_layout_bookmark);
+                                            layout.setVisibility(View.VISIBLE);
                                         }
                                     });
 

@@ -175,7 +175,7 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
         int selectedId2 = martialchoice.getCheckedRadioButtonId();
         radioButtonMartialoption = (RadioButton) findViewById(selectedId2);
 
-        Calendar dob = Calendar.getInstance();
+/*        Calendar dob = Calendar.getInstance();
         Calendar today = Calendar.getInstance();
 
         dob.set(1996, 5, 3);
@@ -189,7 +189,7 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
         Integer ageInt = new Integer(age);
         String ageS = ageInt.toString();
 
-        Toast.makeText(AddHomelessInfo.this, ageS,Toast.LENGTH_SHORT).show();
+        Toast.makeText(AddHomelessInfo.this, ageS,Toast.LENGTH_SHORT).show();*/
 
         //Close Keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -203,7 +203,7 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
 
         if(id == android.R.id.home)
         {
-            SendUserToMainActivity();
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -224,7 +224,7 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
             //Display user in image button
             //ImageUri = data.getData();
             //SelectPostImage.setImageURI(ImageUri);
-            photo = (Bitmap)data.getExtras().get("data");
+            photo = (Bitmap) data.getExtras().get("data");
             SelectPostImage.setImageBitmap(photo);
 
         }
@@ -331,9 +331,7 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
 
     public void OpenGallery1()
     {
-
-
-        final CharSequence options[] = new CharSequence[]
+/*        final CharSequence options[] = new CharSequence[]
                 {
                         "Gallery",
                         "Camera"
@@ -356,14 +354,19 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
                 }
                 if (which == 1)
                 {
-                    /*Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, TAKE_PICTURE1);*/
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, TAKE_PICTURE1);
                 }
             }
         });
 
         AlertDialog alert = builder.create();
-        alert.show();
+        alert.show();*/
+
+        Intent galleryIntent = new Intent();
+        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, gallerypick2);
 
     }
 

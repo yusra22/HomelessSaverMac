@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.paypal.android.sdk.payments.PayPalAuthorization;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -45,6 +46,8 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class paypaltest extends AppCompatActivity implements View.OnClickListener {
@@ -67,6 +70,9 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
     private Button button10,button20,button30,button40,button50,button100;
     TextView test;
     String PostKey;
+    String AgencyName;
+
+    private String saveCurrentDate, saveCurrentTime, postRandomName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +118,16 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
         getSupportActionBar().setTitle("Donate");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        Calendar calFordDate = Calendar.getInstance();
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
+        saveCurrentDate = currentDate.format(calFordDate.getTime());
+
+        Calendar calFordTime = Calendar.getInstance();
+        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:");
+        saveCurrentTime = currentTime.format(calFordTime.getTime());
+
+        postRandomName = saveCurrentDate + saveCurrentTime;
 
 
         //Toast.makeText(this, b, Toast.LENGTH_LONG).show();
@@ -193,14 +209,27 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
 
                         if(paymentResponse.equals("approved"))
                         {
+
+                            PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+
+                            System.out.println(confirm.toJSONObject().toString(4));
+                            System.out.println(confirm.getPayment().toJSONObject().toString(4));
+
+
+                            String payid = confirm.toJSONObject().getJSONObject("response").getString("id");
+
                             Toast.makeText(getApplicationContext(), "Payment Successful", Toast.LENGTH_LONG).show();
 
                             HashMap paymentdetails = new HashMap();
-                            paymentdetails.put("cpostid",PostKey);
+                            paymentdetails.put("donateTo",AgencyName);
+                            paymentdetails.put("transactionID", payid);
+                            paymentdetails.put("date", saveCurrentDate);
+                            paymentdetails.put("time", saveCurrentTime);
                             paymentdetails.put("donatePaid", true);
+                            paymentdetails.put("donationAmount", totaldonate);
                             paymentdetails.put("uid", currentUserid);
 
-                            PaymentRefs.child(currentUserid).setValue(paymentdetails);
+                            PaymentRefs.child(postRandomName+payid).setValue(paymentdetails);
                         }
 
                     } catch (JSONException e) {
@@ -227,7 +256,7 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
 
         if(id == android.R.id.home)
         {
-            //SendUserToMainActivity();
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -256,6 +285,8 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
                 holder.setProductstatus(model.getTags());
 
                 PostKey = getSnapshots().getSnapshot(position).getKey();
+
+                AgencyName = getSnapshots().get(position).getAgencyname();
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

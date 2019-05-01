@@ -45,6 +45,8 @@ public class HomelessFavFragment extends Fragment {
     private FirebaseAuth mAuth;
     private String currentUserid;
 
+    private LinearLayout layout;
+
     public HomelessFavFragment() {
         // Required empty public constructor
     }
@@ -72,7 +74,7 @@ public class HomelessFavFragment extends Fragment {
 
         BookmarkRef = FirebaseDatabase.getInstance().getReference().child("BookmarksHomeless");
 
-        LinearLayout layout = (LinearLayout) HomFavView.findViewById(R.id.my_layout_bookmark);
+        layout = (LinearLayout) HomFavView.findViewById(R.id.my_layout_bookmark);
         layout.setVisibility(View.VISIBLE);
 
 
@@ -90,7 +92,7 @@ public class HomelessFavFragment extends Fragment {
 
         } else {
 
-            Toast.makeText(getContext(), "Successfully Masuk Bookmark ", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Successfully Masuk Bookmark ", Toast.LENGTH_SHORT).show();
 
             Query SortBookmarkPost = BookmarksRef.orderByChild(currentUserid);
 
@@ -124,7 +126,7 @@ public class HomelessFavFragment extends Fragment {
                                     holder.date.setText(date);
 
 
-                                    LinearLayout layout = (LinearLayout) HomFavView.findViewById(R.id.my_layout_bookmark);
+                                    layout = (LinearLayout) HomFavView.findViewById(R.id.my_layout_bookmark);
                                     layout.setVisibility(View.GONE);
 
                                 }
@@ -171,6 +173,9 @@ public class HomelessFavFragment extends Fragment {
 
                                     BookmarkRef.child(currentUserid).child(PostKey).child(currentUserid).removeValue();
                                     Toast.makeText(getContext(), "Favourites delete successfully ", Toast.LENGTH_SHORT).show();
+
+                                    layout = (LinearLayout) HomFavView.findViewById(R.id.my_layout_bookmark);
+                                    layout.setVisibility(View.VISIBLE);
                                 }
                             });
 

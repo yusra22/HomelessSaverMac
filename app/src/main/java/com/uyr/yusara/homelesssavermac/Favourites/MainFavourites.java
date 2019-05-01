@@ -26,8 +26,11 @@ public class MainFavourites extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_favourites);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.find_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Services Available");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -63,15 +66,17 @@ public class MainFavourites extends AppCompatActivity {
         //getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            //startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-            return true;
+        if(id == android.R.id.home)
+        {
+            finish();
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
