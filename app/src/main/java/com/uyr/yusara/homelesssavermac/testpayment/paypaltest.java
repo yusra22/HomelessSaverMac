@@ -3,6 +3,7 @@ package com.uyr.yusara.homelesssavermac.testpayment;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -74,6 +76,8 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
 
     private String saveCurrentDate, saveCurrentTime, postRandomName;
 
+    LinearLayout recyclerviewresult;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +102,8 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
         button100 = (Button) findViewById(R.id.button100);
 
         test = (TextView)findViewById(R.id.test);
+
+        recyclerviewresult = (LinearLayout) findViewById(R.id.recyclerviewresult);
 
         Intent intent = new Intent(this, PayPalService.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
@@ -167,6 +173,9 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
         button50.setEnabled(false);
         button100.setEnabled(false);
 
+        //Close Keyboard
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
     }
 
     private int PAYPAL_REQUEST_CODE = 1;
@@ -222,10 +231,10 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
 
                             HashMap paymentdetails = new HashMap();
                             paymentdetails.put("donateTo",AgencyName);
+                            paymentdetails.put("donateToid",PostKey);
                             paymentdetails.put("transactionID", payid);
                             paymentdetails.put("date", saveCurrentDate);
                             paymentdetails.put("time", saveCurrentTime);
-                            paymentdetails.put("donatePaid", true);
                             paymentdetails.put("donationAmount", totaldonate);
                             paymentdetails.put("uid", currentUserid);
 
@@ -261,7 +270,7 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
         return super.onOptionsItemSelected(item);
     }
 
-    private void SearchHouseType(String searchBoxInput) {
+    private void SearchCommunity(String searchBoxInput) {
 
         String query = searchBoxInput.toLowerCase();
 
@@ -292,6 +301,9 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
                     @Override
                     public void onClick(View view)
                     {
+
+                        recyclerviewresult.setBackgroundColor(Color.parseColor("#0bcce6"));
+
                         mPayment.setEnabled(true);
                         button10.setEnabled(true);
                         button20.setEnabled(true);
@@ -375,31 +387,80 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
                 break;
             case R.id.search_community_button:
                 String searchBoxInput = SearchInputText.getText().toString();
-                SearchHouseType(searchBoxInput);
+                SearchCommunity(searchBoxInput);
                 break;
             case R.id.button10:
                 String button1 = button10.getContentDescription().toString().trim();
                 test.setText(button1);
+
+                button10.setBackgroundColor(Color.parseColor("#0bcce6"));
+                button20.setBackgroundColor(Color.parseColor("#ffffff"));
+                button30.setBackgroundColor(Color.parseColor("#ffffff"));
+                button40.setBackgroundColor(Color.parseColor("#ffffff"));
+                button50.setBackgroundColor(Color.parseColor("#ffffff"));
+                button100.setBackgroundColor(Color.parseColor("#ffffff"));
+
                 break;
             case R.id.button20:
                 String button2 = button20.getContentDescription().toString().trim();
                 test.setText(button2);
+
+                button10.setBackgroundColor(Color.parseColor("#ffffff"));
+                button20.setBackgroundColor(Color.parseColor("#0bcce6"));
+                button30.setBackgroundColor(Color.parseColor("#ffffff"));
+                button40.setBackgroundColor(Color.parseColor("#ffffff"));
+                button50.setBackgroundColor(Color.parseColor("#ffffff"));
+                button100.setBackgroundColor(Color.parseColor("#ffffff"));
+
+
                 break;
             case R.id.button30:
                 String button3 = button30.getContentDescription().toString().trim();
                 test.setText(button3);
+
+                button10.setBackgroundColor(Color.parseColor("#ffffff"));
+                button20.setBackgroundColor(Color.parseColor("#ffffff"));
+                button30.setBackgroundColor(Color.parseColor("#0bcce6"));
+                button40.setBackgroundColor(Color.parseColor("#ffffff"));
+                button50.setBackgroundColor(Color.parseColor("#ffffff"));
+                button100.setBackgroundColor(Color.parseColor("#ffffff"));
+
                 break;
             case R.id.button40:
                 String button4 = button40.getContentDescription().toString().trim();
                 test.setText(button4);
+
+                button10.setBackgroundColor(Color.parseColor("#ffffff"));
+                button20.setBackgroundColor(Color.parseColor("#ffffff"));
+                button30.setBackgroundColor(Color.parseColor("#ffffff"));
+                button40.setBackgroundColor(Color.parseColor("#0bcce6"));
+                button50.setBackgroundColor(Color.parseColor("#ffffff"));
+                button100.setBackgroundColor(Color.parseColor("#ffffff"));
+
                 break;
             case R.id.button50:
                 String button5 = button50.getContentDescription().toString().trim();
                 test.setText(button5);
+
+                button10.setBackgroundColor(Color.parseColor("#ffffff"));
+                button20.setBackgroundColor(Color.parseColor("#ffffff"));
+                button30.setBackgroundColor(Color.parseColor("#ffffff"));
+                button40.setBackgroundColor(Color.parseColor("#ffffff"));
+                button50.setBackgroundColor(Color.parseColor("#0bcce6"));
+                button100.setBackgroundColor(Color.parseColor("#ffffff"));
+
                 break;
             case R.id.button100:
-                String button10 = button100.getContentDescription().toString().trim();
-                test.setText(button10);
+                String button10dua = button100.getContentDescription().toString().trim();
+                test.setText(button10dua);
+
+                button10.setBackgroundColor(Color.parseColor("#ffffff"));
+                button20.setBackgroundColor(Color.parseColor("#ffffff"));
+                button30.setBackgroundColor(Color.parseColor("#ffffff"));
+                button40.setBackgroundColor(Color.parseColor("#ffffff"));
+                button50.setBackgroundColor(Color.parseColor("#ffffff"));
+                button100.setBackgroundColor(Color.parseColor("#0bcce6"));
+
                 break;
         }
 

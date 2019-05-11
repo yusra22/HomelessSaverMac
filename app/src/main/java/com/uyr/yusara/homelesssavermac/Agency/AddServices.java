@@ -5,9 +5,11 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.strictmode.CleartextNetworkViolation;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +31,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,6 +46,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.msoftworks.easynotify.EasyNotify;
+import com.uyr.yusara.homelesssavermac.Homeless.AddHomelessInfo;
 import com.uyr.yusara.homelesssavermac.MainActivity;
 import com.uyr.yusara.homelesssavermac.Modal.Notification;
 import com.uyr.yusara.homelesssavermac.R;
@@ -81,6 +91,10 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
     String format;
     TimePickerDialog timePickerDialog;
     DatePickerDialog datePickerDialog;
+
+    // Add AutoComplete
+    private int PLACE_AUTOCOMPLETE_REQUEST_CODE = 10;
+    private String TAG = "Location Check";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +155,7 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
         findViewById(R.id.edit_selectenddate).setOnClickListener(this);
         findViewById(R.id.edit_starttime).setOnClickListener(this);
         findViewById(R.id.edit_endtime).setOnClickListener(this);
+        findViewById(R.id.edit_location).setOnClickListener(this);
 
         //Custom Toolbar
         mToolbar = (Toolbar) findViewById(R.id.find_toolbar);
@@ -230,10 +245,9 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
 
     private void SendUserToMainActivity()
     {
-        FirebaseAuth mAuth;
-        mAuth = FirebaseAuth.getInstance();
-        final FirebaseUser user = mAuth.getCurrentUser();
-        String uid = user.getUid();
+        finish();
+        startActivity(new Intent(this, MainActivity.class));
+
     }
 
     private void scheduletype()
@@ -290,6 +304,26 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
 
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                post_location.setText(place.getAddress());
+                Log.i(TAG, "Place: " + place.getAddress());
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                // TODO: Handle the error.
+                Log.i(TAG, status.getStatusMessage());
+
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
     }
 
     public void UpdateBtnPost()
@@ -437,12 +471,15 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
                                     }, 2000);
 
 
-                                    final HashMap postnotification = new HashMap();
+/*                                    final HashMap postnotification = new HashMap();
                                     postnotification.put("from", currentUserid);
                                     postnotification.put("type", "new post noti");
-                                    SendUserToMainActivity();
 
-                                    NotisRef.child(currentUserid).setValue(postnotification);
+
+                                    NotisRef.child(currentUserid).setValue(postnotification);*/
+
+                                    callEasyNotify();
+                                    SendUserToMainActivity();
 
 
                                     if(scheduletype.equals("Date Range"))
@@ -503,6 +540,42 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
+        });
+    }
+
+    private void AutoCompleteMap() {
+
+        try {
+            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
+                    .build(AddServices.this); // notice CrateRide.this
+            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void callEasyNotify() {
+        EasyNotify easyNotify = new EasyNotify();
+        easyNotify.setAPI_KEY("AAAA3fk9DIM:APA91bGEYuo47DI2_oRJR7hL8u58nj5WheDVqrBi989rSKXSrQz8Qf9spdbOeS-hTIDPTfRreD7xVdRj_omLhMQ3ETuJ_E_WgV9ctgwwPBSC4rpK64ku0z006WFlg6xPf9PgwKAyrqPm");
+        easyNotify.setNtitle("Checkout New Community");
+        easyNotify.setNbody( agencyname + " has been added to the list");
+        easyNotify.setNtopic("news");
+        easyNotify.setNclick_action("mainActivity");
+        easyNotify.setNsound("default");
+        easyNotify.nPush();
+        easyNotify.setEasyNotifyListener(new EasyNotify.EasyNotifyListener() {
+            @Override
+            public void onNotifySuccess(String s) {
+                Toast.makeText(AddServices.this, "success" + s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNotifyError(String s) {
+                Toast.makeText(AddServices.this, "error" + s, Toast.LENGTH_SHORT).show();
+            }
+
         });
     }
 
@@ -593,6 +666,9 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
                     }
                 }, hour, minute, true);
                 timePickerDialog.show();
+                break;
+            case R.id.edit_location:
+                AutoCompleteMap();
                 break;
         }
     }

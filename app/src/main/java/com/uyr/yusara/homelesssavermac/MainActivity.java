@@ -1,9 +1,13 @@
 package com.uyr.yusara.homelesssavermac;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.text.Layout;
 import android.view.View;
@@ -25,6 +29,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,6 +43,7 @@ import com.uyr.yusara.homelesssavermac.Agency.Agency_post;
 import com.uyr.yusara.homelesssavermac.Agency.MyAgencyPost;
 import com.uyr.yusara.homelesssavermac.Favourites.MainFavourites;
 import com.uyr.yusara.homelesssavermac.Homeless.AddHomelessInfo;
+import com.uyr.yusara.homelesssavermac.Homeless.Homeless_post;
 import com.uyr.yusara.homelesssavermac.Homeless.Myhomelesspost;
 import com.uyr.yusara.homelesssavermac.ImageSliderTest.imageslidertest;
 import com.uyr.yusara.homelesssavermac.Menu.Login;
@@ -62,12 +68,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private CardView homelessid,communityid,mapviewid,bookmarkid,aboutid;
 
+    private static final int  permsRequestCode = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        String[] perms = {Manifest.permission.CAMERA,
+                            Manifest.permission.ACCESS_FINE_LOCATION};
+
+        for (int i = 0; i < perms.length; i++) {
+            if(ContextCompat.checkSelfPermission(this,perms[i])!=PackageManager.PERMISSION_GRANTED)
+            {
+                ActivityCompat.requestPermissions(this,perms, permsRequestCode);
+                break;
+            }
+        }
 
 /*        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -228,58 +247,76 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent home = new Intent(MainActivity.this, MainActivity.class);
             startActivity(home);
             finish();
+            Animatoo.animateInAndOut(MainActivity.this);
 
 
         } else if (id == R.id.nav_profile) {
 
             Intent profile = new Intent(MainActivity.this, Profile.class);
             startActivity(profile);
+            Animatoo.animateInAndOut(MainActivity.this);
 
         } else if (id == R.id.add_services) {
 
             Intent profile = new Intent(MainActivity.this, AddServices.class);
             startActivity(profile);
+            Animatoo.animateInAndOut(MainActivity.this);
 
         } else if (id == R.id.add_reports) {
 
             Intent addhomelessinfo = new Intent(MainActivity.this, AddHomelessInfo.class);
             startActivity(addhomelessinfo);
+            Animatoo.animateInAndOut(MainActivity.this);
 
         }else if (id == R.id.nav_peopleads){
 
             Intent post = new Intent(MainActivity.this, Myhomelesspost.class);
             startActivity(post);
+            Animatoo.animateInAndOut(MainActivity.this);
 
         }else if (id == R.id.nav_find) {
 
-            Intent post = new Intent(MainActivity.this, paypaltest.class);
-            startActivity(post);
+            Intent postcrisis = new Intent(MainActivity.this, CrisisLine.class);
+            startActivity(postcrisis);
+            Animatoo.animateInAndOut(MainActivity.this);
 
         }else if (id == R.id.nav_donation) {
 
-        Intent post = new Intent(MainActivity.this, paypaltest.class);
-        startActivity(post);
+            Intent post = new Intent(MainActivity.this, paypaltest.class);
+            startActivity(post);
+            Animatoo.animateInAndOut(MainActivity.this);
 
 
         } else if (id == R.id.nav_communityads) {
 
             Intent find = new Intent(MainActivity.this,  MyAgencyPost.class);
             startActivity(find);
+            Animatoo.animateInAndOut(MainActivity.this);
         } else if (id == R.id.nav_news) {
 
-/*            Intent news = new Intent(MainActivity.this, NewsMainActivity.class);
-            startActivity(news);*/
+            Intent feedback = new Intent(MainActivity.this, Feedback.class);
+            startActivity(feedback);
+            Animatoo.animateInAndOut(MainActivity.this);
 
         } else if (id == R.id.nav_share) {
 
-            Intent news = new Intent(MainActivity.this, Notification.class);
-            startActivity(news);
+            /*Intent news = new Intent(MainActivity.this, Notification.class);
+            startActivity(news);*/
+
+            Intent myIntent = new Intent(Intent.ACTION_SEND);
+            myIntent.setType("text/plain");
+            String shareBody = "Homeless Saver.Now available at playstore!";
+            String shareSub = "Now available at playstore!";
+            myIntent.putExtra(Intent.EXTRA_SUBJECT,shareBody);
+            myIntent.putExtra(Intent.EXTRA_TEXT,shareBody);
+            startActivity(Intent.createChooser(myIntent, "Share Using"));
 
         }else if (id == R.id.nav_logout) {
 
             FirebaseAuth.getInstance().signOut();
             finish();
             startActivity(new Intent(this, Login.class));
+            Animatoo.animateFade(MainActivity.this);
 
         }
 
@@ -308,6 +345,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 MyDialog.cancel();
+
             }
         });
 
@@ -321,23 +359,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             case R.id.homelessid:
 
-/*                Intent fav = new Intent(MainActivity.this, MainFavourites.class);
-                startActivity(fav);*/
+                Intent posth = new Intent(MainActivity.this, Homeless_post.class);
+                startActivity(posth);
+                Animatoo.animateZoom(MainActivity.this);
+
                 break;
             case R.id.communityid:
 
                 Intent post = new Intent(MainActivity.this, Agency_post.class);
                 startActivity(post);
+                Animatoo.animateZoom(MainActivity.this);
                 break;
             case R.id.mapviewid:
 
                 Intent test = new Intent(MainActivity.this, TestMapsActivity.class);
                 startActivity(test);
+                Animatoo.animateZoom( MainActivity.this);
                 break;
             case R.id.bookmarkid:
 
                 Intent fav = new Intent(MainActivity.this, MainFavourites.class);
                 startActivity(fav);
+                Animatoo.animateZoom(MainActivity.this);
                 break;
             case R.id.aboutid:
 

@@ -19,11 +19,12 @@
         android:weightSum="3">
 
         <TextView
+            android:id="@+id/titleid"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_weight="2"
-            android:text="Homeless Details"
+            android:text="Details"
             android:textColor="#444"
             android:textSize="18dp"
             android:textStyle="bold" />

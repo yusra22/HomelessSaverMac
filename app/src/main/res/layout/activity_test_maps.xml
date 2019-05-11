@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".News.DetailsActivity">
+    tools:context=".TestMapsActivity">
+
+
 
     <fragment
         android:id="@+id/map"
@@ -17,42 +19,46 @@
         android:layout_marginTop="0dp"
         tools:context=".TestMapsActivity" />
 
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        >
+    <include
+        android:id="@+id/find_toolbar"
+        layout="@layout/app_bar_layout">
 
-        <lib.kingja.switchbutton.SwitchMultiButton
-            android:id="@+id/switchmultibutton2"
-            android:background="@color/colorPrimary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="14dp"
-            android:paddingBottom="4dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="4dp"
-            app:selectedColor="@color/black"
-            app:selectedTab="0"
-            app:strokeRadius="5dp"
-            app:strokeWidth="1dp"
-            app:textSize="14sp"/>
-
-    </android.support.v7.widget.Toolbar>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="65dp"
-        android:layout_marginRight="10dp"
-        android:layout_gravity="top|end"
-        android:backgroundTint="@color/tinder"
-        android:src="@drawable/cio_ic_mastercard"/>
+    </include>
 
     <include layout="@layout/bottom_sheet" />
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/fab3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        app:fab_labelStyle="@style/menu_labels_style"
+        app:fab_addButtonColorNormal="@color/colorAccent"
+        app:fab_colorPressed="@color/white"
+        >
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fab_colorNormal="@color/white"
+        app:fab_colorPressed="@color/colorPrimary"
+        app:fab_size="mini"
+        app:fab_icon="@drawable/peopleresize"
+        android:id="@+id/fab_action1"
+        app:fab_title="Community" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/white"
+            app:fab_colorPressed="@color/colorPrimary"
+            app:fab_size="mini"
+            app:fab_icon="@drawable/rsz_homeless"
+            android:id="@+id/fab_action2"
+            app:fab_title="Homeless"
+            />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </android.support.design.widget.CoordinatorLayout>
 

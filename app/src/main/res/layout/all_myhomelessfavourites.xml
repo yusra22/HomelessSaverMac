@@ -103,7 +103,7 @@
                         android:id="@+id/imageView4"
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:src="@drawable/ic_gender" />
+                        android:src="@drawable/ic_gender2" />
 
                     <TextView
                         android:id="@+id/post_gender"

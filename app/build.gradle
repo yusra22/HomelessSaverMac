@@ -52,6 +52,7 @@ dependencies {
 
     //slider
     implementation 'com.github.therealshabi:AutoImageFlipper:1.4.1'
+    implementation 'com.github.ApendIr:slider:1.0'
 
     //circular circle
     implementation 'com.github.Hitomis:CircleMenu:v1.1.0'
@@ -63,14 +64,20 @@ dependencies {
     //Volley
     implementation 'com.android.volley:volley:1.1.0'
 
-    //Map Toolbar
-    implementation 'lib.kingja.switchbutton:switchbutton:1.1.8'
-
     //Paypal integration
     implementation 'com.paypal.sdk:paypal-android-sdk:2.15.3'
 
     //splash cantik
     implementation 'com.github.ViksaaSkool:AwesomeSplash:v1.0.0'
+
+    implementation 'com.squareup.okhttp3:okhttp:3.9.0'
+
+    implementation 'com.github.iammannan:EasyNotifyLibProject:1.0'
+
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
+
+    //Transition
+    implementation 'com.github.mohammadatif:Animatoo:master'
 }
 apply plugin: 'com.google.gms.google-services'
 // Work around

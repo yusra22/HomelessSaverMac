@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.animation.Animation;
@@ -17,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -161,6 +163,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         Intent intent = new Intent(Login.this, MainActivity.class);
         startActivity(intent);
         finish();
+        Animatoo.animateFade(Login.this);
 
 /*        xx.addValueEventListener(new ValueEventListener() {
             @Override
@@ -206,12 +209,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.textViewSignup:
                 startActivity(new Intent(this, Register2.class));
+                Animatoo.animateFade(Login.this);
                 break;
             case R.id.buttonLogin:
                 userLogin();
                 break;
             case R.id.textResetPassword:
                 startActivity(new Intent(this, ResetPasswordActivity.class));
+                Animatoo.animateFade(Login.this);
                 break;
         }
 

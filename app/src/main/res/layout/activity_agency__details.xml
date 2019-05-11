@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/find_toolbar"
-        layout="@layout/app_bar_layout">
+        layout="@layout/app_bar_layout2">
 
     </include>
 
@@ -64,6 +64,31 @@
                 android:text="Property Type :"
                 android:textSize="18sp"
                 android:textStyle="bold" />-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/border_round"
+                    android:paddingTop="20dp">
+
+
+                    <TextView
+                        android:id="@+id/text_donation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@null"
+                        android:hint="Donation Receive: "
+                        android:textAlignment="center"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -417,32 +442,6 @@
                         android:layout_marginBottom="3dp"
                         android:textSize="16dp" />
 
-                </LinearLayout>
-
-                <LinearLayout android:id="@+id/layout_allcomment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_post" />
-
-                    <TextView
-                        android:id="@+id/btncomment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="18dp"
-                        android:text="Show all comments"
-                        android:textAlignment="center"
-                        android:textColor="@color/blue" />
                 </LinearLayout>
 
                 <ProgressBar

@@ -1,6 +1,10 @@
 package com.uyr.yusara.homelesssavermac.Menu;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,11 +18,18 @@ import com.viksaa.sssplash.lib.model.ConfigSplash;
 
 public class SplashScreen extends AwesomeSplash {
 
-/*    @Override
+    private static final int requestCode = 1;
+
+/*
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-    }*/
+
+
+
+    }
+*/
 
     @Override
     public void initSplash(ConfigSplash configSplash) {
@@ -42,7 +53,7 @@ public class SplashScreen extends AwesomeSplash {
         configSplash.setTitleTextColor(R.color.white);
         configSplash.setTitleTextSize(20f);
         configSplash.setAnimTitleDuration(2000);
-        configSplash.setAnimTitleTechnique(Techniques.Wave);
+        configSplash.setAnimTitleTechnique(Techniques.BounceInLeft);
 
 
     }

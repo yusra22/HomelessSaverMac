@@ -50,7 +50,7 @@
                         android:layout_width="20dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@drawable/wishlist" />
+                        android:src="@drawable/ic_email" />
 
                     <TextView
                         android:id="@+id/post_product_price"

@@ -62,11 +62,12 @@
 
             <ImageButton
                 android:id="@+id/search_community_button"
-                android:layout_width="40dp"
-                android:layout_height="35dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/textView2"
                 android:layout_toEndOf="@+id/search_box_input"
-                android:background="@drawable/search" />
+                android:background="@drawable/search_btn"
+                android:backgroundTint="@color/black"/>
         </LinearLayout>
 
     </RelativeLayout>
@@ -81,7 +82,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/search_result_list"
-            android:background="@drawable/shadow"
+            android:background="@drawable/border_round"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"

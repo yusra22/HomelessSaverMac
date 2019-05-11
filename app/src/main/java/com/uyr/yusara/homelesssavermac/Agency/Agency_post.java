@@ -13,14 +13,18 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,6 +55,9 @@ public class Agency_post extends AppCompatActivity {
 
     private MediaPlayer mp;
 
+    private SearchView searchView;
+    private TextView alllist;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +77,32 @@ public class Agency_post extends AppCompatActivity {
         LikesRef = FirebaseDatabase.getInstance().getReference().child("Likes");
         DisLikesRef = FirebaseDatabase.getInstance().getReference().child("DisLikes");
 
+        searchView = (SearchView)findViewById(R.id.search);
+        alllist = (TextView)findViewById(R.id.alllist);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                String searchBoxInput = searchView.getQuery().toString();
+                searchagencyname(searchBoxInput);
+                return false;
+            }
+        });
+
+        alllist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                allpost();
+            }
+        });
+
         mToolbar = (Toolbar) findViewById(R.id.find_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Services Available");
@@ -84,7 +117,7 @@ public class Agency_post extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
                 int id = menuItem.getItemId();
-                if(id == R.id.navigation_homeless)
+                if(id == R.id.navigation_food)
                 {
                     food();
                 }
@@ -92,11 +125,34 @@ public class Agency_post extends AppCompatActivity {
                 {
                     shelter();
                 }
+                if(id == R.id.navigation_health)
+                {
+                    health();
+                }
+
+                if(id == R.id.navigation_resource)
+                {
+                    resource();
+                }
+
 
                 return false;
             }
         });
     }
+
+
+/*    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.navigation_homeless, menu);
+        MenuItem item = menu.findItem(R.id.navigation_community);
+        SearchView searchView = (SearchView)item.getActionView();
+
+
+        return super.onCreateOptionsMenu(menu);
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
@@ -126,7 +182,7 @@ public class Agency_post extends AppCompatActivity {
                 final String PostKey = getRef(position).getKey();
 
                 holder.productname.setText(model.getAgencyname());
-                holder.productprice.setText(model.getCategories());
+                holder.productprice.setText(model.getEmail());
                 holder.productdate.setText(model.getDate());
                 holder.productstatus.setText(model.getTags());
                 holder.productnumber.setText(model.getOfficenumber());
@@ -148,6 +204,7 @@ public class Agency_post extends AppCompatActivity {
                         click_post.putExtra("PostKey", PostKey);
                         //click_post.putExtra("Agencyname", Agencyname);
                         startActivity(click_post);
+                        Animatoo.animateZoom(Agency_post.this);
 
                     }
                 });
@@ -261,7 +318,7 @@ public class Agency_post extends AppCompatActivity {
                 final String PostKey = getRef(position).getKey();
 
                 holder.productname.setText(model.getAgencyname());
-                holder.productprice.setText(model.getCategories());
+                holder.productprice.setText(model.getEmail());
                 holder.productdate.setText(model.getDate());
                 holder.productstatus.setText(model.getTags());
                 holder.productnumber.setText(model.getOfficenumber());
@@ -283,6 +340,420 @@ public class Agency_post extends AppCompatActivity {
                         click_post.putExtra("PostKey", PostKey);
                         //click_post.putExtra("Agencyname", Agencyname);
                         startActivity(click_post);
+                        Animatoo.animateZoom(Agency_post.this);
+
+                    }
+                });
+
+                holder.setLikeButtonStatus(PostKey);
+                //holder.setDisLikeButtonStatus(PostKey);
+
+                holder.layout_likes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        LikeChecker = true;
+
+                        LikesRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                if(LikeChecker.equals(true))
+                                {
+                                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                                    {
+                                        LikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        LikeChecker = false;
+                                        mp.start();
+                                    }
+                                    else {
+
+                                        LikesRef.child(PostKey).child(currentUserid).setValue(true);
+                                        DisLikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        LikeChecker = false;
+                                        mp.start();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+
+                            }
+                        });
+                    }
+                });
+
+                holder.layout_dislikes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        DislikeChecker = true;
+
+                        DisLikesRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                if(DislikeChecker.equals(true))
+                                {
+                                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                                    {
+                                        DisLikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        DislikeChecker = false;
+                                        mp.start();
+                                    }
+                                    else {
+
+                                        DisLikesRef.child(PostKey).child(currentUserid).setValue(true);
+                                        LikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        DislikeChecker = false;
+                                        mp.start();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+
+                            }
+                        });
+                    }
+                });
+
+            }
+
+            @NonNull
+            @Override
+            public Agency_post.PostsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
+            {
+                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.all_post_layout_agent2, viewGroup, false);
+                Agency_post.PostsViewHolder viewHolder = new PostsViewHolder(view);
+
+                return viewHolder;
+            }
+        };
+
+        postList.setAdapter(adapter);
+        adapter.startListening();
+
+    }
+
+    public void health()
+    {
+        Query SortAgentPost = Postsref.orderByChild("service").startAt("Health").endAt("Health" + "\uf8ff");
+
+        FirebaseRecyclerOptions<Posts> options = new FirebaseRecyclerOptions.Builder<Posts>().setQuery(SortAgentPost, Posts.class).build();
+
+        FirebaseRecyclerAdapter<Posts,PostsViewHolder> adapter = new FirebaseRecyclerAdapter<Posts, Agency_post.PostsViewHolder>(options)
+        {
+            @Override
+            protected void onBindViewHolder(@NonNull Agency_post.PostsViewHolder holder, final int position, @NonNull Posts model)
+            {
+
+                final String PostKey = getRef(position).getKey();
+
+                holder.productname.setText(model.getAgencyname());
+                holder.productprice.setText(model.getEmail());
+                holder.productdate.setText(model.getDate());
+                holder.productstatus.setText(model.getTags());
+                holder.productnumber.setText(model.getOfficenumber());
+                //Glide.with(MyAgencyPost.this).load(model.getPostImage()).into(holder.productimage);
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        //Untuk dpat id user
+                        //String PostKey = getSnapshots().get(position).getUid();
+
+                        // Untuk dpat Id dalam table post
+                        String PostKey = getSnapshots().getSnapshot(position).getKey();
+                        String Agencyname = getSnapshots().get(position).getAgencyname();
+
+
+                        Intent click_post = new Intent(Agency_post.this,Agency_Details.class);
+                        click_post.putExtra("PostKey", PostKey);
+                        //click_post.putExtra("Agencyname", Agencyname);
+                        startActivity(click_post);
+                        Animatoo.animateZoom(Agency_post.this);
+
+                    }
+                });
+
+                holder.setLikeButtonStatus(PostKey);
+                //holder.setDisLikeButtonStatus(PostKey);
+
+                holder.layout_likes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        LikeChecker = true;
+
+                        LikesRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                if(LikeChecker.equals(true))
+                                {
+                                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                                    {
+                                        LikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        LikeChecker = false;
+                                        mp.start();
+                                    }
+                                    else {
+
+                                        LikesRef.child(PostKey).child(currentUserid).setValue(true);
+                                        DisLikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        LikeChecker = false;
+                                        mp.start();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+
+                            }
+                        });
+                    }
+                });
+
+                holder.layout_dislikes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        DislikeChecker = true;
+
+                        DisLikesRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                if(DislikeChecker.equals(true))
+                                {
+                                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                                    {
+                                        DisLikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        DislikeChecker = false;
+                                        mp.start();
+                                    }
+                                    else {
+
+                                        DisLikesRef.child(PostKey).child(currentUserid).setValue(true);
+                                        LikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        DislikeChecker = false;
+                                        mp.start();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+
+                            }
+                        });
+                    }
+                });
+
+            }
+
+            @NonNull
+            @Override
+            public Agency_post.PostsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
+            {
+                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.all_post_layout_agent2, viewGroup, false);
+                Agency_post.PostsViewHolder viewHolder = new PostsViewHolder(view);
+
+                return viewHolder;
+            }
+        };
+
+        postList.setAdapter(adapter);
+        adapter.startListening();
+
+    }
+
+    public void resource()
+    {
+        Query SortAgentPost = Postsref.orderByChild("service").startAt("Resource").endAt("Resource" + "\uf8ff");
+
+        FirebaseRecyclerOptions<Posts> options = new FirebaseRecyclerOptions.Builder<Posts>().setQuery(SortAgentPost, Posts.class).build();
+
+        FirebaseRecyclerAdapter<Posts,PostsViewHolder> adapter = new FirebaseRecyclerAdapter<Posts, Agency_post.PostsViewHolder>(options)
+        {
+            @Override
+            protected void onBindViewHolder(@NonNull Agency_post.PostsViewHolder holder, final int position, @NonNull Posts model)
+            {
+
+                final String PostKey = getRef(position).getKey();
+
+                holder.productname.setText(model.getAgencyname());
+                holder.productprice.setText(model.getEmail());
+                holder.productdate.setText(model.getDate());
+                holder.productstatus.setText(model.getTags());
+                holder.productnumber.setText(model.getOfficenumber());
+                //Glide.with(MyAgencyPost.this).load(model.getPostImage()).into(holder.productimage);
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        //Untuk dpat id user
+                        //String PostKey = getSnapshots().get(position).getUid();
+
+                        // Untuk dpat Id dalam table post
+                        String PostKey = getSnapshots().getSnapshot(position).getKey();
+                        String Agencyname = getSnapshots().get(position).getAgencyname();
+
+
+                        Intent click_post = new Intent(Agency_post.this,Agency_Details.class);
+                        click_post.putExtra("PostKey", PostKey);
+                        //click_post.putExtra("Agencyname", Agencyname);
+                        startActivity(click_post);
+                        Animatoo.animateZoom(Agency_post.this);
+
+                    }
+                });
+
+                holder.setLikeButtonStatus(PostKey);
+                //holder.setDisLikeButtonStatus(PostKey);
+
+                holder.layout_likes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        LikeChecker = true;
+
+                        LikesRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                if(LikeChecker.equals(true))
+                                {
+                                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                                    {
+                                        LikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        LikeChecker = false;
+                                        mp.start();
+                                    }
+                                    else {
+
+                                        LikesRef.child(PostKey).child(currentUserid).setValue(true);
+                                        DisLikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        LikeChecker = false;
+                                        mp.start();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+
+                            }
+                        });
+                    }
+                });
+
+                holder.layout_dislikes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        DislikeChecker = true;
+
+                        DisLikesRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                if(DislikeChecker.equals(true))
+                                {
+                                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                                    {
+                                        DisLikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        DislikeChecker = false;
+                                        mp.start();
+                                    }
+                                    else {
+
+                                        DisLikesRef.child(PostKey).child(currentUserid).setValue(true);
+                                        LikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        DislikeChecker = false;
+                                        mp.start();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+
+                            }
+                        });
+                    }
+                });
+
+            }
+
+            @NonNull
+            @Override
+            public Agency_post.PostsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
+            {
+                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.all_post_layout_agent2, viewGroup, false);
+                Agency_post.PostsViewHolder viewHolder = new PostsViewHolder(view);
+
+                return viewHolder;
+            }
+        };
+
+        postList.setAdapter(adapter);
+        adapter.startListening();
+
+    }
+
+    public void searchagencyname(String searchBoxInput)
+    {
+        String query = searchBoxInput.toLowerCase();
+
+        Query SortAgentPost = Postsref.orderByChild("agencyname").startAt(query).endAt(query + "\uf8ff");
+
+        FirebaseRecyclerOptions<Posts> options = new FirebaseRecyclerOptions.Builder<Posts>().setQuery(SortAgentPost, Posts.class).build();
+
+        FirebaseRecyclerAdapter<Posts,PostsViewHolder> adapter = new FirebaseRecyclerAdapter<Posts, Agency_post.PostsViewHolder>(options)
+        {
+            @Override
+            protected void onBindViewHolder(@NonNull Agency_post.PostsViewHolder holder, final int position, @NonNull Posts model)
+            {
+
+                final String PostKey = getRef(position).getKey();
+
+                holder.productname.setText(model.getAgencyname());
+                holder.productprice.setText(model.getEmail());
+                holder.productdate.setText(model.getDate());
+                holder.productstatus.setText(model.getTags());
+                holder.productnumber.setText(model.getOfficenumber());
+                //Glide.with(MyAgencyPost.this).load(model.getPostImage()).into(holder.productimage);
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        //Untuk dpat id user
+                        //String PostKey = getSnapshots().get(position).getUid();
+
+                        // Untuk dpat Id dalam table post
+                        String PostKey = getSnapshots().getSnapshot(position).getKey();
+                        String Agencyname = getSnapshots().get(position).getAgencyname();
+
+
+                        Intent click_post = new Intent(Agency_post.this,Agency_Details.class);
+                        click_post.putExtra("PostKey", PostKey);
+                        //click_post.putExtra("Agencyname", Agencyname);
+                        startActivity(click_post);
+                        Animatoo.animateZoom(Agency_post.this);
 
                     }
                 });
@@ -395,6 +866,11 @@ public class Agency_post extends AppCompatActivity {
     {
         super.onStart();
 
+        allpost();
+    }
+
+    private void allpost() {
+
         //Query SortAgentPost = Postsref.orderByChild("uid").startAt(currentUserid).endAt(currentUserid + "\uf8ff");
         Query SortAgentPost = Postsref.orderByChild("counter");
 
@@ -409,7 +885,7 @@ public class Agency_post extends AppCompatActivity {
                 final String PostKey = getRef(position).getKey();
 
                 holder.productname.setText(model.getAgencyname());
-                holder.productprice.setText(model.getCategories());
+                holder.productprice.setText(model.getEmail());
                 holder.productdate.setText(model.getDate());
                 holder.productstatus.setText(model.getTags());
                 holder.productnumber.setText(model.getOfficenumber());
@@ -431,6 +907,7 @@ public class Agency_post extends AppCompatActivity {
                         click_post.putExtra("PostKey", PostKey);
                         //click_post.putExtra("Agencyname", Agencyname);
                         startActivity(click_post);
+                        Animatoo.animateZoom(Agency_post.this);
 
                     }
                 });

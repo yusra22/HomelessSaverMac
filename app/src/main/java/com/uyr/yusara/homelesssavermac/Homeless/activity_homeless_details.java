@@ -20,10 +20,12 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -47,8 +49,11 @@ import com.uyr.yusara.homelesssavermac.Agency.Comment;
 import com.uyr.yusara.homelesssavermac.R;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import ir.apend.slider.model.Slide;
+import ir.apend.slider.ui.Slider;
 import technolifestyle.com.imageslider.FlipperLayout;
 import technolifestyle.com.imageslider.FlipperView;
 
@@ -68,7 +73,8 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
     private String PostKey,img1,img2,img3,fullname,ic,age,location,gender,martialstatus,description;
 
     private TextView Postfullname,Postic,Postage,Postlocation,Postgender,Postmartialstatus,Postdescription;
-    private TextView btnComment;
+    //private TextView btnComment;
+    private ImageView button_save,sharebtn,btncomment,bookmark;
 
     private DatabaseReference ClickPostRef, BookmarkRef;
     Boolean BookmarkChecker = false;
@@ -79,10 +85,8 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
     private Toolbar mToolbar;
 
     FloatingActionButton fab;
-    ImageView button_save;
 
-    TextView bookmarkbtn,sharebtn;
-    ImageView bookmark;
+    TextView bookmarkbtn; //sharebtn;
 
     private MediaPlayer mp;
 
@@ -112,8 +116,6 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
         Postmartialstatus = findViewById(R.id.text_martialstatus);
         Postlocation = findViewById(R.id.text_location);
         Postdescription = findViewById(R.id.text_description);
-
-        btnComment = (TextView) findViewById(R.id.btncomment);
 
         PostKey = getIntent().getExtras().get("PostKey").toString();
 
@@ -157,21 +159,24 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
         //Hilangkan fab tpi xpadam sebab mlas nk ubah
         fab.setVisibility(View.GONE);
 
-        bookmarkbtn = (TextView) findViewById(R.id.bookmarkbtn);
+        //sebelum berubah
+        //btnComment = (TextView) findViewById(R.id.btncomment);
+        btncomment = (ImageView) findViewById(R.id.btncomment);
+
         bookmark = (ImageView) findViewById(R.id.bookmark);
 
-        sharebtn = (TextView) findViewById(R.id.sharebtn);
+        //sharebtn = (TextView) findViewById(R.id.sharebtn);
+        sharebtn = (ImageView) findViewById(R.id.sharebtn);
 
         mToolbar = (Toolbar) findViewById(R.id.find_toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("My Community Services");
+        getSupportActionBar().setTitle("Homeless");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         findViewById(R.id.btncomment).setOnClickListener(this);
         findViewById(R.id.save).setOnClickListener(this);
 
-        findViewById(R.id.bookmarkbtn).setOnClickListener(this);
         findViewById(R.id.bookmark).setOnClickListener(this);
         findViewById(R.id.sharebtn).setOnClickListener(this);
 
@@ -261,11 +266,9 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
                 Intent commentsIntent = new Intent(activity_homeless_details.this, CommentHomeless.class);
                 commentsIntent.putExtra("PostKey", PostKey);
                 startActivity(commentsIntent);
+                Animatoo.animateFade(activity_homeless_details.this);
                 break;
-            case R.id.save:
-                Bookmark();
-                break;
-            case R.id.bookmarkbtn:
+            case R.id.bookmark:
                 Bookmark();
                 break;
             case R.id.sharebtn:
@@ -324,31 +327,24 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
                 String  img2 = dataSnapshot.child("postimage2").getValue().toString();
                 String  img3 = dataSnapshot.child("postImage3").getValue().toString();
 
-                Toast.makeText(activity_homeless_details.this, img3, Toast.LENGTH_SHORT).show();
+                Slider slider = findViewById(R.id.slider);
 
-                String url [] = new String[] {
+                //create list of slides
+                List<Slide> slideList = new ArrayList<>();
+                slideList.add(new Slide(0,img1 , getResources().getDimensionPixelSize(R.dimen.slider_image_corner)));
+                slideList.add(new Slide(1,img2 , getResources().getDimensionPixelSize(R.dimen.slider_image_corner)));
+                slideList.add(new Slide(2,img3 , getResources().getDimensionPixelSize(R.dimen.slider_image_corner)));
 
-                        img1,
-                        img2,
-                        img3
-                };
+                //handle slider click listener
+                slider.setItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        //do what you want
+                    }
+                });
 
-                for(int i =0; i<3; i++)
-                {
-                    FlipperView view = new FlipperView(getBaseContext());
-                    view.setImageUrl(url[i])
-                            //.setImageScaleType(ImageView.ScaleType.FIT_XY)
-                            .setDescription("Image "+(i+1));
-                    flipper.addFlipperView(view);
-                    view.setOnFlipperClickListener(new FlipperView.OnFlipperClickListener() {
-                        @Override
-                        public void onFlipperClick(FlipperView flipperView) {
-
-                            Toast.makeText(activity_homeless_details.this,"Active" +(flipper.getCurrentPagePosition()+1),Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
-                }
+                //add slides to slider
+                slider.addSlides(slideList);
 
             }
 

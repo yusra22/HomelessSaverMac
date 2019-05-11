@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -102,7 +103,7 @@ public class MyAgencyPost extends AppCompatActivity {
                     protected void onBindViewHolder(@NonNull PostsViewHolder holder, final int position, @NonNull Posts model)
                     {
                         holder.productname.setText(model.getAgencyname());
-                        holder.productprice.setText(model.getCategories());
+                        holder.productprice.setText(model.getEmail());
                         holder.productdate.setText(model.getDate());
                         holder.productstatus.setText(model.getTags());
                         holder.productnumber.setText(model.getOfficenumber());
@@ -171,6 +172,7 @@ public class MyAgencyPost extends AppCompatActivity {
                                 Intent click_edit_post = new Intent(MyAgencyPost.this,EditMyAgencyPost.class);
                                 click_edit_post.putExtra("PostKey", PostKey);
                                 startActivity(click_edit_post);
+                                Animatoo.animateZoom(MyAgencyPost.this);
                             }
                         });
                     }

@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -156,6 +157,19 @@ public class Myhomelesspost extends AppCompatActivity {
 
                                 AlertDialog ad = builder.create();
                                 ad.show();
+                            }
+                        });
+
+                        holder.layout_action2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                String PostKey = getSnapshots().getSnapshot(position).getKey();
+
+                                Intent click_edit_post = new Intent(Myhomelesspost.this,EditMyHomelessPost.class);
+                                click_edit_post.putExtra("PostKey", PostKey);
+                                startActivity(click_edit_post);
+                                Animatoo.animateZoom(Myhomelesspost.this);
                             }
                         });
 

@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -44,6 +45,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.uyr.yusara.homelesssavermac.Homeless.activity_homeless_details;
 import com.uyr.yusara.homelesssavermac.R;
 
 import java.io.IOException;
@@ -66,19 +68,25 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
     private String PostKey,Agencyname,agencyname,categories,phoneno,email,website,facebook,twitter,location,schedule,tags;
     private String startdate,enddate,starttime,endtime;
 
-    private TextView Postagencynametxt,Postcategoriestxt,Postphonenotxt,Postemailtxt,Postwebsitetxt,Postfacebooktxt,Posttwittertxt,Postlocationtxt,PostScheduletxt,PostTagstxt;
-    private TextView btnComment;
+    private String donationreceive,donateToid;
 
-    private DatabaseReference ClickPostRef, BookmarkRef;
+    private TextView Postagencynametxt,Postcategoriestxt,Postphonenotxt,Postemailtxt,Postwebsitetxt,Postfacebooktxt,Posttwittertxt,Postlocationtxt,PostScheduletxt,PostTagstxt;
+    private TextView Postdonationreceive;
+
+    //For function comment,bookmark and share
+    private ImageView btnComment,bookmark,sharebtn;
+
+    //old fab bookmark yg xbuang
+    FloatingActionButton fab;
+    ImageView button_save;
+
+    private DatabaseReference ClickPostRef, BookmarkRef,PaymentRef;
     Boolean BookmarkChecker = false;
 
     private FirebaseAuth mAuth;
     private String currentUserid;
 
     private Toolbar mToolbar;
-
-    FloatingActionButton fab;
-    ImageView button_save;
 
     private MediaPlayer mp;
 
@@ -109,7 +117,12 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
         PostScheduletxt = findViewById(R.id.text_schedule);
         PostTagstxt = findViewById(R.id.text_tags);
 
-        btnComment = (TextView) findViewById(R.id.btncomment);
+        Postdonationreceive = (TextView) findViewById(R.id.text_donation);
+
+        //For function comment,bookmark and share
+        btnComment = (ImageView) findViewById(R.id.btncomment);
+        bookmark = (ImageView) findViewById(R.id.bookmark);
+        sharebtn = (ImageView) findViewById(R.id.sharebtn);
 
         PostKey = getIntent().getExtras().get("PostKey").toString();
         //Agencyname = getIntent().getExtras().get("Agencyname").toString();
@@ -119,8 +132,51 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
 
         BookmarkRef = FirebaseDatabase.getInstance().getReference().child("Bookmarks");
 
+        PaymentRef = FirebaseDatabase.getInstance().getReference().child("Payment");
 
         ClickPostRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(PostKey);
+
+        PaymentRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    //Cara get parent dri children
+                    final String father = ds.getKey();
+
+                    PaymentRef.child(father).addValueEventListener(new ValueEventListener()
+                    {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                        {
+
+                            donateToid = dataSnapshot.child("donateToid").getValue().toString();
+
+                            if(donateToid.equalsIgnoreCase(PostKey))
+                            {
+                                donationreceive = dataSnapshot.child("donationAmount").getValue().toString();
+                                //Postdonationreceive.setText(donationreceive);
+
+                                Toast.makeText(Agency_Details.this, donationreceive, Toast.LENGTH_SHORT).show();
+
+
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError)
+                        { }
+                        });
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         ClickPostRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -193,11 +249,15 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         findViewById(R.id.btncomment).setOnClickListener(this);
+        findViewById(R.id.bookmark).setOnClickListener(this);
         findViewById(R.id.save).setOnClickListener(this);
+        findViewById(R.id.sharebtn).setOnClickListener(this);
 
         mp = MediaPlayer.create(this, R.raw.pindrop);
-        setLikeButtonStatus(PostKey);
+        setBookmarkstatus(PostKey);
 
+        //Hilangkan fab tpi xpadam sebab mlas nk ubah
+        fab.setVisibility(View.GONE);
     }
 
 
@@ -290,9 +350,16 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
                 Intent commentsIntent = new Intent(Agency_Details.this, Comment.class);
                 commentsIntent.putExtra("PostKey", PostKey);
                 startActivity(commentsIntent);
+                Animatoo.animateFade(Agency_Details.this);
                 break;
             case R.id.save:
                 Bookmark();
+                break;
+            case R.id.bookmark:
+                Bookmark();
+                break;
+            case R.id.sharebtn:
+                Toast.makeText(Agency_Details.this, "Hai", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -333,7 +400,7 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
         });
     }
 
-    public void setLikeButtonStatus(final String PostKey)
+    public void setBookmarkstatus(final String PostKey)
     {
         BookmarkRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -343,14 +410,14 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
                 {
                     //Toast.makeText(Agency_Details.this, "Color patut berubah ...", Toast.LENGTH_LONG).show();
                     fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.sunflower)));
+                    bookmark.setImageResource(R.drawable.wishlist3);
                 }
                 else {
 
                     //Toast.makeText(Agency_Details.this, "Color asl ...", Toast.LENGTH_SHORT).show();
                     fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.sunset)));
-
+                    bookmark.setImageResource(R.drawable.wishlist2);
                 }
-
             }
 
             @Override

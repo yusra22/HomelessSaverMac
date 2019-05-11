@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/find_toolbar"
-        layout="@layout/app_bar_layout">
+        layout="@layout/app_bar_layout2">
     </include>
 
 
@@ -36,377 +36,381 @@
             android:layout_below="@+id/find_toolbar">
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:orientation="vertical">
 
-                <technolifestyle.com.imageslider.FlipperLayout
-                    android:id="@+id/flipper"
-                    android:layout_width="match_parent"
-                    android:background="@drawable/border_round"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp">
-                </technolifestyle.com.imageslider.FlipperLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/border_round"
-                    android:paddingTop="7dp"
-                    >
+                    android:paddingTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/text_description"
+                    <ir.apend.slider.ui.Slider
+                        android:id="@+id/slider"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginBottom="7dp"
-                        android:background="@null"
-                        android:hint="Description or Comment in less than 30 words"
-                        android:inputType="textMultiLine"
-                        android:paddingBottom="20dp"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/black"
-                        android:textSize="15dp" />
-
-                </LinearLayout>
-
-                <View android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/silver"
-                    />
-
-                <TextView
-                    android:id="@+id/propertytypetitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="Details:"
-                    android:textSize="16sp"
-                    android:textColor="@color/black" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/border_round"
-                    android:orientation="horizontal"
-                    android:paddingTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    >
-
-                    <ImageView
-                        android:id="@+id/wishlistbtn"
-                        android:paddingLeft="5dp"
-                        android:layout_width="32dp"
-                        android:layout_height="32sp"
-                        android:src="@drawable/ic_name" />
-
-                    <TextView
-                        android:id="@+id/text_fullname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:background="@null"
-                        android:textColor="@color/black"
-                        android:hint="Full Name"
-                        android:paddingTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:textSize="16dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/border_round"
-                    android:orientation="horizontal"
-                    android:paddingTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    >
-
-                    <ImageView
-                        android:id="@+id/wishlistbtn"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:paddingLeft="5dp"
-                        android:src="@drawable/ic_date"
-                        />
-
-                    <TextView
-                        android:id="@+id/text_ages"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="3dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:background="@null"
-                        android:textColor="@color/black"
-                        android:hint="Ages"
-                        android:layout_marginBottom="3dp"
-                        android:textSize="16dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/border_round"
-                    android:orientation="horizontal"
-                    android:paddingTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    >
-
-                    <ImageView
-                        android:id="@+id/wishlistbtn"
-                        android:paddingLeft="5dp"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/ic_person" />
-
-                    <TextView
-                        android:id="@+id/text_ic"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@null"
-                        android:hint="IC Number"
-                        android:paddingTop="3dp"
-                        android:textColor="@color/black"
-                        android:textSize="16dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/border_round">
-
-                    <ImageView
-                        android:id="@+id/wishlistbtn"
-                        android:paddingLeft="5dp"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/ic_gender2" />
-
-                    <TextView
-                        android:id="@+id/text_gender"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@null"
-                        android:hint="gender"
-                        android:paddingTop="3dp"
-                        android:textColor="@color/black"
-                        android:textSize="16dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/border_round"
-                    android:orientation="horizontal"
-                    android:paddingTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    >
-
-                    <ImageView
-                        android:id="@+id/wishlistbtn"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:paddingLeft="5dp"
-                        android:src="@drawable/ic_info" />
-
-                    <TextView
-                        android:id="@+id/text_martialstatus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@null"
-                        android:hint="Status Relationship"
-                        android:paddingTop="3dp"
-                        android:textColor="@color/black"
-                        android:textSize="16dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/border_round"
-                    android:orientation="horizontal"
-                    android:paddingTop="10dp"
-
-                    >
-
-                    <ImageView
-                        android:id="@+id/wishlistbtn"
-                        android:paddingLeft="5dp"
-                        android:layout_width="32dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_location" />
-
-                    <TextView
-                        android:id="@+id/text_location"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:background="@null"
-                        android:textColor="@color/black"
-                        android:hint="Location"
-                        android:paddingTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:textSize="16dp" />
-
-                </LinearLayout>
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/border">
-
-                    <fragment
-                        android:id="@+id/map"
-                        android:name="com.google.android.gms.maps.SupportMapFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="400dp"
-                        tools:context=".Homeless.activity_homeless_details" />
-
-                </RelativeLayout>
-
-                <View android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/silver"
-                    />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/border_round"
-                    android:orientation="horizontal"
-                    android:weightSum="3">
+                        android:layout_height="230dp"
+                        android:background="@drawable/border_round"
+                        app:animateIndicators="true"
+                        app:defaultIndicators="circle"
+                        app:indicatorSize="8dp"
+                        app:intervalSecond="5"
+                        app:loopSlides="true" />
 
                     <LinearLayout
-                        android:id="@+id/layout_action1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/border_round"
                         android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <ImageView
-                            android:id="@+id/bookmark"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/wishlist2" />
+                        android:paddingTop="7dp">
 
                         <TextView
-                            android:id="@+id/bookmarkbtn"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/text_description"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_weight="1"
-                            android:gravity="left"
-                            android:text="Bookmark"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="7dp"
+                            android:background="@null"
+                            android:hint="Description or Comment in less than 30 words"
+                            android:inputType="textMultiLine"
+                            android:paddingBottom="20dp"
+                            android:textAlignment="textStart"
                             android:textColor="@color/black"
-                            android:textSize="12dp" />
+                            android:textSize="15dp" />
+
                     </LinearLayout>
 
-                                        <View
-                                            android:layout_width="1dp"
-                                            android:layout_height="match_parent"
-                                            android:background="@color/silver" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/silver" />
+
+                    <TextView
+                        android:id="@+id/propertytypetitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Details:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <LinearLayout
-                        android:id="@+id/layout_action2"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/border_round"
                         android:orientation="horizontal"
-                        android:weightSum="2">
+                        android:paddingTop="10dp">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_share" />
+                            android:id="@+id/wishlistbtn"
+                            android:layout_width="32dp"
+                            android:layout_height="32sp"
+                            android:paddingLeft="5dp"
+                            android:src="@drawable/ic_name" />
 
                         <TextView
-                            android:id="@+id/sharebtn"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/text_fullname"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_weight="1"
-                            android:gravity="left"
-                            android:text="Share"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@null"
+                            android:hint="Full Name"
+                            android:paddingTop="3dp"
                             android:textColor="@color/black"
-                            android:textSize="12dp" />
-                    </LinearLayout>
+                            android:textSize="16dp" />
 
-                                        <View
-                                            android:layout_width="1dp"
-                                            android:layout_height="match_parent"
-                                            android:background="@color/silver" />
+                    </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/layout_action3"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/border_round"
                         android:orientation="horizontal"
-                        android:weightSum="2">
+                        android:paddingTop="10dp">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_comment" />
+                            android:id="@+id/wishlistbtn"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:paddingLeft="5dp"
+                            android:src="@drawable/ic_date" />
 
                         <TextView
-                            android:id="@+id/btncomment"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/text_ages"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_weight="1"
-                            android:gravity="left"
-                            android:text="Comment"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@null"
+                            android:hint="Ages"
+                            android:paddingTop="3dp"
                             android:textColor="@color/black"
-                            android:textSize="12dp" />
+                            android:textSize="16dp" />
+
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/border_round"
+                        android:orientation="horizontal"
+                        android:paddingTop="10dp">
+
+                        <ImageView
+                            android:id="@+id/wishlistbtn"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:paddingLeft="5dp"
+                            android:src="@drawable/ic_person" />
+
+                        <TextView
+                            android:id="@+id/text_ic"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@null"
+                            android:hint="IC Number"
+                            android:paddingTop="3dp"
+                            android:textColor="@color/black"
+                            android:textSize="16dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/border_round"
+                        android:orientation="horizontal"
+                        android:paddingTop="10dp">
+
+                        <ImageView
+                            android:id="@+id/wishlistbtn"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:paddingLeft="5dp"
+                            android:src="@drawable/ic_gender2" />
+
+                        <TextView
+                            android:id="@+id/text_gender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@null"
+                            android:hint="gender"
+                            android:paddingTop="3dp"
+                            android:textColor="@color/black"
+                            android:textSize="16dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/border_round"
+                        android:orientation="horizontal"
+                        android:paddingTop="10dp">
+
+                        <ImageView
+                            android:id="@+id/wishlistbtn"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:paddingLeft="5dp"
+                            android:src="@drawable/ic_info" />
+
+                        <TextView
+                            android:id="@+id/text_martialstatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@null"
+                            android:hint="Status Relationship"
+                            android:paddingTop="3dp"
+                            android:textColor="@color/black"
+                            android:textSize="16dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border_round"
+                        android:orientation="horizontal"
+                        android:paddingTop="10dp"
+
+                        >
+
+                        <ImageView
+                            android:id="@+id/wishlistbtn"
+                            android:layout_width="32dp"
+                            android:layout_height="30dp"
+                            android:paddingLeft="5dp"
+                            android:src="@drawable/ic_location" />
+
+                        <TextView
+                            android:id="@+id/text_location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@null"
+                            android:hint="Location"
+                            android:paddingTop="3dp"
+                            android:textColor="@color/black"
+                            android:textSize="16dp" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border">
+
+                        <fragment
+                            android:id="@+id/map"
+                            android:name="com.google.android.gms.maps.SupportMapFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="400dp"
+                            tools:context=".Homeless.activity_homeless_details" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/silver" />
+
+                   <!-- <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/border_round"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <LinearLayout
+                            android:id="@+id/layout_action1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <ImageView
+                                android:id="@+id/bookmark"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/wishlist2" />
+
+                            <TextView
+                                android:id="@+id/bookmarkbtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_weight="1"
+                                android:gravity="left"
+                                android:text="Bookmark"
+                                android:textColor="@color/black"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/silver" />
+
+                        <LinearLayout
+                            android:id="@+id/layout_action2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_share" />
+
+                            <TextView
+                                android:id="@+id/sharebtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_weight="1"
+                                android:gravity="left"
+                                android:text="Share"
+                                android:textColor="@color/black"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/silver" />
+
+                        <LinearLayout
+                            android:id="@+id/layout_action3"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_comment" />
+
+                            <TextView
+                                android:id="@+id/btncomment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_weight="1"
+                                android:gravity="left"
+                                android:text="Comment"
+                                android:textColor="@color/black"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                    </LinearLayout>-->
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/silver" />
+
                 </LinearLayout>
 
-                <View android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/silver"
-                    />
+
             </LinearLayout>
 
         </ScrollView>

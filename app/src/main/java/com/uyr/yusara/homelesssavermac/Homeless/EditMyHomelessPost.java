@@ -22,7 +22,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
@@ -32,7 +32,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,10 +40,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.msoftworks.easynotify.EasyNotify;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.uyr.yusara.homelesssavermac.Agency.AddServices;
-import com.uyr.yusara.homelesssavermac.MainActivity;
 import com.uyr.yusara.homelesssavermac.R;
 
 import java.io.ByteArrayOutputStream;
@@ -52,19 +48,23 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class AddHomelessInfo extends AppCompatActivity implements View.OnClickListener {
+public class EditMyHomelessPost extends AppCompatActivity implements View.OnClickListener {
+
 
     private ImageButton SelectPostImage,SelectPostImage2,SelectPostImage3;
-    private Button UpdatePeoplePostButton;
-    private EditText edit_fullname,edit_ic,edit_age,edit_location,edit_description;
 
+    private Button UpdatePostButton;
+    private EditText edit_fullname,edit_ic,edit_age,edit_location,edit_description;
 
     //Untuk Radio Button
     private String gender, martialstatus;
     private RadioGroup genderchoice,martialchoice;
     private RadioButton radioButtonGenderoption,radioButtonMartialoption;
+    private RadioButton radioButton_male,radioButton_female;
+    private RadioButton radioButton_single,radioButton_married,radioButton_divorced,radioButton_legallyseparated,radioButton_widowed;
 
-    private String fullname,ic,age,location,description;
+    private String fullname,ic,age,location,description,image,image2,image3;
+    private String PostKey;
 
     final static int gallerypick = 1, gallerypick2 = 2, gallerypick3 = 3;
     final int TAKE_PICTURE = 4,TAKE_PICTURE1 = 5,TAKE_PICTURE2 = 6;
@@ -91,26 +91,36 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_homeless_info);
+        setContentView(R.layout.activity_edit_my_homeless_post);
 
         mAuth = FirebaseAuth.getInstance();
         currentUserid = mAuth.getCurrentUser().getUid();
         PostImageRef = FirebaseStorage.getInstance().getReference();
 
+        PostKey = getIntent().getExtras().get("PostKey").toString();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserid);
-        PeoplePostsRef = FirebaseDatabase.getInstance().getReference().child("People Report Post");
+        PeoplePostsRef = FirebaseDatabase.getInstance().getReference().child("People Report Post").child(PostKey);
         NotisRef = FirebaseDatabase.getInstance().getReference().child("Notification");
+
 
         SelectPostImage = (ImageButton) findViewById(R.id.select_post1);
         SelectPostImage2 = (ImageButton) findViewById(R.id.select_post2);
         SelectPostImage3 = (ImageButton) findViewById(R.id.select_post3);
 
-        UpdatePeoplePostButton = (Button)findViewById(R.id.btnupdatepeoplepost);
+        UpdatePostButton = (Button)findViewById(R.id.btnupdatepeoplepost);
         edit_fullname = (EditText)findViewById(R.id.edit_fullname);
         edit_ic = (EditText)findViewById(R.id.edit_ic);
         edit_age = (EditText)findViewById(R.id.edit_age);
         edit_location = (EditText)findViewById(R.id.edit_location);
         edit_description = (EditText)findViewById(R.id.edit_description);
+
+        radioButton_male = (RadioButton) findViewById(R.id.radioButton_male);
+        radioButton_female = (RadioButton) findViewById(R.id.radioButton_female);
+        radioButton_single = (RadioButton)findViewById(R.id.radioButton_single);
+        radioButton_married = (RadioButton)findViewById(R.id.radioButton_married);
+        radioButton_divorced = (RadioButton)findViewById(R.id.radioButton_divorced);
+        radioButton_legallyseparated = (RadioButton)findViewById(R.id.radioButton_legallyseparated);
+        radioButton_widowed = (RadioButton)findViewById(R.id.radioButton_widowed);
 
 
         progressDialog = new ProgressDialog(this);
@@ -127,7 +137,7 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
         //Custom Toolbar
         mToolbar = (Toolbar) findViewById(R.id.find_toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Add Homeless");
+        getSupportActionBar().setTitle("Make Report");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -180,21 +190,7 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
         int selectedId2 = martialchoice.getCheckedRadioButtonId();
         radioButtonMartialoption = (RadioButton) findViewById(selectedId2);
 
-/*        Calendar dob = Calendar.getInstance();
-        Calendar today = Calendar.getInstance();
-
-        dob.set(1996, 5, 3);
-
-        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
-
-        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
-            age--;
-        }
-
-        Integer ageInt = new Integer(age);
-        String ageS = ageInt.toString();
-
-        Toast.makeText(AddHomelessInfo.this, ageS,Toast.LENGTH_SHORT).show();*/
+        displaydata();
 
         //Close Keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -211,6 +207,346 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void UpdateBtnPost()
+    {
+        fullname = edit_fullname.getText().toString();
+        ic = edit_ic.getText().toString();
+        age = edit_age.getText().toString();
+        location = edit_location.getText().toString();
+        description = edit_description.getText().toString();
+
+
+        if(fullname.isEmpty())
+        {
+            edit_fullname.setError("Please add agency name");
+            edit_fullname.requestFocus();
+            return;
+        }
+        if(age.isEmpty())
+        {
+            edit_age.setError("Please add the description");
+            edit_age.requestFocus();
+            return;
+        }
+        if(location.isEmpty())
+        {
+            edit_location.setError("Please add the location");
+            edit_location.requestFocus();
+
+        }
+        if(description.isEmpty())
+        {
+            edit_description.setError("Please add the location");
+            edit_description.requestFocus();
+            Toast.makeText(this, "Please select your relationship",Toast.LENGTH_SHORT).show();
+            return;
+
+        }
+        else
+        {
+            StoringImageToStorage();
+        }
+    }
+
+
+    private void StoringImageToStorage()
+    {
+        progressDialog.show();
+
+        Calendar calFordDate = Calendar.getInstance();
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
+        saveCurrentDate = currentDate.format(calFordDate.getTime());
+
+        Calendar calFordTime = Calendar.getInstance();
+        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:");
+        saveCurrentTime = currentTime.format(calFordTime.getTime());
+
+        postRandomName = saveCurrentDate + saveCurrentTime;
+
+        final StorageReference filePath = PostImageRef.child("Homeless Reported Images").child(ImageUri + postRandomName + ".jpg");
+        final StorageReference filePath2 = PostImageRef.child("Homeless Reported Images").child(ImageUri2 + postRandomName + ".jpg");
+        final StorageReference filePath3 = PostImageRef.child("Homeless Reported Images").child(ImageUri3.getLastPathSegment() + postRandomName + ".jpg");
+
+
+
+
+        if(photo != null){
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            photo.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
+            byte[] b = stream.toByteArray();
+
+            filePath.putBytes(b).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
+                {
+
+                    if(task.isSuccessful())
+                    {
+                        filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri)
+                            {
+                                Toast.makeText(EditMyHomelessPost.this, "Image uploaded success..",Toast.LENGTH_SHORT).show();
+                                uriurl = uri.toString();
+                                downloadUrl = filePath.getDownloadUrl().toString();
+                                SavingPostInformationToDB();
+                            }
+                        });
+                    }
+                    else
+                    {
+                        String message = task.getException().getMessage();
+                        Toast.makeText(EditMyHomelessPost.this, "Error occurt" + message,Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+        if(ImageUri !=null)
+        {
+            filePath.putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
+                {
+
+                    if(task.isSuccessful())
+                    {
+                        filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri)
+                            {
+                                Toast.makeText(EditMyHomelessPost.this, "Image uploaded success..",Toast.LENGTH_SHORT).show();
+                                uriurl = uri.toString();
+                                downloadUrl = filePath.getDownloadUrl().toString();
+                            }
+                        });
+                    }
+                    else
+                    {
+                        String message = task.getException().getMessage();
+                        Toast.makeText(EditMyHomelessPost.this, "Error occurt" + message,Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+        if(ImageUri2 !=null) {
+            filePath2.putFile(ImageUri2).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        filePath2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                uriurl2 = uri.toString();
+                                downloadUrl = filePath.getDownloadUrl().toString();
+                            }
+                        });
+                    } else {
+                        String message = task.getException().getMessage();
+                        Toast.makeText(EditMyHomelessPost.this, "Error occurt" + message, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+        filePath3.putFile(ImageUri3).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
+            {
+                if(task.isSuccessful())
+                {
+                    filePath3.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri)
+                        {
+                            uriurl3 = uri.toString();
+                            downloadUrl = filePath.getDownloadUrl().toString();
+                            SavingPostInformationToDB();
+                        }
+                    });
+                }
+                else
+                {
+                    String message = task.getException().getMessage();
+                    Toast.makeText(EditMyHomelessPost.this, "Error occurt" + message,Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void SavingPostInformationToDB() {
+
+        //Untuk Susun
+        PeoplePostsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists())
+                {
+                    if (dataSnapshot.exists())
+                    {
+                        countPosts = dataSnapshot.getChildrenCount();
+                    }
+                    else
+                    {
+                        countPosts = 0;
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        UsersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                if(dataSnapshot.exists())
+                {
+                    if(dataSnapshot !=null)
+                    {
+
+                        final HashMap postMap = new HashMap();
+                        postMap.put("uid", currentUserid);
+                        postMap.put("date", saveCurrentDate);
+                        postMap.put("time", saveCurrentTime);
+                        postMap.put("counter", countPosts);
+                        postMap.put("postImage", uriurl);
+                        postMap.put("postimage2", uriurl2);
+                        postMap.put("postImage3", uriurl3);
+                        postMap.put("fullname", fullname);
+                        postMap.put("ic", ic);
+                        postMap.put("age", age);
+                        postMap.put("location",location);
+                        postMap.put("gender",gender);
+                        postMap.put("martialstatus",martialstatus);
+                        postMap.put("description",description);
+
+                        PeoplePostsRef.updateChildren(postMap).addOnCompleteListener(new OnCompleteListener() {
+
+                            @Override
+                            public void onComplete(@NonNull Task task)
+                            {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(EditMyHomelessPost.this, "Post update successfully ", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
+
+                                    HashMap postnotification = new HashMap();
+                                    postnotification.put("from", currentUserid);
+                                    postnotification.put("type", "new post noti");
+
+                                    NotisRef.updateChildren(postnotification);
+                                }
+                                else {
+                                    Log.d("LOGGER", "No such document");
+                                }
+                            }
+                        });
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void displaydata() {
+
+        PeoplePostsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+
+                fullname = dataSnapshot.child("fullname").getValue().toString();
+                ic = dataSnapshot.child("ic").getValue().toString();
+                age = dataSnapshot.child("age").getValue().toString();
+                location = dataSnapshot.child("location").getValue().toString();
+                gender = dataSnapshot.child("gender").getValue().toString();
+                martialstatus = dataSnapshot.child("martialstatus").getValue().toString();
+                description = dataSnapshot.child("description").getValue().toString();
+                image = dataSnapshot.child("postImage").getValue().toString();
+                image2 = dataSnapshot.child("postimage2").getValue().toString();
+                image3 = dataSnapshot.child("postImage3").getValue().toString();
+
+                //Picasso.get().load(image).placeholder(R.drawable.cc).into(ProfileImage);
+
+
+                edit_fullname.setText(fullname);
+                edit_ic.setText(ic);
+                edit_age.setText(age);
+                edit_location.setText(location);
+                edit_description.setText(description);
+
+                Glide.with(EditMyHomelessPost.this).load(image).into(SelectPostImage);
+                Glide.with(EditMyHomelessPost.this).load(image2).into(SelectPostImage2);
+                Glide.with(EditMyHomelessPost.this).load(image3).into(SelectPostImage3);
+
+
+                if(gender.equalsIgnoreCase("Male"))
+                {
+                    radioButton_male.setChecked(true);
+                }
+                else if(gender.equalsIgnoreCase("Female"))
+                {
+                    radioButton_female.setChecked(true);
+                }
+
+                if(martialstatus.equalsIgnoreCase("Single"))
+                {
+                    radioButton_single.setChecked(true);
+                }
+                else if(martialstatus.equalsIgnoreCase("Married"))
+                {
+                    radioButton_married.setChecked(true);
+                }
+                else if(martialstatus.equalsIgnoreCase("Divorced"))
+                {
+                    radioButton_divorced.setChecked(true);
+                }
+                else if(martialstatus.equalsIgnoreCase("Legally separated"))
+                {
+                    radioButton_legallyseparated.setChecked(true);
+                }
+                else if(martialstatus.equalsIgnoreCase("Widowed"))
+                {
+                    radioButton_widowed.setChecked(true);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void AutoCompleteMap() {
+
+        try {
+            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
+                    .build(EditMyHomelessPost.this); // notice CrateRide.this
+            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -236,9 +572,9 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
         }
         if(requestCode == gallerypick && resultCode == RESULT_OK && data!= null)
         {
-                //Display user in image button
-                ImageUri = data.getData();
-                SelectPostImage.setImageURI(ImageUri);
+            //Display user in image button
+            ImageUri = data.getData();
+            SelectPostImage.setImageURI(ImageUri);
 
         }
         if(requestCode == gallerypick2 && resultCode == RESULT_OK && data!= null)
@@ -297,7 +633,7 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
                         "Gallery",
                         "Camera"
                 };
-        AlertDialog.Builder builder = new AlertDialog.Builder(AddHomelessInfo.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditMyHomelessPost.this);
         builder.setTitle("From Gallery or Camera");
 
         builder.setIcon(R.drawable.photo);
@@ -375,323 +711,6 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
         startActivityForResult(galleryIntent, gallerypick3);
     }
 
-
-
-    public void UpdateBtnPost()
-    {
-        fullname = edit_fullname.getText().toString();
-        ic = edit_ic.getText().toString();
-        age = edit_age.getText().toString();
-        location = edit_location.getText().toString();
-        description = edit_description.getText().toString();
-
-
-        if(fullname.isEmpty())
-        {
-            edit_fullname.setError("Please add agency name");
-            edit_fullname.requestFocus();
-            return;
-        }
-        if(age.isEmpty())
-        {
-            edit_age.setError("Please add the description");
-            edit_age.requestFocus();
-            return;
-        }
-        if(location.isEmpty())
-        {
-            edit_location.setError("Please add the location");
-            edit_location.requestFocus();
-
-        }
-        if(description.isEmpty())
-        {
-            edit_description.setError("Please add the location");
-            edit_description.requestFocus();
-            Toast.makeText(this, "Please select your relationship",Toast.LENGTH_SHORT).show();
-            return;
-
-        }
-        else
-        {
-            StoringImageToStorage();
-        }
-    }
-
-
-    private void StoringImageToStorage()
-    {
-        progressDialog.show();
-
-        Calendar calFordDate = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
-        saveCurrentDate = currentDate.format(calFordDate.getTime());
-
-        Calendar calFordTime = Calendar.getInstance();
-        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:");
-        saveCurrentTime = currentTime.format(calFordTime.getTime());
-
-        postRandomName = saveCurrentDate + saveCurrentTime;
-
-        final StorageReference filePath = PostImageRef.child("Homeless Reported Images").child(ImageUri + postRandomName + ".jpg");
-        final StorageReference filePath2 = PostImageRef.child("Homeless Reported Images").child(ImageUri2 + postRandomName + ".jpg");
-        final StorageReference filePath3 = PostImageRef.child("Homeless Reported Images").child(ImageUri3.getLastPathSegment() + postRandomName + ".jpg");
-
-
-        if(photo != null){
-
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            photo.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-
-            byte[] b = stream.toByteArray();
-
-            filePath.putBytes(b).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
-                {
-
-                    if(task.isSuccessful())
-                    {
-                        filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri)
-                            {
-                                uriurl = uri.toString();
-                                downloadUrl = filePath.getDownloadUrl().toString();
-                                SavingPostInformationToDB();
-                            }
-                        });
-                    }
-                    else
-                    {
-                        String message = task.getException().getMessage();
-                        Toast.makeText(AddHomelessInfo.this, "Error occurt" + message,Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-        if(ImageUri !=null)
-        {
-            filePath.putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
-                {
-
-                    if(task.isSuccessful())
-                    {
-                        filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri)
-                            {
-                                uriurl = uri.toString();
-                                downloadUrl = filePath.getDownloadUrl().toString();
-
-
-                                callEasyNotify();
-                                SavingPostInformationToDB();
-                                Toast.makeText(AddHomelessInfo.this, "Post upload successfully ", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                    else
-                    {
-                        String message = task.getException().getMessage();
-                        Toast.makeText(AddHomelessInfo.this, "Error occurt" + message,Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-
-        if(ImageUri2 !=null) {
-            filePath2.putFile(ImageUri2).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        filePath2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                uriurl2 = uri.toString();
-                                downloadUrl = filePath.getDownloadUrl().toString();
-                                SavingPostInformationToDB();
-                            }
-                        });
-                    } else {
-                        String message = task.getException().getMessage();
-                        Toast.makeText(AddHomelessInfo.this, "Error occurt" + message, Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-
-        filePath3.putFile(ImageUri3).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
-            {
-                if(task.isSuccessful())
-                {
-                    filePath3.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri)
-                        {
-                            uriurl3 = uri.toString();
-                            downloadUrl = filePath.getDownloadUrl().toString();
-                            SavingPostInformationToDB();
-                        }
-                    });
-                }
-                else
-                {
-                    String message = task.getException().getMessage();
-                    Toast.makeText(AddHomelessInfo.this, "Error occurt" + message,Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    private void SavingPostInformationToDB() {
-
-        //Untuk Susun
-        PeoplePostsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                if (dataSnapshot.exists())
-                {
-                    if (dataSnapshot.exists())
-                    {
-                        countPosts = dataSnapshot.getChildrenCount();
-                    }
-                    else
-                    {
-                        countPosts = 0;
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        UsersRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-            {
-                if(dataSnapshot.exists())
-                {
-                    if(dataSnapshot !=null)
-                    {
-
-                        final HashMap postMap = new HashMap();
-                        postMap.put("uid", currentUserid);
-                        postMap.put("date", saveCurrentDate);
-                        postMap.put("time", saveCurrentTime);
-                        postMap.put("counter", countPosts);
-                        postMap.put("postImage", uriurl);
-                        postMap.put("postimage2", uriurl2);
-                        postMap.put("postImage3", uriurl3);
-                        postMap.put("fullname", fullname);
-                        postMap.put("ic", ic);
-                        postMap.put("age", age);
-                        postMap.put("location",location);
-                        postMap.put("gender",gender);
-                        postMap.put("martialstatus",martialstatus);
-                        postMap.put("description",description);
-
-                        PeoplePostsRef.child(currentUserid + postRandomName).updateChildren(postMap).addOnCompleteListener(new OnCompleteListener() {
-
-                            @Override
-                            public void onComplete(@NonNull Task task)
-                            {
-                                if (task.isSuccessful()) {
-                                    //Toast.makeText(AddHomelessInfo.this, "Post upload successfully ", Toast.LENGTH_SHORT).show();
-                                    progressDialog.dismiss();
-
-                                    SendUserToMainActivity();
-
-                                }
-                                else {
-                                    Log.d("LOGGER", "No such document");
-                                }
-                            }
-                        });
-
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }
-
-    private void SendUserToMainActivity()
-    {
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
-
-    }
-
-    private String getAge(int year, int month, int day){
-        Calendar dob = Calendar.getInstance();
-        Calendar today = Calendar.getInstance();
-
-        dob.set(year, month, day);
-
-        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
-
-        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
-            age--;
-        }
-
-        Integer ageInt = new Integer(age);
-        String ageS = ageInt.toString();
-
-        return ageS;
-    }
-
-    private void AutoCompleteMap() {
-
-        try {
-            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
-                    .build(AddHomelessInfo.this); // notice CrateRide.this
-            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
-        } catch (GooglePlayServicesRepairableException e) {
-            e.printStackTrace();
-        } catch (GooglePlayServicesNotAvailableException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void callEasyNotify() {
-        EasyNotify easyNotify = new EasyNotify();
-        easyNotify.setAPI_KEY("AAAA3fk9DIM:APA91bGEYuo47DI2_oRJR7hL8u58nj5WheDVqrBi989rSKXSrQz8Qf9spdbOeS-hTIDPTfRreD7xVdRj_omLhMQ3ETuJ_E_WgV9ctgwwPBSC4rpK64ku0z006WFlg6xPf9PgwKAyrqPm");
-        easyNotify.setNtitle("New Homeless Need help!");
-        easyNotify.setNbody( "Check out for the name " + fullname);
-        easyNotify.setNtopic("news");
-        easyNotify.setNclick_action("mainActivity");
-        easyNotify.setNsound("default");
-        easyNotify.nPush();
-        easyNotify.setEasyNotifyListener(new EasyNotify.EasyNotifyListener() {
-            @Override
-            public void onNotifySuccess(String s) {
-                Toast.makeText(AddHomelessInfo.this, "success" + s, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNotifyError(String s) {
-                Toast.makeText(AddHomelessInfo.this, "error" + s, Toast.LENGTH_SHORT).show();
-            }
-
-        });
-    }
-
     @Override
     public void onClick(View view)
     {
@@ -715,6 +734,4 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
                 break;
         }
     }
-
-
 }

@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_homeless"
+        android:id="@+id/navigation_gender"
         android:icon="@drawable/ic_gender"
         android:title="Gender" />
 
     <item
-        android:id="@+id/navigation_community"
+        android:id="@+id/navigation_martialstatus"
         android:icon="@drawable/ic_info"
-        android:title="Marial Status" />
+        android:title="Martial Status" />
 
 </menu>

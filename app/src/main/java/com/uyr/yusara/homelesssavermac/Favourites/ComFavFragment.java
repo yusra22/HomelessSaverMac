@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -116,13 +117,13 @@ public class ComFavFragment extends Fragment {
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                                             String agencyname = dataSnapshot.child("agencyname").getValue().toString();
-                                            String categories = dataSnapshot.child("categories").getValue().toString();
+                                            String email = dataSnapshot.child("email").getValue().toString();
                                             String date = dataSnapshot.child("date").getValue().toString();
                                             String tags = dataSnapshot.child("tags").getValue().toString();
                                             String phoneno = dataSnapshot.child("officenumber").getValue().toString();
 
                                             holder.productname.setText(agencyname);
-                                            holder.productprice.setText(categories);
+                                            holder.productprice.setText(email);
                                             holder.productdate.setText(date);
                                             holder.productstatus.setText(tags);
                                             holder.productnumber.setText(phoneno);
@@ -159,6 +160,7 @@ public class ComFavFragment extends Fragment {
                                     click_post.putExtra("PostKey", PostKey);
                                     //click_post.putExtra("Agencyname", Agencyname);
                                     startActivity(click_post);
+                                    Animatoo.animateZoom(getContext());
 
                                 }
                             });
