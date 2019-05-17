@@ -2,13 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_gender"
-        android:icon="@drawable/ic_gender"
-        android:title="Gender" />
+        android:id="@+id/navigation_mental"
+        android:icon="@drawable/ic_mental"
+        android:title="Mental" />
 
     <item
-        android:id="@+id/navigation_martialstatus"
-        android:icon="@drawable/ic_info"
-        android:title="Martial Status" />
+        android:id="@+id/navigation_disabled"
+        android:icon="@drawable/ic_disablepeople"
+        android:title="Disabled" />
+
+    <item
+        android:id="@+id/navigation_sillness"
+        android:icon="@drawable/hospital"
+        android:title="Serious illness" />
+
+    <item
+        android:id="@+id/navigation_others"
+        android:icon="@drawable/ic_more"
+        android:title="Others" />
+
 
 </menu>

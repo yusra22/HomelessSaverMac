@@ -90,7 +90,7 @@ public class Register2 extends AppCompatActivity implements View.OnClickListener
         final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         final String phone = editTextPhone.getText().toString().trim();
-        role = radioButtonRolesoption.getText().toString();
+        //role = radioButtonRolesoption.getText().toString();
         final String profileimages2 = "https://firebasestorage.googleapis.com/v0/b/dreamhome-a806d.appspot.com/o/profile%20Images%2Fnophoto.png?alt=media&token=724e2036-5419-4eef-bbeb-d8b0083ea123";
         final String profiledescription = "";
         final String devicetoken = FirebaseInstanceId.getInstance().getToken();
@@ -135,6 +135,13 @@ public class Register2 extends AppCompatActivity implements View.OnClickListener
             editTextPhone.setError(getString(R.string.input_error_phone_invalid));
             editTextPhone.requestFocus();
             return;
+        }
+
+        if(radioGroupRoles.getCheckedRadioButtonId()==-1)
+        {
+            Toast.makeText(this, "Please select illness",Toast.LENGTH_SHORT).show();
+            return;
+
         }
 
 

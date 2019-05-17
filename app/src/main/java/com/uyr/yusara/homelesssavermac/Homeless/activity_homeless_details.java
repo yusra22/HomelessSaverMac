@@ -8,6 +8,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -70,13 +71,13 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
     private double latitude, longitude;
     private int ProximityRadius = 10000;
 
-    private String PostKey,img1,img2,img3,fullname,ic,age,location,gender,martialstatus,description;
+    private String PostKey,img1,img2,img3,fullname,ic,age,location,illness,gender,martialstatus,description,posteruid,posterphoneno;
 
-    private TextView Postfullname,Postic,Postage,Postlocation,Postgender,Postmartialstatus,Postdescription;
+    private TextView Postfullname,Postic,Postage,Postlocation,Postillness,Postgender,Postmartialstatus,Postdescription;
     //private TextView btnComment;
     private ImageView button_save,sharebtn,btncomment,bookmark;
 
-    private DatabaseReference ClickPostRef, BookmarkRef;
+    private DatabaseReference ClickPostRef, BookmarkRef, UsersRef;
     Boolean BookmarkChecker = false;
 
     private FirebaseAuth mAuth;
@@ -112,6 +113,7 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
         Postfullname = findViewById(R.id.text_fullname);
         Postage = findViewById(R.id.text_ages);
         Postic = findViewById(R.id.text_ic);
+        Postillness = findViewById(R.id.text_illness);
         Postgender = findViewById(R.id.text_gender);
         Postmartialstatus = findViewById(R.id.text_martialstatus);
         Postlocation = findViewById(R.id.text_location);
@@ -122,6 +124,7 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
         mAuth = FirebaseAuth.getInstance();
         currentUserid = mAuth.getCurrentUser().getUid();
 
+        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         BookmarkRef = FirebaseDatabase.getInstance().getReference().child("BookmarksHomeless");
         ClickPostRef = FirebaseDatabase.getInstance().getReference().child("People Report Post").child(PostKey);
 
@@ -134,17 +137,34 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
                 ic = dataSnapshot.child("ic").getValue().toString();
                 age = dataSnapshot.child("age").getValue().toString();
                 location = dataSnapshot.child("location").getValue().toString();
+                illness = dataSnapshot.child("illness").getValue().toString();
                 gender = dataSnapshot.child("gender").getValue().toString();
                 martialstatus = dataSnapshot.child("martialstatus").getValue().toString();
                 description = dataSnapshot.child("description").getValue().toString();
+                posteruid = dataSnapshot.child("uid").getValue().toString();
 
                 Postfullname.setText(fullname);
                 Postage.setText("Age " + age);
                 Postic.setText(ic);
                 Postlocation.setText(location);
+                Postillness.setText(illness);
                 Postgender.setText(gender);
                 Postmartialstatus.setText(martialstatus);
                 Postdescription.setText(description);
+
+                UsersRef.child(posteruid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        posterphoneno = dataSnapshot.child("phone").getValue().toString();
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
@@ -179,6 +199,8 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
 
         findViewById(R.id.bookmark).setOnClickListener(this);
         findViewById(R.id.sharebtn).setOnClickListener(this);
+        findViewById(R.id.smsinformer).setOnClickListener(this);
+        findViewById(R.id.callinformer).setOnClickListener(this);
 
         mp = MediaPlayer.create(this, R.raw.pindrop);
         setLikeButtonStatus(PostKey);
@@ -272,8 +294,23 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
                 Bookmark();
                 break;
             case R.id.sharebtn:
-                Toast.makeText(activity_homeless_details.this, "Hai", Toast.LENGTH_SHORT).show();
-
+                Intent myIntent = new Intent(Intent.ACTION_SEND);
+                myIntent.setType("text/plain");
+                String shareBody = "A homeless name " + Postfullname.getText() + " need our help. " + "Check out on Homeless Saver!";
+                String shareSub = " Check out on Homeless Saver!";
+                myIntent.putExtra(Intent.EXTRA_SUBJECT,shareBody);
+                myIntent.putExtra(Intent.EXTRA_TEXT,shareBody);
+                startActivity(Intent.createChooser(myIntent, "Share Using"));
+                break;
+            case R.id.smsinformer:
+                Intent message = new Intent( Intent.ACTION_VIEW, Uri.parse( "sms:" + "" ) );
+                message.putExtra( "sms_body", "Hi, I like to help and know more details about Mr/Ms " + Postfullname.getText() );
+                startActivity(message);
+                break;
+            case R.id.callinformer:
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:"+ posterphoneno));
+                startActivity(intent);
                 break;
         }
 
@@ -353,6 +390,8 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
 
             }
         });
+
+
 
     }
 

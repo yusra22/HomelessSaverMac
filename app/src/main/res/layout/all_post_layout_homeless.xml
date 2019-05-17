@@ -47,10 +47,10 @@
 
                     <ImageView
                         android:id="@+id/imageView2"
-                        android:layout_width="20dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_date" />
+                        android:src="@drawable/age" />
 
                     <TextView
                         android:id="@+id/post_ages"
@@ -75,7 +75,7 @@
                         android:id="@+id/imageView4"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_gender2" />
+                        android:src="@drawable/gender_male_female" />
 
                     <TextView
                         android:id="@+id/post_gender"
@@ -102,7 +102,7 @@
                         android:id="@+id/imageView4"
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:src="@drawable/ic_info" />
+                        android:src="@drawable/ic_gender2" />
 
                     <TextView
                         android:id="@+id/post_martialstatus"

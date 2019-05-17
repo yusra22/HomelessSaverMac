@@ -10,9 +10,8 @@
         android:id="@+id/text_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
         android:text="Comments :"
-        android:textColor="@color/black"
+        android:layout_marginLeft="10dp"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -29,16 +28,17 @@
 
     <EditText
         android:id="@+id/comment_input"
-        android:layout_width="367dp"
-        android:layout_height="39dp"
-        android:layout_alignParentStart="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="7dp"
-        android:layout_marginRight="55dp"
-        android:layout_marginBottom="0dp"
-        android:background="@color/white"
+        android:layout_marginEnd="40dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background= "@drawable/border_round"
         android:hint="Write a comment here"
-        android:inputType="textMultiLine"
         android:selectAllOnFocus="true"
         android:singleLine="false"
         android:textAppearance="@style/TextAppearance.AppCompat"
@@ -47,11 +47,16 @@
 
     <ImageButton
         android:id="@+id/btnPostComment"
-        android:layout_width="48dp"
-        android:layout_height="43dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/comment_input"
         android:layout_alignParentEnd="true"
-        android:padding="15dp"
-        android:src="@drawable/ic_menu_send" />
+        android:layout_weight="0"
+        android:background="@color/transparent"
+        android:padding="4dp"
+        android:scaleType="fitXY"
+        android:layout_gravity="center_vertical"
+        android:src="@android:drawable/ic_menu_send" />
+
 
 </RelativeLayout>

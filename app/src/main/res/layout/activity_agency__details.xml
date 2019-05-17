@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".Agency.AddServices">
 
@@ -76,31 +75,6 @@
 
 
                     <TextView
-                        android:id="@+id/text_donation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@null"
-                        android:hint="Donation Receive: "
-                        android:textAlignment="center"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/border_round"
-                    android:paddingTop="20dp">
-
-
-                    <TextView
                         android:id="@+id/text_agencyname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -108,8 +82,9 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="3dp"
                         android:background="@null"
-                        android:hint="Community Service Name"
+                        android:text="Community Service Name"
                         android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
@@ -141,6 +116,7 @@
                         android:hint="Description or Comment in less than 30 words"
                         android:inputType="textMultiLine"
                         android:paddingBottom="20dp"
+                        android:textColor="@color/black"
                         android:textAlignment="center"
                         android:textSize="15dp" />
 
@@ -443,7 +419,6 @@
                         android:textSize="16dp" />
 
                 </LinearLayout>
-
                 <ProgressBar
                     android:id="@+id/progressbar"
                     android:layout_width="wrap_content"
@@ -456,5 +431,36 @@
 
         </ScrollView>
     </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:elevation="30dp"
+        android:background="@drawable/border">
+        <TextView android:id="@+id/donationreceive"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:text="FUND RM: 0"
+            android:textSize="12dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <TextView android:id="@+id/donatenow"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="DONATE NOW"
+            android:textSize="12dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:gravity="center"/>
+    </LinearLayout>
 
 </LinearLayout>

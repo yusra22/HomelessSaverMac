@@ -217,7 +217,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent, gallerypick);
-
     }
 
     @Override

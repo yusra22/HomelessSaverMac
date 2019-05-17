@@ -9,6 +9,7 @@ public class Posts_Homeless
     public String postImage3;
     public String fullname;
     public String age;
+    public String illness;
     public String gender;
     public String martialstatus;
     public String occupation;
@@ -21,7 +22,7 @@ public class Posts_Homeless
 
     public Posts_Homeless() {}
 
-    public Posts_Homeless(String uid, String postImage, String postImage2, String postImage3, String fullname, String age, String relationship, String occupation, String decription, String reportnumber, String location, String time, String date, String countPosts, String gender) {
+    public Posts_Homeless(String uid, String postImage, String postImage2, String postImage3, String fullname, String age, String relationship, String occupation, String decription, String reportnumber, String location, String time, String date, String countPosts, String gender, String illness) {
         this.uid = uid;
         this.postImage = postImage;
         this.postImage2 = postImage2;
@@ -36,6 +37,15 @@ public class Posts_Homeless
         this.date = date;
         this.countPosts = countPosts;
         this.gender = gender;
+        this.illness = illness;
+    }
+
+    public String getIllness() {
+        return illness;
+    }
+
+    public void setIllness(String illness) {
+        this.illness = illness;
     }
 
     public String getUid() {

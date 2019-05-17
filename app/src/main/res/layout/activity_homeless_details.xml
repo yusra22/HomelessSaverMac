@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+
+
+
     android:orientation="vertical"
     tools:context=".Homeless.activity_homeless_details">
 
@@ -74,6 +76,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
+                            android:maxLength="30"
                             android:layout_marginStart="10dp"
                             android:layout_marginBottom="7dp"
                             android:background="@null"
@@ -206,7 +209,37 @@
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:paddingLeft="5dp"
-                            android:src="@drawable/ic_gender2" />
+                            android:src="@drawable/hospital" />
+
+                        <TextView
+                            android:id="@+id/text_illness"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@null"
+                            android:hint="Ailment or illness"
+                            android:paddingTop="3dp"
+                            android:textColor="@color/black"
+                            android:textSize="16dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/border_round"
+                        android:orientation="horizontal"
+                        android:paddingTop="10dp">
+
+                        <ImageView
+                            android:id="@+id/wishlistbtn"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:paddingLeft="5dp"
+                            android:src="@drawable/gender_male_female" />
 
                         <TextView
                             android:id="@+id/text_gender"
@@ -233,10 +266,10 @@
 
                         <ImageView
                             android:id="@+id/wishlistbtn"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
                             android:paddingLeft="5dp"
-                            android:src="@drawable/ic_info" />
+                            android:src="@drawable/ic_gender2" />
 
                         <TextView
                             android:id="@+id/text_martialstatus"
@@ -415,5 +448,36 @@
 
         </ScrollView>
     </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:elevation="30dp"
+        android:background="@drawable/border">
+        <TextView android:id="@+id/smsinformer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:text="MESSAGES"
+            android:textSize="12dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <TextView android:id="@+id/callinformer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="CALL INFORMER"
+            android:textSize="12dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:gravity="center"/>
+    </LinearLayout>
 
 </LinearLayout>

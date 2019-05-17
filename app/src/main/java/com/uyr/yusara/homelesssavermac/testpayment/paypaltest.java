@@ -27,6 +27,8 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -73,6 +75,8 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
     TextView test;
     String PostKey;
     String AgencyName;
+
+    String payid;
 
     private String saveCurrentDate, saveCurrentTime, postRandomName;
 
@@ -216,8 +220,7 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
 
                         String paymentResponse = jsonObject.getJSONObject("response").getString("state");
 
-                        if(paymentResponse.equals("approved"))
-                        {
+                        if(paymentResponse.equals("approved")) {
 
                             PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
 
@@ -225,20 +228,30 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
                             System.out.println(confirm.getPayment().toJSONObject().toString(4));
 
 
-                            String payid = confirm.toJSONObject().getJSONObject("response").getString("id");
+                            payid = confirm.toJSONObject().getJSONObject("response").getString("id");
 
                             Toast.makeText(getApplicationContext(), "Payment Successful", Toast.LENGTH_LONG).show();
 
                             HashMap paymentdetails = new HashMap();
-                            paymentdetails.put("donateTo",AgencyName);
-                            paymentdetails.put("donateToid",PostKey);
+                            paymentdetails.put("donateTo", AgencyName);
+                            paymentdetails.put("donateToid", PostKey);
                             paymentdetails.put("transactionID", payid);
                             paymentdetails.put("date", saveCurrentDate);
                             paymentdetails.put("time", saveCurrentTime);
                             paymentdetails.put("donationAmount", totaldonate);
                             paymentdetails.put("uid", currentUserid);
 
-                            PaymentRefs.child(postRandomName+payid).setValue(paymentdetails);
+                            PaymentRefs.child(postRandomName + payid).setValue(paymentdetails).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                    if(task.isSuccessful())
+                                    {
+                                        Postsref.child(PostKey).child("totalDonationReceive").child(payid).setValue(totaldonate);
+                                    }
+
+                                }
+                            });
                         }
 
                     } catch (JSONException e) {

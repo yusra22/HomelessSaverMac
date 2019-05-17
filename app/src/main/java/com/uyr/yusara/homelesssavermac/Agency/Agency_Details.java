@@ -8,6 +8,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +49,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uyr.yusara.homelesssavermac.Homeless.activity_homeless_details;
 import com.uyr.yusara.homelesssavermac.R;
+import com.uyr.yusara.homelesssavermac.testpayment.paypaltest;
 
 import java.io.IOException;
 import java.util.List;
@@ -64,14 +67,11 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
     private double latitude, longitude;
     private int ProximityRadius = 10000;
 
-
     private String PostKey,Agencyname,agencyname,categories,phoneno,email,website,facebook,twitter,location,schedule,tags;
     private String startdate,enddate,starttime,endtime;
 
-    private String donationreceive,donateToid;
 
     private TextView Postagencynametxt,Postcategoriestxt,Postphonenotxt,Postemailtxt,Postwebsitetxt,Postfacebooktxt,Posttwittertxt,Postlocationtxt,PostScheduletxt,PostTagstxt;
-    private TextView Postdonationreceive;
 
     //For function comment,bookmark and share
     private ImageView btnComment,bookmark,sharebtn;
@@ -89,6 +89,10 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
     private Toolbar mToolbar;
 
     private MediaPlayer mp;
+
+    private TextView Postdonationreceive,intentdonatenow;
+
+    private TextView callid;
 
 
     @Override
@@ -117,7 +121,11 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
         PostScheduletxt = findViewById(R.id.text_schedule);
         PostTagstxt = findViewById(R.id.text_tags);
 
-        Postdonationreceive = (TextView) findViewById(R.id.text_donation);
+        Postdonationreceive = findViewById(R.id.donationreceive);
+        intentdonatenow = findViewById(R.id.donatenow);
+
+        callid = (TextView)findViewById(R.id.text_officenumber);
+
 
         //For function comment,bookmark and share
         btnComment = (ImageView) findViewById(R.id.btncomment);
@@ -132,51 +140,7 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
 
         BookmarkRef = FirebaseDatabase.getInstance().getReference().child("Bookmarks");
 
-        PaymentRef = FirebaseDatabase.getInstance().getReference().child("Payment");
-
         ClickPostRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(PostKey);
-
-        PaymentRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-            {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    //Cara get parent dri children
-                    final String father = ds.getKey();
-
-                    PaymentRef.child(father).addValueEventListener(new ValueEventListener()
-                    {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-                        {
-
-                            donateToid = dataSnapshot.child("donateToid").getValue().toString();
-
-                            if(donateToid.equalsIgnoreCase(PostKey))
-                            {
-                                donationreceive = dataSnapshot.child("donationAmount").getValue().toString();
-                                //Postdonationreceive.setText(donationreceive);
-
-                                Toast.makeText(Agency_Details.this, donationreceive, Toast.LENGTH_SHORT).show();
-
-
-                            }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError)
-                        { }
-                        });
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         ClickPostRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -204,6 +168,26 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
                 Postlocationtxt.setText(location);
                 PostTagstxt.setText(tags);
 
+                ClickPostRef.child("totalDonationReceive").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        int sum = 0;
+                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                            int value = ds.getValue(Integer.class);
+                            sum =+ sum + value;
+                        }
+
+                        String a = String.valueOf(sum);
+                        Postdonationreceive.setText("FUND: RM " + a);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
                 if(schedule.equalsIgnoreCase("Open 24/7") || schedule.equalsIgnoreCase("Permanently Closed") || schedule.equalsIgnoreCase("Please contact this service"))
                 {
                     PostScheduletxt.setText(schedule);
@@ -229,7 +213,6 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
 
                         }
                     });
-
                     }
             }
 
@@ -252,6 +235,9 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
         findViewById(R.id.bookmark).setOnClickListener(this);
         findViewById(R.id.save).setOnClickListener(this);
         findViewById(R.id.sharebtn).setOnClickListener(this);
+        findViewById(R.id.donatenow).setOnClickListener(this);
+
+        findViewById(R.id.text_officenumber).setOnClickListener(this);
 
         mp = MediaPlayer.create(this, R.raw.pindrop);
         setBookmarkstatus(PostKey);
@@ -259,7 +245,6 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
         //Hilangkan fab tpi xpadam sebab mlas nk ubah
         fab.setVisibility(View.GONE);
     }
-
 
     /**
      * Manipulates the map once available.
@@ -346,6 +331,11 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
     {
         switch (view.getId())
         {
+            case R.id.text_officenumber:
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:"+callid.getText()));
+                startActivity(intent);
+                break;
             case R.id.btncomment:
                 Intent commentsIntent = new Intent(Agency_Details.this, Comment.class);
                 commentsIntent.putExtra("PostKey", PostKey);
@@ -359,8 +349,20 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
                 Bookmark();
                 break;
             case R.id.sharebtn:
-                Toast.makeText(Agency_Details.this, "Hai", Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(Intent.ACTION_SEND);
+                myIntent.setType("text/plain");
+                String shareBody = "The are new homeless community to share with you called " + Postagencynametxt.getText() + "." + "Check out on Homeless Saver!";
+                String shareSub = " Check out on Homeless Saver!";
+                myIntent.putExtra(Intent.EXTRA_SUBJECT,shareBody);
+                myIntent.putExtra(Intent.EXTRA_TEXT,shareBody);
+                startActivity(Intent.createChooser(myIntent, "Share Using"));
                 break;
+            case R.id.donatenow:
+                Intent donatationIntent = new Intent(Agency_Details.this, paypaltest.class);
+                startActivity(donatationIntent);
+                Animatoo.animateFade(Agency_Details.this);
+                break;
+
         }
     }
 

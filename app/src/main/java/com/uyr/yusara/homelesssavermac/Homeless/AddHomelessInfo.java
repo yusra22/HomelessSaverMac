@@ -60,9 +60,9 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
 
 
     //Untuk Radio Button
-    private String gender, martialstatus;
-    private RadioGroup genderchoice,martialchoice;
-    private RadioButton radioButtonGenderoption,radioButtonMartialoption;
+    private String gender, martialstatus,illness;
+    private RadioGroup genderchoice,martialchoice,illnesschoice;
+    private RadioButton radioButtonGenderoption,radioButtonMartialoption,radioButtonillnessoption;
 
     private String fullname,ic,age,location,description;
 
@@ -179,6 +179,32 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
         });
         int selectedId2 = martialchoice.getCheckedRadioButtonId();
         radioButtonMartialoption = (RadioButton) findViewById(selectedId2);
+
+        illnesschoice = (RadioGroup) findViewById(R.id.illnesschoice);
+        illnesschoice.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int i) {
+                radioButtonillnessoption = illnesschoice.findViewById(i);
+                switch (i){
+                    case R.id.radioButton_mental:
+                         illness = radioButtonillnessoption.getText().toString();
+                        break;
+                    case R.id.radioButton_disabled:
+                        illness = radioButtonillnessoption.getText().toString();
+                        break;
+                    case R.id.radioButton_seriousillness:
+                        illness = radioButtonillnessoption.getText().toString();
+                        break;
+                    case R.id.radioButton_other:
+                        illness = radioButtonillnessoption.getText().toString();
+                        break;
+
+                    default:
+                }
+
+
+            }
+        });
 
 /*        Calendar dob = Calendar.getInstance();
         Calendar today = Calendar.getInstance();
@@ -402,13 +428,32 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
         {
             edit_location.setError("Please add the location");
             edit_location.requestFocus();
+            return;
 
         }
         if(description.isEmpty())
         {
             edit_description.setError("Please add the location");
             edit_description.requestFocus();
-            Toast.makeText(this, "Please select your relationship",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please insert description",Toast.LENGTH_SHORT).show();
+            return;
+
+        }
+        if(genderchoice.getCheckedRadioButtonId()==-1)
+        {
+            Toast.makeText(this, "Please select gender",Toast.LENGTH_SHORT).show();
+            return;
+
+        }
+        if(illnesschoice.getCheckedRadioButtonId()==-1)
+        {
+            Toast.makeText(this, "Please select illness",Toast.LENGTH_SHORT).show();
+            return;
+
+        }
+        if(martialchoice.getCheckedRadioButtonId()==-1)
+        {
+            Toast.makeText(this, "Please select martial status",Toast.LENGTH_SHORT).show();
             return;
 
         }
@@ -596,6 +641,7 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
                         postMap.put("ic", ic);
                         postMap.put("age", age);
                         postMap.put("location",location);
+                        postMap.put("illness", illness);
                         postMap.put("gender",gender);
                         postMap.put("martialstatus",martialstatus);
                         postMap.put("description",description);

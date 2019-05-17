@@ -56,18 +56,18 @@
     <string name="skip">SKIP</string>
     <string name="start">GOT IT</string>
 
-    <string name="slide_1_title">Hello People!</string>
-    <string name="slide_1_desc">The easiest way!
+    <string name="slide_1_title">Welcome to Homeless Saver</string>
+    <string name="slide_1_desc"> Home Screen of the App displays dashboard of the user will use after login to the system
     </string>
 
-    <string name="slide_2_title">We also</string>
-    <string name="slide_2_desc">Hahahaha nice try</string>
+    <string name="slide_2_title">List View </string>
+    <string name="slide_2_desc">You can click on Homeless/Community to display list of service/homeless with info like shelter, name etc.</string>
 
-    <string name="slide_3_title">Great Discounts</string>
-    <string name="slide_3_desc">Best discounts</string>
+    <string name="slide_3_title">Details</string>
+    <string name="slide_3_desc">Click from any service/homeless on the display list to get detailed info including Map direction to the service/homeless from your Location. </string>
 
-    <string name="slide_4_title">See our system</string>
-    <string name="slide_4_desc">Book</string>
+    <string name="slide_4_title">Map View</string>
+    <string name="slide_4_desc">You can view services in Map View, get into the details and can even filter the map to look for service/homeless nearby at bottom end of the screen</string>
 
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome
         slider -> clear data

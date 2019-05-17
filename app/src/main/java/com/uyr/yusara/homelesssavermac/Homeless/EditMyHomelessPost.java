@@ -57,9 +57,11 @@ public class EditMyHomelessPost extends AppCompatActivity implements View.OnClic
     private EditText edit_fullname,edit_ic,edit_age,edit_location,edit_description;
 
     //Untuk Radio Button
-    private String gender, martialstatus;
-    private RadioGroup genderchoice,martialchoice;
-    private RadioButton radioButtonGenderoption,radioButtonMartialoption;
+    private String gender, martialstatus, illness;
+    private RadioGroup genderchoice,martialchoice, illnesschoice;
+
+    private RadioButton radioButton_mental,radioButton_disabled,radioButton_sillness,radioButton_other;
+    private RadioButton radioButtonGenderoption,radioButtonMartialoption, radioButtonillnessoption;
     private RadioButton radioButton_male,radioButton_female;
     private RadioButton radioButton_single,radioButton_married,radioButton_divorced,radioButton_legallyseparated,radioButton_widowed;
 
@@ -114,6 +116,10 @@ public class EditMyHomelessPost extends AppCompatActivity implements View.OnClic
         edit_location = (EditText)findViewById(R.id.edit_location);
         edit_description = (EditText)findViewById(R.id.edit_description);
 
+        radioButton_mental = (RadioButton) findViewById(R.id.radioButton_mental);
+        radioButton_disabled = (RadioButton) findViewById(R.id.radioButton_disabled);
+        radioButton_sillness = (RadioButton) findViewById(R.id.radioButton_seriousillness);
+        radioButton_other = (RadioButton) findViewById(R.id.radioButton_other);
         radioButton_male = (RadioButton) findViewById(R.id.radioButton_male);
         radioButton_female = (RadioButton) findViewById(R.id.radioButton_female);
         radioButton_single = (RadioButton)findViewById(R.id.radioButton_single);
@@ -189,6 +195,32 @@ public class EditMyHomelessPost extends AppCompatActivity implements View.OnClic
         });
         int selectedId2 = martialchoice.getCheckedRadioButtonId();
         radioButtonMartialoption = (RadioButton) findViewById(selectedId2);
+
+        illnesschoice = (RadioGroup) findViewById(R.id.illnesschoice);
+        illnesschoice.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int i) {
+                radioButtonillnessoption = illnesschoice.findViewById(i);
+                switch (i){
+                    case R.id.radioButton_mental:
+                        illness = radioButtonillnessoption.getText().toString();
+                        break;
+                    case R.id.radioButton_disabled:
+                        illness = radioButtonillnessoption.getText().toString();
+                        break;
+                    case R.id.radioButton_seriousillness:
+                        illness = radioButtonillnessoption.getText().toString();
+                        break;
+                    case R.id.radioButton_other:
+                        illness = radioButtonillnessoption.getText().toString();
+                        break;
+
+                    default:
+                }
+            }
+        });
+        int selectedId3 = illnesschoice.getCheckedRadioButtonId();
+        radioButtonillnessoption = (RadioButton) findViewById(selectedId3);
 
         displaydata();
 
@@ -267,7 +299,7 @@ public class EditMyHomelessPost extends AppCompatActivity implements View.OnClic
 
         final StorageReference filePath = PostImageRef.child("Homeless Reported Images").child(ImageUri + postRandomName + ".jpg");
         final StorageReference filePath2 = PostImageRef.child("Homeless Reported Images").child(ImageUri2 + postRandomName + ".jpg");
-        final StorageReference filePath3 = PostImageRef.child("Homeless Reported Images").child(ImageUri3.getLastPathSegment() + postRandomName + ".jpg");
+        final StorageReference filePath3 = PostImageRef.child("Homeless Reported Images").child(ImageUri3 + postRandomName + ".jpg");
 
 
 
@@ -426,6 +458,7 @@ public class EditMyHomelessPost extends AppCompatActivity implements View.OnClic
                         postMap.put("ic", ic);
                         postMap.put("age", age);
                         postMap.put("location",location);
+                        postMap.put("illness",illness);
                         postMap.put("gender",gender);
                         postMap.put("martialstatus",martialstatus);
                         postMap.put("description",description);
@@ -475,6 +508,7 @@ public class EditMyHomelessPost extends AppCompatActivity implements View.OnClic
                 ic = dataSnapshot.child("ic").getValue().toString();
                 age = dataSnapshot.child("age").getValue().toString();
                 location = dataSnapshot.child("location").getValue().toString();
+                illness = dataSnapshot.child("illness").getValue().toString();
                 gender = dataSnapshot.child("gender").getValue().toString();
                 martialstatus = dataSnapshot.child("martialstatus").getValue().toString();
                 description = dataSnapshot.child("description").getValue().toString();
@@ -494,6 +528,24 @@ public class EditMyHomelessPost extends AppCompatActivity implements View.OnClic
                 Glide.with(EditMyHomelessPost.this).load(image).into(SelectPostImage);
                 Glide.with(EditMyHomelessPost.this).load(image2).into(SelectPostImage2);
                 Glide.with(EditMyHomelessPost.this).load(image3).into(SelectPostImage3);
+
+                if(illness.equalsIgnoreCase("Mental"))
+                {
+                    radioButton_mental.setChecked(true);
+
+                }
+                else if (illness.equalsIgnoreCase("Disabled"))
+                {
+                    radioButton_disabled.setChecked(true);
+                }
+                else if (illness.equalsIgnoreCase("S.illness"))
+                {
+                    radioButton_sillness.setChecked(true);
+                }
+                else if (illness.equalsIgnoreCase("Others"))
+                {
+                    radioButton_other.setChecked(true);
+                }
 
 
                 if(gender.equalsIgnoreCase("Male"))

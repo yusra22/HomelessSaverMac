@@ -69,7 +69,7 @@
                         android:layout_width="20dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_date" />
+                        android:src="@drawable/age" />
 
                     <TextView
                         android:id="@+id/post_ages"
@@ -94,7 +94,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_gender2" />
+                        android:src="@drawable/gender_male_female" />
 
                     <TextView
                         android:id="@+id/post_gender"
@@ -117,8 +117,8 @@
                     <ImageView
                         android:id="@+id/imageView3"
                         android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_info" />
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_gender2" />
 
                     <TextView
                         android:id="@+id/post_relationship"

@@ -147,7 +147,7 @@ public class MyAgencyPost extends AppCompatActivity {
                                         PostsRef2 = FirebaseDatabase.getInstance().getReference().child("Posts").child(PostKey);
 
                                         PostsRef2.removeValue();
-                                        Toast.makeText(MyAgencyPost.this, "Property delete successfully ", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MyAgencyPost.this, "Deleted successfully ", Toast.LENGTH_SHORT).show();
                                     }
                                 });
 

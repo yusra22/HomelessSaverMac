@@ -79,7 +79,7 @@ public class Myhomelesspost extends AppCompatActivity {
 
         if(id == android.R.id.home)
         {
-            SendUserToMainActivity();
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -144,7 +144,7 @@ public class Myhomelesspost extends AppCompatActivity {
                                         PostsRef2 = FirebaseDatabase.getInstance().getReference().child("People Report Post").child(PostKey);
 
                                         PostsRef2.removeValue();
-                                        Toast.makeText(Myhomelesspost.this, "Property delete successfully ", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Myhomelesspost.this, "Deleted successfully ", Toast.LENGTH_SHORT).show();
                                     }
                                 });
 

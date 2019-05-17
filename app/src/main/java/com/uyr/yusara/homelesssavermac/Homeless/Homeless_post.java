@@ -109,13 +109,21 @@ public class Homeless_post extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
                 int id = menuItem.getItemId();
-                if(id == R.id.navigation_gender)
+                if(id == R.id.navigation_mental)
                 {
-                    //food();
+                    mental();
                 }
-                if(id == R.id.navigation_martialstatus)
+                if(id == R.id.navigation_disabled)
                 {
-                    //shelter();
+                    disabled();
+                }
+                if(id == R.id.navigation_sillness)
+                {
+                    illness();
+                }
+                if(id == R.id.navigation_others)
+                {
+                    Others();
                 }
 
                 return false;
@@ -148,6 +156,550 @@ public class Homeless_post extends AppCompatActivity {
         String query = searchBoxInput.toLowerCase();
         Query SortAgentPost = Postsref.orderByChild("fullname").startAt(query).endAt(query + "\uf8ff");
         //Query SortAgentPost = Postsref.orderByChild("fullname");
+
+        FirebaseRecyclerOptions<Posts_Homeless> options = new FirebaseRecyclerOptions.Builder<Posts_Homeless>().setQuery(SortAgentPost, Posts_Homeless.class).build();
+
+        FirebaseRecyclerAdapter<Posts_Homeless,PostsViewHolder> adapter = new FirebaseRecyclerAdapter<Posts_Homeless, PostsViewHolder>(options)
+        {
+            @Override
+            protected void onBindViewHolder(@NonNull PostsViewHolder holder, final int position, @NonNull Posts_Homeless model)
+            {
+
+                final String PostKey = getRef(position).getKey();
+
+                holder.post_fullname.setText(model.getFullname());
+                holder.post_ages.setText(model.getAge());
+                holder.post_gender.setText(model.getGender());
+                holder.post_martialstatus.setText(model.getMartialstatus());
+                holder.post_date.setText(model.getDate());
+                //Glide.with(MyAgencyPost.this).load(model.getPostImage()).into(holder.productimage);
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        //Untuk dpat id user
+                        //String PostKey = getSnapshots().get(position).getUid();
+
+                        // Untuk dpat Id dalam table post
+                        String PostKey = getSnapshots().getSnapshot(position).getKey();
+                        //String Agencyname = getSnapshots().get(position).getAgencyname();
+
+
+                        Intent click_post = new Intent(Homeless_post.this,activity_homeless_details.class);
+                        click_post.putExtra("PostKey", PostKey);
+                        //click_post.putExtra("Agencyname", Agencyname);
+                        startActivity(click_post);
+                        Animatoo.animateZoom(Homeless_post.this);
+
+                    }
+                });
+
+                holder.setLikeButtonStatus(PostKey);
+                //holder.setDisLikeButtonStatus(PostKey);
+
+                holder.layout_likes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        LikeChecker = true;
+
+                        LikesRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                if(LikeChecker.equals(true))
+                                {
+                                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                                    {
+                                        LikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        LikeChecker = false;
+                                        mp.start();
+                                    }
+                                    else {
+
+                                        LikesRef.child(PostKey).child(currentUserid).setValue(true);
+                                        DisLikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        LikeChecker = false;
+                                        mp.start();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+
+                            }
+                        });
+                    }
+                });
+
+                holder.layout_dislikes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        DislikeChecker = true;
+
+                        DisLikesRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                if(DislikeChecker.equals(true))
+                                {
+                                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                                    {
+                                        DisLikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        DislikeChecker = false;
+                                        mp.start();
+                                    }
+                                    else {
+
+                                        DisLikesRef.child(PostKey).child(currentUserid).setValue(true);
+                                        LikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        DislikeChecker = false;
+                                        mp.start();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+
+                            }
+                        });
+                    }
+                });
+
+            }
+
+            @NonNull
+            @Override
+            public PostsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
+            {
+                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.all_post_layout_homeless, viewGroup, false);
+                PostsViewHolder viewHolder = new PostsViewHolder(view);
+
+                return viewHolder;
+            }
+        };
+
+        postList.setAdapter(adapter);
+        adapter.startListening();
+    }
+
+    private void mental()
+    {
+        Query SortAgentPost = Postsref.orderByChild("illness").startAt("Mental").endAt("Mental" + "\uf8ff");
+
+        FirebaseRecyclerOptions<Posts_Homeless> options = new FirebaseRecyclerOptions.Builder<Posts_Homeless>().setQuery(SortAgentPost, Posts_Homeless.class).build();
+
+        FirebaseRecyclerAdapter<Posts_Homeless,PostsViewHolder> adapter = new FirebaseRecyclerAdapter<Posts_Homeless, PostsViewHolder>(options)
+        {
+            @Override
+            protected void onBindViewHolder(@NonNull PostsViewHolder holder, final int position, @NonNull Posts_Homeless model)
+            {
+
+                final String PostKey = getRef(position).getKey();
+
+                holder.post_fullname.setText(model.getFullname());
+                holder.post_ages.setText(model.getAge());
+                holder.post_gender.setText(model.getGender());
+                holder.post_martialstatus.setText(model.getMartialstatus());
+                holder.post_date.setText(model.getDate());
+                //Glide.with(MyAgencyPost.this).load(model.getPostImage()).into(holder.productimage);
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        //Untuk dpat id user
+                        //String PostKey = getSnapshots().get(position).getUid();
+
+                        // Untuk dpat Id dalam table post
+                        String PostKey = getSnapshots().getSnapshot(position).getKey();
+                        //String Agencyname = getSnapshots().get(position).getAgencyname();
+
+
+                        Intent click_post = new Intent(Homeless_post.this,activity_homeless_details.class);
+                        click_post.putExtra("PostKey", PostKey);
+                        //click_post.putExtra("Agencyname", Agencyname);
+                        startActivity(click_post);
+                        Animatoo.animateZoom(Homeless_post.this);
+
+                    }
+                });
+
+                holder.setLikeButtonStatus(PostKey);
+                //holder.setDisLikeButtonStatus(PostKey);
+
+                holder.layout_likes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        LikeChecker = true;
+
+                        LikesRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                if(LikeChecker.equals(true))
+                                {
+                                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                                    {
+                                        LikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        LikeChecker = false;
+                                        mp.start();
+                                    }
+                                    else {
+
+                                        LikesRef.child(PostKey).child(currentUserid).setValue(true);
+                                        DisLikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        LikeChecker = false;
+                                        mp.start();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+
+                            }
+                        });
+                    }
+                });
+
+                holder.layout_dislikes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        DislikeChecker = true;
+
+                        DisLikesRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                if(DislikeChecker.equals(true))
+                                {
+                                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                                    {
+                                        DisLikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        DislikeChecker = false;
+                                        mp.start();
+                                    }
+                                    else {
+
+                                        DisLikesRef.child(PostKey).child(currentUserid).setValue(true);
+                                        LikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        DislikeChecker = false;
+                                        mp.start();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+
+                            }
+                        });
+                    }
+                });
+
+            }
+
+            @NonNull
+            @Override
+            public PostsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
+            {
+                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.all_post_layout_homeless, viewGroup, false);
+                PostsViewHolder viewHolder = new PostsViewHolder(view);
+
+                return viewHolder;
+            }
+        };
+
+        postList.setAdapter(adapter);
+        adapter.startListening();
+    }
+
+    private void disabled()
+    {
+        Query SortAgentPost = Postsref.orderByChild("illness").startAt("Disabled").endAt("Disabled" + "\uf8ff");
+
+        FirebaseRecyclerOptions<Posts_Homeless> options = new FirebaseRecyclerOptions.Builder<Posts_Homeless>().setQuery(SortAgentPost, Posts_Homeless.class).build();
+
+        FirebaseRecyclerAdapter<Posts_Homeless,PostsViewHolder> adapter = new FirebaseRecyclerAdapter<Posts_Homeless, PostsViewHolder>(options)
+        {
+            @Override
+            protected void onBindViewHolder(@NonNull PostsViewHolder holder, final int position, @NonNull Posts_Homeless model)
+            {
+
+                final String PostKey = getRef(position).getKey();
+
+                holder.post_fullname.setText(model.getFullname());
+                holder.post_ages.setText(model.getAge());
+                holder.post_gender.setText(model.getGender());
+                holder.post_martialstatus.setText(model.getMartialstatus());
+                holder.post_date.setText(model.getDate());
+                //Glide.with(MyAgencyPost.this).load(model.getPostImage()).into(holder.productimage);
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        //Untuk dpat id user
+                        //String PostKey = getSnapshots().get(position).getUid();
+
+                        // Untuk dpat Id dalam table post
+                        String PostKey = getSnapshots().getSnapshot(position).getKey();
+                        //String Agencyname = getSnapshots().get(position).getAgencyname();
+
+
+                        Intent click_post = new Intent(Homeless_post.this,activity_homeless_details.class);
+                        click_post.putExtra("PostKey", PostKey);
+                        //click_post.putExtra("Agencyname", Agencyname);
+                        startActivity(click_post);
+                        Animatoo.animateZoom(Homeless_post.this);
+
+                    }
+                });
+
+                holder.setLikeButtonStatus(PostKey);
+                //holder.setDisLikeButtonStatus(PostKey);
+
+                holder.layout_likes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        LikeChecker = true;
+
+                        LikesRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                if(LikeChecker.equals(true))
+                                {
+                                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                                    {
+                                        LikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        LikeChecker = false;
+                                        mp.start();
+                                    }
+                                    else {
+
+                                        LikesRef.child(PostKey).child(currentUserid).setValue(true);
+                                        DisLikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        LikeChecker = false;
+                                        mp.start();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+
+                            }
+                        });
+                    }
+                });
+
+                holder.layout_dislikes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        DislikeChecker = true;
+
+                        DisLikesRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                if(DislikeChecker.equals(true))
+                                {
+                                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                                    {
+                                        DisLikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        DislikeChecker = false;
+                                        mp.start();
+                                    }
+                                    else {
+
+                                        DisLikesRef.child(PostKey).child(currentUserid).setValue(true);
+                                        LikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        DislikeChecker = false;
+                                        mp.start();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+
+                            }
+                        });
+                    }
+                });
+
+            }
+
+            @NonNull
+            @Override
+            public PostsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
+            {
+                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.all_post_layout_homeless, viewGroup, false);
+                PostsViewHolder viewHolder = new PostsViewHolder(view);
+
+                return viewHolder;
+            }
+        };
+
+        postList.setAdapter(adapter);
+        adapter.startListening();
+    }
+
+    private void illness()
+    {
+        Query SortAgentPost = Postsref.orderByChild("illness").startAt("S.illness").endAt("S.illness" + "\uf8ff");
+
+        FirebaseRecyclerOptions<Posts_Homeless> options = new FirebaseRecyclerOptions.Builder<Posts_Homeless>().setQuery(SortAgentPost, Posts_Homeless.class).build();
+
+        FirebaseRecyclerAdapter<Posts_Homeless,PostsViewHolder> adapter = new FirebaseRecyclerAdapter<Posts_Homeless, PostsViewHolder>(options)
+        {
+            @Override
+            protected void onBindViewHolder(@NonNull PostsViewHolder holder, final int position, @NonNull Posts_Homeless model)
+            {
+
+                final String PostKey = getRef(position).getKey();
+
+                holder.post_fullname.setText(model.getFullname());
+                holder.post_ages.setText(model.getAge());
+                holder.post_gender.setText(model.getGender());
+                holder.post_martialstatus.setText(model.getMartialstatus());
+                holder.post_date.setText(model.getDate());
+                //Glide.with(MyAgencyPost.this).load(model.getPostImage()).into(holder.productimage);
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        //Untuk dpat id user
+                        //String PostKey = getSnapshots().get(position).getUid();
+
+                        // Untuk dpat Id dalam table post
+                        String PostKey = getSnapshots().getSnapshot(position).getKey();
+                        //String Agencyname = getSnapshots().get(position).getAgencyname();
+
+
+                        Intent click_post = new Intent(Homeless_post.this,activity_homeless_details.class);
+                        click_post.putExtra("PostKey", PostKey);
+                        //click_post.putExtra("Agencyname", Agencyname);
+                        startActivity(click_post);
+                        Animatoo.animateZoom(Homeless_post.this);
+
+                    }
+                });
+
+                holder.setLikeButtonStatus(PostKey);
+                //holder.setDisLikeButtonStatus(PostKey);
+
+                holder.layout_likes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        LikeChecker = true;
+
+                        LikesRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                if(LikeChecker.equals(true))
+                                {
+                                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                                    {
+                                        LikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        LikeChecker = false;
+                                        mp.start();
+                                    }
+                                    else {
+
+                                        LikesRef.child(PostKey).child(currentUserid).setValue(true);
+                                        DisLikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        LikeChecker = false;
+                                        mp.start();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+
+                            }
+                        });
+                    }
+                });
+
+                holder.layout_dislikes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        DislikeChecker = true;
+
+                        DisLikesRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                if(DislikeChecker.equals(true))
+                                {
+                                    if(dataSnapshot.child(PostKey).hasChild(currentUserid))
+                                    {
+                                        DisLikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        DislikeChecker = false;
+                                        mp.start();
+                                    }
+                                    else {
+
+                                        DisLikesRef.child(PostKey).child(currentUserid).setValue(true);
+                                        LikesRef.child(PostKey).child(currentUserid).removeValue();
+                                        DislikeChecker = false;
+                                        mp.start();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+
+                            }
+                        });
+                    }
+                });
+
+            }
+
+            @NonNull
+            @Override
+            public PostsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
+            {
+                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.all_post_layout_homeless, viewGroup, false);
+                PostsViewHolder viewHolder = new PostsViewHolder(view);
+
+                return viewHolder;
+            }
+        };
+
+        postList.setAdapter(adapter);
+        adapter.startListening();
+    }
+
+    private void Others()
+    {
+        Query SortAgentPost = Postsref.orderByChild("illness").startAt("Others").endAt("Others" + "\uf8ff");
 
         FirebaseRecyclerOptions<Posts_Homeless> options = new FirebaseRecyclerOptions.Builder<Posts_Homeless>().setQuery(SortAgentPost, Posts_Homeless.class).build();
 
@@ -507,10 +1059,6 @@ public class Homeless_post extends AppCompatActivity {
 
                 }
             });
-        }
-
-        public void setDisLikeButtonStatus(final String PostKey2) {
-
         }
     }
 }

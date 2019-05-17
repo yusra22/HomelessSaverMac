@@ -201,6 +201,59 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/illnesstitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Ailment/illness :"
+                    android:textSize="16sp"
+                    android:textColor="@color/black" />
+
+                <RadioGroup
+                    android:id="@+id/illnesschoice"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_round"
+                    android:orientation="horizontal">>
+
+                    <RadioButton
+                        android:id="@+id/radioButton_mental"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:text="Mental" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_disabled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:text="Disabled" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_seriousillness"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:text="S.illness" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_other"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:text="Others" />
+
+                </RadioGroup>
+
+                <TextView
                     android:id="@+id/gendertittle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
