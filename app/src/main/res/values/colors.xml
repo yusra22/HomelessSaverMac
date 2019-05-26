@@ -58,5 +58,6 @@
     <color name="primarydarkold">#20b2aa</color>
     <color name="accentold">#20b2aa</color>
     <color name="pLight">#4fa1ca</color>
+    <color name="white_transparent">#99FFFFFF</color>
 
 </resources>

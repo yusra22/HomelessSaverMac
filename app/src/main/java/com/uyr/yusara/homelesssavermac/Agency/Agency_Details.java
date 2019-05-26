@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Paint;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -49,6 +50,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.uyr.yusara.homelesssavermac.Homeless.activity_homeless_details;
 import com.uyr.yusara.homelesssavermac.R;
+import com.uyr.yusara.homelesssavermac.StreetView;
 import com.uyr.yusara.homelesssavermac.testpayment.paypaltest;
 
 import java.io.IOException;
@@ -126,6 +128,9 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
 
         callid = (TextView)findViewById(R.id.text_officenumber);
 
+        //Underline kan location
+        Postlocationtxt.setPaintFlags(Postlocationtxt.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
 
         //For function comment,bookmark and share
         btnComment = (ImageView) findViewById(R.id.btncomment);
@@ -160,7 +165,7 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
 
                 Postagencynametxt.setText(agencyname);
                 Postcategoriestxt.setText(categories);
-                Postphonenotxt.setText(phoneno);
+                Postphonenotxt.setText(phoneno + "XX-XXXX");
                 Postemailtxt.setText(email);
                 Postwebsitetxt.setText(website);
                 Postfacebooktxt.setText(facebook);
@@ -238,6 +243,7 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
         findViewById(R.id.donatenow).setOnClickListener(this);
 
         findViewById(R.id.text_officenumber).setOnClickListener(this);
+        findViewById(R.id.text_location).setOnClickListener(this);
 
         mp = MediaPlayer.create(this, R.raw.pindrop);
         setBookmarkstatus(PostKey);
@@ -362,6 +368,15 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
                 startActivity(donatationIntent);
                 Animatoo.animateFade(Agency_Details.this);
                 break;
+            case R.id.text_location:
+                String PostLat = String.valueOf(latitude);
+                String PostLng = String.valueOf(longitude);
+                Intent streetview = new Intent(Agency_Details.this, StreetView.class);
+                streetview.putExtra("PostKey", PostLat);
+                streetview.putExtra("PostKey2", PostLng);
+                streetview.putExtra("PostKey3", location);
+                startActivity(streetview);
+                Animatoo.animateShrink(Agency_Details.this);
 
         }
     }
@@ -500,6 +515,8 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
 
                         latitude = userAddress.getLatitude();
                         longitude = userAddress.getLongitude();
+
+
                     }
                 }
                 else

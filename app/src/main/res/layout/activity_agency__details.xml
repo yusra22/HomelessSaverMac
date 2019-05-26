@@ -319,11 +319,11 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
+                        android:layout_marginBottom="3dp"
                         android:background="@null"
                         android:hint="Location"
-                        android:textColor="@color/black"
                         android:paddingTop="3dp"
-                        android:layout_marginBottom="3dp"
+                        android:textColor="@color/black"
                         android:textSize="16dp" />
 
                 </LinearLayout>

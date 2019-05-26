@@ -414,13 +414,13 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
 
         if(fullname.isEmpty())
         {
-            edit_fullname.setError("Please add agency name");
+            edit_fullname.setError("Please add the name");
             edit_fullname.requestFocus();
             return;
         }
         if(age.isEmpty())
         {
-            edit_age.setError("Please add the description");
+            edit_age.setError("Please add the age");
             edit_age.requestFocus();
             return;
         }
@@ -433,7 +433,7 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
         }
         if(description.isEmpty())
         {
-            edit_description.setError("Please add the location");
+            edit_description.setError("Please add the description");
             edit_description.requestFocus();
             Toast.makeText(this, "Please insert description",Toast.LENGTH_SHORT).show();
             return;

@@ -76,7 +76,8 @@
         <activity android:name=".Notification" />
         <activity android:name=".Homeless.EditMyHomelessPost" />
         <activity android:name=".CrisisLine" />
-        <activity android:name=".Feedback"></activity>
+        <activity android:name=".Feedback" />
+        <activity android:name=".StreetView"></activity>
     </application>
 
 </manifest>

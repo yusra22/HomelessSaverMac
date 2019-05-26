@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Paint;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -46,8 +47,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.uyr.yusara.homelesssavermac.Agency.Agency_Details;
 import com.uyr.yusara.homelesssavermac.Agency.Comment;
 import com.uyr.yusara.homelesssavermac.R;
+import com.uyr.yusara.homelesssavermac.StreetView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -108,7 +111,6 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        flipper = (FlipperLayout) findViewById(R.id.flipper);
 
         Postfullname = findViewById(R.id.text_fullname);
         Postage = findViewById(R.id.text_ages);
@@ -120,6 +122,9 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
         Postdescription = findViewById(R.id.text_description);
 
         PostKey = getIntent().getExtras().get("PostKey").toString();
+
+        //Underline kan location
+        Postlocation.setPaintFlags(Postlocation.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         mAuth = FirebaseAuth.getInstance();
         currentUserid = mAuth.getCurrentUser().getUid();
@@ -151,6 +156,8 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
                 Postgender.setText(gender);
                 Postmartialstatus.setText(martialstatus);
                 Postdescription.setText(description);
+
+
 
                 UsersRef.child(posteruid).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -201,6 +208,7 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
         findViewById(R.id.sharebtn).setOnClickListener(this);
         findViewById(R.id.smsinformer).setOnClickListener(this);
         findViewById(R.id.callinformer).setOnClickListener(this);
+        findViewById(R.id.text_location).setOnClickListener(this);
 
         mp = MediaPlayer.create(this, R.raw.pindrop);
         setLikeButtonStatus(PostKey);
@@ -303,7 +311,7 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
                 startActivity(Intent.createChooser(myIntent, "Share Using"));
                 break;
             case R.id.smsinformer:
-                Intent message = new Intent( Intent.ACTION_VIEW, Uri.parse( "sms:" + "" ) );
+                Intent message = new Intent( Intent.ACTION_VIEW, Uri.parse( "sms:" + posterphoneno ) );
                 message.putExtra( "sms_body", "Hi, I like to help and know more details about Mr/Ms " + Postfullname.getText() );
                 startActivity(message);
                 break;
@@ -311,6 +319,15 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:"+ posterphoneno));
                 startActivity(intent);
+                break;
+            case R.id.text_location:
+                String PostLat = String.valueOf(latitude);
+                String PostLng = String.valueOf(longitude);
+                Intent streetview = new Intent(activity_homeless_details.this, StreetView.class);
+                streetview.putExtra("PostKey", PostLat);
+                streetview.putExtra("PostKey2", PostLng);
+                startActivity(streetview);
+                Animatoo.animateShrink(activity_homeless_details.this);
                 break;
         }
 

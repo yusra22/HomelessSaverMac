@@ -75,6 +75,7 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
     TextView test;
     String PostKey;
     String AgencyName;
+    String DonaterName,DonaterEmail;
 
     String payid;
 
@@ -160,6 +161,21 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
             }
         });
 
+        UsersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                DonaterEmail = dataSnapshot.child("email").getValue().toString();
+                DonaterName = dataSnapshot.child("name").getValue().toString();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         findViewById(R.id.button10).setOnClickListener(this);
         findViewById(R.id.button20).setOnClickListener(this);
         findViewById(R.id.button30).setOnClickListener(this);
@@ -233,6 +249,8 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
                             Toast.makeText(getApplicationContext(), "Payment Successful", Toast.LENGTH_LONG).show();
 
                             HashMap paymentdetails = new HashMap();
+                            paymentdetails.put("donaterEmail", DonaterEmail);
+                            paymentdetails.put("donaterName", DonaterName);
                             paymentdetails.put("donateTo", AgencyName);
                             paymentdetails.put("donateToid", PostKey);
                             paymentdetails.put("transactionID", payid);

@@ -97,7 +97,11 @@
                         android:layout_marginBottom="5dp"
                         android:hint="Email"
                         android:textSize="15dp"
-                        android:padding="5dp" />
+                        android:padding="5dp"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"/>
 
                     <TextView
                         android:layout_width="match_parent"
