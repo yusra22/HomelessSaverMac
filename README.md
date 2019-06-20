@@ -26,28 +26,37 @@ API Use: Firebase, Google Map, PayPal Sandbox
 
 ## Sample Screenshot
 ![1](https://user-images.githubusercontent.com/38873636/59853406-654ce000-93a3-11e9-97a1-d53200c8f571.jpg)
+
 Figure 1: Login Page for Community/Citizen
 
 ![2](https://user-images.githubusercontent.com/38873636/59853407-654ce000-93a3-11e9-9a28-e15b10e3d33e.jpg)
+
 Figure 2: Forgot Password
 
 ![4](https://user-images.githubusercontent.com/38873636/59853400-63831c80-93a3-11e9-9b22-1fdbabb344da.jpg)
+
 Figure 3: Dashboard/Main Page for Community/Homeless
 
 ![5](https://user-images.githubusercontent.com/38873636/59853401-63831c80-93a3-11e9-8dcc-82927137c28d.jpg)
+
 Figure 4: Donation Page
 
 ![6](https://user-images.githubusercontent.com/38873636/59853402-641bb300-93a3-11e9-9cc5-92812e7a1947.jpg)
+
 Figure 5: Add Report Homeless Page
 
 ![7](https://user-images.githubusercontent.com/38873636/59853403-641bb300-93a3-11e9-99a2-7e3e8fc1ca7e.jpg)
+
 Figure 6: Map View Nearby Community/Homeless to/for help
 
 ![8](https://user-images.githubusercontent.com/38873636/59853404-64b44980-93a3-11e9-8b02-39e9fdd9741c.jpg)
+
 Figure 7: Homeless Reported Details
 
 ![9](https://user-images.githubusercontent.com/38873636/59853405-64b44980-93a3-11e9-874a-7102309bb238.jpg)
+
 Figure 8: Community Service Available
 
 ![10](https://user-images.githubusercontent.com/38873636/59853426-6da51b00-93a3-11e9-9e40-3da8a0b686e4.jpg)
+
 Figure 9: Street View of the address click
