@@ -10,7 +10,7 @@ This Android App is for my university final year project. This Homeless Saver ap
 
 Language Use:	Java & XML
 
-Backend and Database: Firebase (NonSQL Datbase and Realtime Database)
+Backend and Database: Firebase (NonSQL Database and Realtime Database)
 
 Platform Use:	Android Studio
 
