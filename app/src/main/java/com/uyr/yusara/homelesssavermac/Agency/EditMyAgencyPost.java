@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -35,6 +36,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.santalu.maskedittext.MaskEditText;
+import com.uyr.yusara.homelesssavermac.MainActivity;
 import com.uyr.yusara.homelesssavermac.R;
 
 import java.text.SimpleDateFormat;
@@ -44,7 +47,8 @@ import java.util.HashMap;
 public class EditMyAgencyPost extends AppCompatActivity implements View.OnClickListener
 {
     private Button UpdatePostButton;
-    private EditText post_agencyname,post_categories,post_location,post_officenumber,post_email,post_website,post_facebook,post_twitter;
+    private EditText post_agencyname,post_categories,post_location,post_email,post_website,post_facebook,post_twitter;
+    private MaskEditText post_officenumber;
 
     private TextView post_selectscheduletype,edit_selectstartdate,edit_selectenddate,edit_starttime,edit_endtime,edit_scheduletype;
     private String starttime,endtime,startdate,enddate;
@@ -230,17 +234,17 @@ public class EditMyAgencyPost extends AppCompatActivity implements View.OnClickL
 
         if(id == android.R.id.home)
         {
-            SendUserToMainActivity();
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void SendUserToMainActivity()
     {
-        FirebaseAuth mAuth;
-        mAuth = FirebaseAuth.getInstance();
-        final FirebaseUser user = mAuth.getCurrentUser();
-        String uid = user.getUid();
+        Intent mainIntent = new Intent(EditMyAgencyPost.this, MainActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
     }
 
     private void displaydata() {
@@ -555,6 +559,7 @@ public class EditMyAgencyPost extends AppCompatActivity implements View.OnClickL
                                         @Override
                                         public void run() {
 
+                                            SendUserToMainActivity();
                                             progressDialog.dismiss();
 
 

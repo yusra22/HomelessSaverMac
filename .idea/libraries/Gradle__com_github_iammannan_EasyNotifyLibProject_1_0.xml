@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.iammannan:EasyNotifyLibProject-1.0">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/EasyNotifyLibProject-1.0.aar/224aa332d850cc028551c5e2552f2b97/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/EasyNotifyLibProject-1.0.aar/224aa332d850cc028551c5e2552f2b97/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/EasyNotifyLibProject-1.0.aar/15d411680cdd46d983b2df6b669a9aa8/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/EasyNotifyLibProject-1.0.aar/15d411680cdd46d983b2df6b669a9aa8/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

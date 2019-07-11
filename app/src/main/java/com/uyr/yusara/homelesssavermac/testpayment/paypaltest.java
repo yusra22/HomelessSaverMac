@@ -1,16 +1,21 @@
 package com.uyr.yusara.homelesssavermac.testpayment;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,6 +49,7 @@ import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 import com.uyr.yusara.homelesssavermac.Modal.Posts;
 import com.uyr.yusara.homelesssavermac.R;
+import com.uyr.yusara.homelesssavermac.testsms.testsms;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -266,6 +272,17 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
                                     if(task.isSuccessful())
                                     {
                                         Postsref.child(PostKey).child("totalDonationReceive").child(payid).setValue(totaldonate);
+
+                                        int permissionCheck = ContextCompat.checkSelfPermission(paypaltest.this,Manifest.permission.SEND_SMS);
+
+                                        if(permissionCheck==PackageManager.PERMISSION_GRANTED)
+                                        {
+                                            MyMessage();
+                                        }
+                                        else {
+
+                                            ActivityCompat.requestPermissions(paypaltest.this,new String[]{Manifest.permission.SEND_SMS},0);
+                                        }
                                     }
 
                                 }
@@ -280,6 +297,59 @@ public class paypaltest extends AppCompatActivity implements View.OnClickListene
             } else {
                 Toast.makeText(getApplicationContext(), "Payment unsuccessful or Payment cancel", Toast.LENGTH_LONG).show();
             }
+        }
+    }
+
+    private void MyMessage() {
+
+        UsersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                String phoneNumber = dataSnapshot.child("phone").getValue().toString();
+
+                String message = "Dear Mr/Ms " + DonaterName + ", Thanks for Donating to " + AgencyName + ". Transaction ID: " + payid + ". Donation Amount: RM "+ totaldonate;
+
+                if(!phoneNumber.equals(""))
+                {
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage(phoneNumber, null,message,null,null);
+
+                    Toast.makeText(paypaltest.this,"Message Send", Toast.LENGTH_SHORT);
+                }
+                else {
+
+                    Toast.makeText(paypaltest.this,"Message cannot send", Toast.LENGTH_SHORT);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode)
+        {
+            case 0:
+
+                if(grantResults.length>=0 && grantResults[0]==PackageManager.PERMISSION_GRANTED)
+                {
+                    MyMessage();
+                }
+                else {
+
+                    Toast.makeText(this,"You dont have permission", Toast.LENGTH_SHORT);
+                }
+
+                break;
         }
     }
 

@@ -155,7 +155,7 @@
                         android:layout_height="28sp"
                         android:src="@drawable/ic_phone" />
 
-                    <TextView
+                    <com.santalu.maskedittext.MaskEditText
                         android:id="@+id/text_officenumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -163,8 +163,9 @@
                         android:layout_marginStart="10dp"
                         android:background="@null"
                         android:textColor="@color/black"
-                        android:hint="Phone #"
-                        android:inputType="number"
+                        android:hint="Office #"
+                        app:met_mask="##-########"
+                        android:editable="false"
                         android:maxLength="10"
                         android:paddingTop="3dp"
                         android:layout_marginBottom="3dp"
@@ -461,6 +462,7 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:gravity="center"/>
+
     </LinearLayout>
 
 </LinearLayout>

@@ -53,6 +53,10 @@ dependencies {
     //slider
     implementation 'com.github.therealshabi:AutoImageFlipper:1.4.1'
     implementation 'com.github.ApendIr:slider:1.0'
+    implementation "com.android.support:support-v4:+"
+    implementation 'com.squareup.picasso:picasso:2.3.2'
+    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.daimajia.slider:library:1.1.5@aar'
 
     //circular circle
     implementation 'com.github.Hitomis:CircleMenu:v1.1.0'
@@ -80,6 +84,14 @@ dependencies {
 
     //Transition
     implementation 'com.github.mohammadatif:Animatoo:master'
+
+    //Image Compressor
+    implementation 'id.zelory:compressor:2.1.0'
+    implementation 'com.github.WindSekirun:MediaResizer:1.1.0'
+
+    //Text Masking
+    implementation 'com.github.santalu:mask-edittext:1.0.2'
+
 }
 apply plugin: 'com.google.gms.google-services'
 // Work around

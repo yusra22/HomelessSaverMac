@@ -107,6 +107,7 @@ public class TestMapsActivity extends AppCompatActivity implements OnMapReadyCal
     com.getbase.floatingactionbutton.FloatingActionButton fab1,fab2;
 
     private Toolbar mToolbar;
+    String a;
 
 
     @Override
@@ -254,9 +255,9 @@ public class TestMapsActivity extends AppCompatActivity implements OnMapReadyCal
         latLng = new LatLng(location.getLatitude(),location.getLongitude());
         //mMap.addMarker(new MarkerOptions().position(latLng).title("You are here!"));
         mMap.addMarker(new MarkerOptions().position(latLng).title("You are here!")).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.iconmarker2));
-
+        a = String.valueOf(location.getLatitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
 
     @Override
@@ -321,7 +322,7 @@ public class TestMapsActivity extends AppCompatActivity implements OnMapReadyCal
                                 userMarkerOptions.position(latLng);
                                 userMarkerOptions.title(phomeless.location);
                                 userMarkerOptions.draggable(true);
-                                userMarkerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.rsz_homeless));
+                                userMarkerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_poor3));
 
                                 marker = mMap.addMarker(userMarkerOptions);
                                 latitude = userAddress.getLatitude();
@@ -333,6 +334,7 @@ public class TestMapsActivity extends AppCompatActivity implements OnMapReadyCal
                                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                     @Override
                                     public boolean onMarkerClick(final Marker marker) {
+
 
                                         mp.start();
                                         sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -446,7 +448,7 @@ public class TestMapsActivity extends AppCompatActivity implements OnMapReadyCal
                                 userMarkerOptions.position(latLng);
                                 userMarkerOptions.title(communityPost.location);
                                 userMarkerOptions.draggable(true);
-                                userMarkerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.peopleresize));
+                                userMarkerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_communitymap));
 
                                 marker = mMap.addMarker(userMarkerOptions);
                                 latitude = userAddress.getLatitude();

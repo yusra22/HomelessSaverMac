@@ -22,12 +22,18 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -47,6 +53,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.santalu.maskedittext.MaskEditText;
 import com.uyr.yusara.homelesssavermac.Agency.Agency_Details;
 import com.uyr.yusara.homelesssavermac.Agency.Comment;
 import com.uyr.yusara.homelesssavermac.R;
@@ -54,6 +61,7 @@ import com.uyr.yusara.homelesssavermac.StreetView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import ir.apend.slider.model.Slide;
@@ -63,7 +71,7 @@ import technolifestyle.com.imageslider.FlipperView;
 
 public class activity_homeless_details extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener,GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+        LocationListener, ViewPagerEx.OnPageChangeListener, BaseSliderView.OnSliderClickListener {
 
     private GoogleMap mMap;
     private GoogleApiClient googleApiClient;
@@ -76,7 +84,8 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
 
     private String PostKey,img1,img2,img3,fullname,ic,age,location,illness,gender,martialstatus,description,posteruid,posterphoneno;
 
-    private TextView Postfullname,Postic,Postage,Postlocation,Postillness,Postgender,Postmartialstatus,Postdescription;
+    private TextView Postfullname,Postage,Postlocation,Postillness,Postgender,Postmartialstatus,Postdescription;
+    private MaskEditText Postic;
     //private TextView btnComment;
     private ImageView button_save,sharebtn,btncomment,bookmark;
 
@@ -95,6 +104,8 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
     private MediaPlayer mp;
 
     FlipperLayout flipper;
+
+    private SliderLayout mDemoSlider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +131,8 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
         Postmartialstatus = findViewById(R.id.text_martialstatus);
         Postlocation = findViewById(R.id.text_location);
         Postdescription = findViewById(R.id.text_description);
+
+        //mDemoSlider = (SliderLayout)findViewById(R.id.slider2);
 
         PostKey = getIntent().getExtras().get("PostKey").toString();
 
@@ -214,6 +227,8 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
         setLikeButtonStatus(PostKey);
         setLayout();
 
+        //Close Keyboard
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     @Override
@@ -376,10 +391,39 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
-
                 String  img1 = dataSnapshot.child("postImage").getValue().toString();
                 String  img2 = dataSnapshot.child("postimage2").getValue().toString();
                 String  img3 = dataSnapshot.child("postImage3").getValue().toString();
+
+/*                HashMap<String,String> url_maps = new HashMap<String, String>();
+                url_maps.put("Hannibal", img1);
+                url_maps.put("Big Bang Theory", img2);
+                url_maps.put("House of Cards", img3);
+
+                for(String name : url_maps.keySet()){
+                    TextSliderView textSliderView = new TextSliderView(activity_homeless_details.this);
+                    // initialize a SliderLayout
+                    textSliderView
+                            .description(name)
+                            .image(url_maps.get(name))
+                            .setScaleType(BaseSliderView.ScaleType.Fit)
+                            .setOnSliderClickListener(activity_homeless_details.this);
+
+                    //add your extra information
+                    textSliderView.bundle(new Bundle());
+                    textSliderView.getBundle()
+                            .putString("extra",name);
+
+                    mDemoSlider.addSlider(textSliderView);
+                }
+
+                mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+                mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+                mDemoSlider.setCustomAnimation(new DescriptionAnimation());
+                mDemoSlider.setDuration(4000);
+                mDemoSlider.addOnPageChangeListener(activity_homeless_details.this);*/
+
+;
 
                 Slider slider = findViewById(R.id.slider);
 
@@ -544,4 +588,23 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
 
     }
 
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    @Override
+    public void onSliderClick(BaseSliderView slider) {
+
+    }
 }

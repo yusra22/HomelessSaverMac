@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="com.google.android.providers.gsf.permisson.READ_GSERVICES" />
     <uses-permission android:name="android.permission.camera2" />
 
@@ -77,7 +78,9 @@
         <activity android:name=".Homeless.EditMyHomelessPost" />
         <activity android:name=".CrisisLine" />
         <activity android:name=".Feedback" />
-        <activity android:name=".StreetView"></activity>
+        <activity android:name=".StreetView" />
+        <activity android:name=".testsms.testsms" />
+
     </application>
 
 </manifest>

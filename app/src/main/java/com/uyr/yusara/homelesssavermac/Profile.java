@@ -161,11 +161,14 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         }
         else if (TextUtils.isEmpty(name))
         {
-            Toast.makeText(this, "Please write your name .... ", Toast.LENGTH_SHORT).show();
+            editTextName.setError(getString(R.string.input_error_name));
+            editTextName.requestFocus();
+            return;
         }
-        else if (TextUtils.isEmpty(phone))
-        {
-            Toast.makeText(this, "Please write your phone number .... ", Toast.LENGTH_SHORT).show();
+        else if (phone.length() != 10) {
+            editTextphone.setError(getString(R.string.input_error_phone_invalid));
+            editTextphone.requestFocus();
+            return;
         }
         else
         {
@@ -236,10 +239,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
         if(requestCode==CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            Toast.makeText(Profile.this, "msuk requestcode", Toast.LENGTH_LONG).show();
+
 
             if (resultCode == RESULT_OK) {
-                Toast.makeText(Profile.this, "result masuk", Toast.LENGTH_LONG).show();
+
                 Uri resultUri = result.getUri();
 
                 final StorageReference filePath = UserProfileImageRef.child(currentUserid + ".jpg");
@@ -277,9 +280,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                                                 Toast.makeText(Profile.this, "Link update successfully ", Toast.LENGTH_SHORT).show();
                                                 Intent selfIntent = new Intent(Profile.this, Profile.class);
                                                 startActivity(selfIntent);
-                                                Toast.makeText(Profile.this, "Profile Image Store to Firebase Success", Toast.LENGTH_LONG).show();
                                             } else {
-                                                Toast.makeText(Profile.this, "update image link error ", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(Profile.this, "Update image link error ", Toast.LENGTH_SHORT).show();
                                                 String message = task.getException().getMessage();
                                                 Toast.makeText(Profile.this, "Error Occured" + message, Toast.LENGTH_LONG).show();
                                             }

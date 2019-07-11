@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.MaskFilter;
 import android.os.Handler;
 import android.os.strictmode.CleartextNetworkViolation;
 import android.support.annotation.NonNull;
@@ -47,6 +48,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.msoftworks.easynotify.EasyNotify;
+import com.santalu.maskedittext.MaskEditText;
 import com.uyr.yusara.homelesssavermac.Homeless.AddHomelessInfo;
 import com.uyr.yusara.homelesssavermac.MainActivity;
 import com.uyr.yusara.homelesssavermac.Modal.Notification;
@@ -61,7 +63,8 @@ import java.util.HashMap;
 public class AddServices extends AppCompatActivity implements View.OnClickListener
 {
     private Button UpdatePostButton;
-    private EditText post_agencyname,post_categories,post_location,post_officenumber,post_email,post_website,post_facebook,post_twitter;
+    private EditText post_agencyname,post_categories,post_location,post_email,post_website,post_facebook,post_twitter;
+    private MaskEditText post_officenumber;
 
     private TextView post_selectscheduletype,edit_selectstartdate,edit_selectenddate,edit_starttime,edit_endtime,edit_scheduletype;
     private String starttime,endtime,startdate,enddate;

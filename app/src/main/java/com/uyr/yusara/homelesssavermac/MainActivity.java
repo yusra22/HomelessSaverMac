@@ -148,7 +148,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                         nav_itemcomads.setVisible(false);
                         nav_itemaddservices.setVisible(false);
-                    }
+                    } else {
+
+                        Toast.makeText(MainActivity.this, "Your Account has been disabled", Toast.LENGTH_LONG).show();
+                        FirebaseAuth.getInstance().signOut();
+                        finish();
+                        startActivity(new Intent(MainActivity.this, Login.class));
+                        Animatoo.animateFade(MainActivity.this);
+
+                        }
                 }
 
             }

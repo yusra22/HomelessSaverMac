@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -42,21 +43,33 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.msoftworks.easynotify.EasyNotify;
+import com.santalu.maskedittext.MaskEditText;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.uyr.yusara.homelesssavermac.Agency.AddServices;
 import com.uyr.yusara.homelesssavermac.MainActivity;
 import com.uyr.yusara.homelesssavermac.R;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+
+import id.zelory.compressor.Compressor;
+import pyxis.uzuki.live.mediaresizer.MediaResizer;
+import pyxis.uzuki.live.mediaresizer.data.ImageResizeOption;
+import pyxis.uzuki.live.mediaresizer.data.ResizeOption;
+import pyxis.uzuki.live.mediaresizer.model.ImageMode;
+import pyxis.uzuki.live.mediaresizer.model.MediaType;
+import pyxis.uzuki.live.mediaresizer.model.ScanRequest;
 
 public class AddHomelessInfo extends AppCompatActivity implements View.OnClickListener {
 
     private ImageButton SelectPostImage,SelectPostImage2,SelectPostImage3;
     private Button UpdatePeoplePostButton;
-    private EditText edit_fullname,edit_ic,edit_age,edit_location,edit_description;
+    private EditText edit_fullname,edit_age,edit_location,edit_description; //edit_ic
+    private MaskEditText edit_ic;
 
 
     //Untuk Radio Button
@@ -66,11 +79,15 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
 
     private String fullname,ic,age,location,description;
 
+    //Images files
     final static int gallerypick = 1, gallerypick2 = 2, gallerypick3 = 3;
     final int TAKE_PICTURE = 4,TAKE_PICTURE1 = 5,TAKE_PICTURE2 = 6;
     private Uri ImageUri,ImageUri2, ImageUri3;
     Bitmap photo,photo1,photo2;
     private String downloadUrl,uriurl,uriurl2,uriurl3;
+
+    //For compress
+    Bitmap thumb_bitmap = null;
 
     private FirebaseAuth mAuth;
     private String currentUserid;
@@ -107,7 +124,7 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
 
         UpdatePeoplePostButton = (Button)findViewById(R.id.btnupdatepeoplepost);
         edit_fullname = (EditText)findViewById(R.id.edit_fullname);
-        edit_ic = (EditText)findViewById(R.id.edit_ic);
+        edit_ic = (MaskEditText) findViewById(R.id.edit_ic);
         edit_age = (EditText)findViewById(R.id.edit_age);
         edit_location = (EditText)findViewById(R.id.edit_location);
         edit_description = (EditText)findViewById(R.id.edit_description);
@@ -251,13 +268,28 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
             SelectPostImage.setImageBitmap(photo);
 
         }
-        if(requestCode == TAKE_PICTURE1 && resultCode == RESULT_OK && data!= null)
+        if(requestCode == TAKE_PICTURE1)
         {
             //Display user in image button
             //ImageUri = data.getData();
             //SelectPostImage.setImageURI(ImageUri);
-            photo1 = (Bitmap)data.getExtras().get("data");
+
+            Bundle extras = data.getExtras();
+            photo1 = (Bitmap) extras.get("data");
             SelectPostImage2.setImageBitmap(photo1);
+            Toast.makeText(AddHomelessInfo.this, "camera 2 Selected!", Toast.LENGTH_SHORT).show();
+
+        }
+        if(requestCode == TAKE_PICTURE2)
+        {
+            //Display user in image button
+            //ImageUri = data.getData();
+            //SelectPostImage.setImageURI(ImageUri);
+
+            Bundle extras = data.getExtras();
+            photo2 = (Bitmap) extras.get("data");
+            SelectPostImage3.setImageBitmap(photo2);
+            Toast.makeText(AddHomelessInfo.this, "camera 3 Selected!", Toast.LENGTH_SHORT).show();
 
         }
         if(requestCode == gallerypick && resultCode == RESULT_OK && data!= null)
@@ -354,7 +386,7 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
 
     public void OpenGallery1()
     {
-/*        final CharSequence options[] = new CharSequence[]
+        final CharSequence options[] = new CharSequence[]
                 {
                         "Gallery",
                         "Camera"
@@ -384,23 +416,51 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
         });
 
         AlertDialog alert = builder.create();
-        alert.show();*/
+        alert.show();
 
-        Intent galleryIntent = new Intent();
+/*        Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, gallerypick2);
+        startActivityForResult(galleryIntent, gallerypick2);*/
 
     }
 
     public void OpenGallery2()
     {
-        Intent galleryIntent = new Intent();
-        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-        galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, gallerypick3);
-    }
 
+        final CharSequence options[] = new CharSequence[]
+                {
+                        "Gallery",
+                        "Camera"
+                };
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddHomelessInfo.this);
+        builder.setTitle("From Gallery or Camera");
+
+        builder.setIcon(R.drawable.photo);
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                if (which == 0)
+                {
+                    Intent galleryIntent = new Intent();
+                    galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                    galleryIntent.setType("image/*");
+                    startActivityForResult(galleryIntent, gallerypick3);
+
+                }
+                if (which == 1)
+                {
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, TAKE_PICTURE2);
+                }
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+    }
 
 
     public void UpdateBtnPost()
@@ -466,7 +526,7 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
 
     private void StoringImageToStorage()
     {
-        progressDialog.show();
+        //
 
         Calendar calFordDate = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
@@ -478,10 +538,9 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
 
         postRandomName = saveCurrentDate + saveCurrentTime;
 
-        final StorageReference filePath = PostImageRef.child("Homeless Reported Images").child(ImageUri + postRandomName + ".jpg");
-        final StorageReference filePath2 = PostImageRef.child("Homeless Reported Images").child(ImageUri2 + postRandomName + ".jpg");
-        final StorageReference filePath3 = PostImageRef.child("Homeless Reported Images").child(ImageUri3.getLastPathSegment() + postRandomName + ".jpg");
-
+        final StorageReference filePath = PostImageRef.child("Homeless Reported Images").child(ImageUri + postRandomName + "cameraorgallery.jpg");
+        final StorageReference filePath2 = PostImageRef.child("Homeless Reported Images").child(ImageUri2 + postRandomName + "camera1orgallery1.jpg");
+        final StorageReference filePath3 = PostImageRef.child("Homeless Reported Images").child(ImageUri3 + postRandomName + "camera2orgallery2.jpg");
 
         if(photo != null){
 
@@ -503,7 +562,6 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
                             {
                                 uriurl = uri.toString();
                                 downloadUrl = filePath.getDownloadUrl().toString();
-                                SavingPostInformationToDB();
                             }
                         });
                     }
@@ -515,8 +573,45 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
                 }
             });
         }
-        if(ImageUri !=null)
-        {
+
+        if(ImageUri !=null) {
+
+/*            File actualImage = new File(ImageUri.getPath());
+
+            byte[] final_image;
+            Bitmap compressedImage = null;
+
+            try {
+                compressedImage = new Compressor(this)
+                        .setMaxHeight(300)
+                        .setMaxWidth(300)
+                        .setQuality(80)
+                        .compressToBitmap(actualImage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                compressedImage.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+                final_image = baos.toByteArray();
+
+                final UploadTask uploadTask = filePath.putBytes(final_image);
+
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        uriurl = taskSnapshot.toString();
+                        downloadUrl = filePath.getDownloadUrl().toString();
+
+                        callEasyNotify();
+                        SavingPostInformationToDB();
+                        Toast.makeText(AddHomelessInfo.this, "Post upload successfully ", Toast.LENGTH_SHORT).show();
+
+                    }
+                });*/
+
+
             filePath.putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
@@ -531,16 +626,47 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
                                 uriurl = uri.toString();
                                 downloadUrl = filePath.getDownloadUrl().toString();
 
-
-                                callEasyNotify();
-                                SavingPostInformationToDB();
-                                Toast.makeText(AddHomelessInfo.this, "Post upload successfully ", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
                     else
                     {
                         String message = task.getException().getMessage();
+                        Toast.makeText(AddHomelessInfo.this, "Error occurt" + message,Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+        if(photo1 != null){
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            photo1.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
+            byte[] b = stream.toByteArray();
+
+            filePath2.putBytes(b).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task3)
+                {
+
+                    if(task3.isSuccessful())
+                    {
+                        Toast.makeText(AddHomelessInfo.this, "Camera 2 upload success", Toast.LENGTH_SHORT).show();
+                        filePath2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri2)
+                            {
+
+                                uriurl2 = uri2.toString();
+                                downloadUrl = filePath2.getDownloadUrl().toString();
+
+                            }
+                        });
+                    }
+                    else
+                    {
+                        String message = task3.getException().getMessage();
                         Toast.makeText(AddHomelessInfo.this, "Error occurt" + message,Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -554,13 +680,13 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
                     if (task.isSuccessful()) {
                         filePath2.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
-                            public void onSuccess(Uri uri) {
-                                uriurl2 = uri.toString();
-                                downloadUrl = filePath.getDownloadUrl().toString();
-                                SavingPostInformationToDB();
+                            public void onSuccess(Uri uri2) {
+                                uriurl2 = uri2.toString();
+                                downloadUrl = filePath2.getDownloadUrl().toString();
                             }
                         });
-                    } else {
+                    }
+                    else {
                         String message = task.getException().getMessage();
                         Toast.makeText(AddHomelessInfo.this, "Error occurt" + message, Toast.LENGTH_SHORT).show();
                     }
@@ -568,32 +694,102 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
             });
         }
 
-        filePath3.putFile(ImageUri3).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
-            {
-                if(task.isSuccessful())
+        if(photo2 != null){
+
+            progressDialog.show();
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            photo2.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
+            byte[] b = stream.toByteArray();
+
+            filePath3.putBytes(b).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task3)
                 {
-                    filePath3.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri)
-                        {
-                            uriurl3 = uri.toString();
-                            downloadUrl = filePath.getDownloadUrl().toString();
-                            SavingPostInformationToDB();
-                        }
-                    });
+
+                    if(task3.isSuccessful())
+                    {
+                        Toast.makeText(AddHomelessInfo.this, "Camera 3 upload success", Toast.LENGTH_SHORT).show();
+                        filePath3.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri2)
+                            {
+
+                                uriurl3 = uri2.toString();
+                                downloadUrl = filePath3.getDownloadUrl().toString();
+
+                                //last image insert bru save ke db :D
+
+                                SavingPostInformationToDB();
+                            }
+                        });
+                    }
+                    else
+                    {
+                        String message = task3.getException().getMessage();
+                        Toast.makeText(AddHomelessInfo.this, "Error occurt" + message,Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else
+            });
+        }
+
+        if (ImageUri3 !=null)
+        {
+            progressDialog.show();
+
+            filePath3.putFile(ImageUri3).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
                 {
-                    String message = task.getException().getMessage();
-                    Toast.makeText(AddHomelessInfo.this, "Error occurt" + message,Toast.LENGTH_SHORT).show();
+                    if(task.isSuccessful())
+                    {
+                        filePath3.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri3)
+                            {
+                                uriurl3 = uri3.toString();
+                                downloadUrl = filePath3.getDownloadUrl().toString();
+
+                                //last image insert bru save ke db :D
+
+                                SavingPostInformationToDB();
+                            }
+                        });
+                    }
+                    else
+                    {
+                        String message = task.getException().getMessage();
+                        Toast.makeText(AddHomelessInfo.this, "Error occurt" + message,Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
+        }
+
+/*        String empty_picture = "http://www.sclance.com/pngs/no-image-png/no_image_png_935205.png";
+
+        if(photo == null || ImageUri == null && photo2 == null || ImageUri2 == null && photo2 == null || ImageUri3 == null)
+        {
+            uriurl = empty_picture;
+            uriurl2 = empty_picture;
+            uriurl3 = empty_picture;
+            SavingPostInformationToDB();
+        }
+        if(photo == null || ImageUri == null && photo2 == null || ImageUri2 == null && photo2 != null || ImageUri3 != null)
+        {
+            uriurl = empty_picture;
+            uriurl2 = empty_picture;
+        }
+        if(photo == null || ImageUri == null && photo2 != null || ImageUri2 != null && photo2 == null || ImageUri3 == null)
+        {
+            uriurl = empty_picture;
+            uriurl3 = empty_picture;
+        }*/
     }
 
     private void SavingPostInformationToDB() {
+
+
 
         //Untuk Susun
         PeoplePostsRef.addValueEventListener(new ValueEventListener() {
@@ -634,9 +830,6 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
                         postMap.put("date", saveCurrentDate);
                         postMap.put("time", saveCurrentTime);
                         postMap.put("counter", countPosts);
-                        postMap.put("postImage", uriurl);
-                        postMap.put("postimage2", uriurl2);
-                        postMap.put("postImage3", uriurl3);
                         postMap.put("fullname", fullname);
                         postMap.put("ic", ic);
                         postMap.put("age", age);
@@ -645,6 +838,9 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
                         postMap.put("gender",gender);
                         postMap.put("martialstatus",martialstatus);
                         postMap.put("description",description);
+                        postMap.put("postImage", uriurl);
+                        postMap.put("postimage2", uriurl2);
+                        postMap.put("postImage3", uriurl3);
 
                         PeoplePostsRef.child(currentUserid + postRandomName).updateChildren(postMap).addOnCompleteListener(new OnCompleteListener() {
 
@@ -656,6 +852,7 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
                                     progressDialog.dismiss();
 
                                     SendUserToMainActivity();
+                                    callEasyNotify();
 
                                 }
                                 else {
@@ -761,6 +958,4 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
                 break;
         }
     }
-
-
 }

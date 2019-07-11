@@ -52,6 +52,13 @@
                     android:paddingRight="10dp"
                     android:orientation="vertical">
 
+                    <!--<com.daimajia.slider.library.SliderLayout-->
+                        <!--android:id="@+id/slider2"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="300dp"-->
+                        <!--android:background="@drawable/border_round" />-->
+
+
                     <ir.apend.slider.ui.Slider
                         android:id="@+id/slider"
                         android:layout_width="match_parent"
@@ -76,7 +83,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:maxLength="30"
+                            android:maxLength="130"
                             android:layout_marginStart="10dp"
                             android:layout_marginBottom="7dp"
                             android:background="@null"
@@ -181,7 +188,7 @@
                             android:paddingLeft="5dp"
                             android:src="@drawable/ic_person" />
 
-                        <TextView
+                        <com.santalu.maskedittext.MaskEditText
                             android:id="@+id/text_ic"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -190,7 +197,8 @@
                             android:layout_marginBottom="3dp"
                             android:background="@null"
                             android:hint="IC Number"
-                            android:maxLength="6"
+                            app:met_mask="######-XX-XXXX"
+                            android:editable="false"
                             android:paddingTop="3dp"
                             android:textColor="@color/black"
                             android:textSize="16dp" />

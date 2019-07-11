@@ -579,6 +579,7 @@ public class Agency_post extends AppCompatActivity {
 
     public void resource()
     {
+
         Query SortAgentPost = Postsref.orderByChild("service").startAt("Resource").endAt("Resource" + "\uf8ff");
 
         FirebaseRecyclerOptions<Posts> options = new FirebaseRecyclerOptions.Builder<Posts>().setQuery(SortAgentPost, Posts.class).build();

@@ -24,10 +24,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.uyr.yusara.homelesssavermac.MainActivity;
+import com.uyr.yusara.homelesssavermac.Modal.Users;
 import com.uyr.yusara.homelesssavermac.R;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
@@ -167,34 +171,21 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         finish();
         Animatoo.animateFade(Login.this);
 
-/*        xx.addValueEventListener(new ValueEventListener() {
+/*        DatabaseReference rolecheck = FirebaseDatabase.getInstance().getReference();
+
+        rolecheck.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-            {
-                if(dataSnapshot.exists())
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Users usersData = dataSnapshot.child("Users").child(uid).getValue(Users.class);
+
+                if(usersData.getRole().equals("Disabled"))
                 {
-                    Users usersData = dataSnapshot.child("Users").child(uid).getValue(Users.class);
-
-                    if(usersData.getRole().equals("People"))
-                    {
-                        Intent intent = new Intent(Login.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                    else if(usersData.getRole().equals("Community"))
-                    {
-                        Intent intent = new Intent(Login.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-
-                    }
-                    else {
-                        Intent intent = new Intent(Login.this, Login.class);
-                        startActivity(intent);
-                        finish();
-                    }
+                    Toast.makeText(Login.this, "Your Account has been disabled", Toast.LENGTH_LONG).show();
                 }
+                else {
 
+                }
             }
 
             @Override

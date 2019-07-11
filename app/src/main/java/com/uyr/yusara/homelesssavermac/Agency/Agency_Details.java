@@ -24,6 +24,8 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,7 +50,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.santalu.maskedittext.MaskEditText;
 import com.uyr.yusara.homelesssavermac.Homeless.activity_homeless_details;
+import com.uyr.yusara.homelesssavermac.Modal.Posts;
 import com.uyr.yusara.homelesssavermac.R;
 import com.uyr.yusara.homelesssavermac.StreetView;
 import com.uyr.yusara.homelesssavermac.testpayment.paypaltest;
@@ -73,7 +77,8 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
     private String startdate,enddate,starttime,endtime;
 
 
-    private TextView Postagencynametxt,Postcategoriestxt,Postphonenotxt,Postemailtxt,Postwebsitetxt,Postfacebooktxt,Posttwittertxt,Postlocationtxt,PostScheduletxt,PostTagstxt;
+    private TextView Postagencynametxt,Postcategoriestxt,Postemailtxt,Postwebsitetxt,Postfacebooktxt,Posttwittertxt,Postlocationtxt,PostScheduletxt,PostTagstxt;
+    private MaskEditText Postphonenotxt;
 
     //For function comment,bookmark and share
     private ImageView btnComment,bookmark,sharebtn;
@@ -95,6 +100,8 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
     private TextView Postdonationreceive,intentdonatenow;
 
     private TextView callid;
+
+    private Button btntest;
 
 
     @Override
@@ -128,6 +135,8 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
 
         callid = (TextView)findViewById(R.id.text_officenumber);
 
+        //btntest = (Button) findViewById(R.id.btntest);
+
         //Underline kan location
         Postlocationtxt.setPaintFlags(Postlocationtxt.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
@@ -151,6 +160,7 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
+                //final Posts phomeless = new Posts();
 
                 agencyname = dataSnapshot.child("agencyname").getValue().toString();
                 categories = dataSnapshot.child("categories").getValue().toString();
@@ -162,10 +172,18 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
                 location = dataSnapshot.child("location").getValue().toString();
                 tags = dataSnapshot.child("tags").getValue().toString();
                 schedule = dataSnapshot.child("scheduletype").getValue().toString();
+                String status = dataSnapshot.child("status").getValue().toString();
+
+/*
+                if(status.equalsIgnoreCase("accept"))
+                {
+                    btntest.setVisibility(View.GONE);
+                }
+*/
 
                 Postagencynametxt.setText(agencyname);
                 Postcategoriestxt.setText(categories);
-                Postphonenotxt.setText(phoneno + "XX-XXXX");
+                Postphonenotxt.setText(phoneno);
                 Postemailtxt.setText(email);
                 Postwebsitetxt.setText(website);
                 Postfacebooktxt.setText(facebook);
@@ -250,6 +268,9 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
 
         //Hilangkan fab tpi xpadam sebab mlas nk ubah
         fab.setVisibility(View.GONE);
+
+        //Close Keyboard
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     /**
@@ -377,7 +398,6 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
                 streetview.putExtra("PostKey3", location);
                 startActivity(streetview);
                 Animatoo.animateShrink(Agency_Details.this);
-
         }
     }
 

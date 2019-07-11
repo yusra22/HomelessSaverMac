@@ -43,7 +43,7 @@
         app:fab_colorNormal="@color/white"
         app:fab_colorPressed="@color/colorPrimary"
         app:fab_size="mini"
-        app:fab_icon="@drawable/peopleresize"
+        app:fab_icon="@drawable/ic_communitymap"
         android:id="@+id/fab_action1"
         app:fab_title="Community" />
 
@@ -53,7 +53,7 @@
             app:fab_colorNormal="@color/white"
             app:fab_colorPressed="@color/colorPrimary"
             app:fab_size="mini"
-            app:fab_icon="@drawable/rsz_homeless"
+            app:fab_icon="@drawable/ic_poor"
             android:id="@+id/fab_action2"
             app:fab_title="Homeless"
             />

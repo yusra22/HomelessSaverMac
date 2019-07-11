@@ -95,6 +95,7 @@
                         android:hint="Description or Comment in less than 30 words"
                         android:layout_marginStart="10dp"
                         android:paddingBottom="20dp"
+                        android:maxLength="50"
                         android:inputType="textMultiLine"
                         android:background="@null"
                         android:layout_marginBottom="7dp"
@@ -152,14 +153,15 @@
                     android:layout_marginBottom="10dp"
                     >
 
-                    <EditText
+                    <com.santalu.maskedittext.MaskEditText
                         android:id="@+id/edit_officenumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:background="@null"
-                        android:hint="Phone #"
+                        android:hint="Office #"
+                        app:met_mask="##-########"
                         android:inputType="number"
                         android:maxLength="10"
                         android:paddingTop="3dp"

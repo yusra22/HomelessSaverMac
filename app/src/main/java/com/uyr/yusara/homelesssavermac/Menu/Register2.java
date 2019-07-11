@@ -20,12 +20,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.santalu.maskedittext.MaskEditText;
 import com.uyr.yusara.homelesssavermac.Modal.Users;
 import com.uyr.yusara.homelesssavermac.R;
 
 public class Register2 extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText editTextName, editTextEmail, editTextPassword, editTextPhone;
+    private EditText editTextName, editTextEmail, editTextPassword; //editTextPhone;
+    private MaskEditText editTextPhone;
     private RadioGroup radioGroupRoles;
     private RadioButton radioButtonRolesoption;
     private ProgressBar progressBar;
@@ -139,7 +141,7 @@ public class Register2 extends AppCompatActivity implements View.OnClickListener
 
         if(radioGroupRoles.getCheckedRadioButtonId()==-1)
         {
-            Toast.makeText(this, "Please select illness",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please select your role",Toast.LENGTH_SHORT).show();
             return;
 
         }
