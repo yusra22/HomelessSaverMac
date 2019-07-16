@@ -181,8 +181,8 @@ public class Agency_Details extends AppCompatActivity implements OnMapReadyCallb
                 }
 */
 
-                Postagencynametxt.setText(agencyname);
-                Postcategoriestxt.setText(categories);
+                Postagencynametxt.setText(agencyname.substring(0, 1).toUpperCase() + agencyname.substring(1));
+                Postcategoriestxt.setText(categories.substring(0, 1).toUpperCase() + categories.substring(1));
                 Postphonenotxt.setText(phoneno);
                 Postemailtxt.setText(email);
                 Postwebsitetxt.setText(website);

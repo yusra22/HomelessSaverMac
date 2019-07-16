@@ -104,7 +104,7 @@ public class Myhomelesspost extends AppCompatActivity {
                     @Override
                     protected void onBindViewHolder(@NonNull PostsViewHolder holder, final int position, @NonNull Posts_Homeless model)
                     {
-                        holder.name.setText(model.getFullname());
+                        holder.name.setText(model.getFullname().substring(0, 1).toUpperCase() + model.getFullname().substring(1));
                         holder.ages.setText("Ages: " + model.getAge());
                         holder.gender.setText(model.getGender());
                         holder.date.setText(model.getDate());

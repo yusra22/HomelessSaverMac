@@ -465,11 +465,11 @@ public class AddHomelessInfo extends AppCompatActivity implements View.OnClickLi
 
     public void UpdateBtnPost()
     {
-        fullname = edit_fullname.getText().toString();
+        fullname = edit_fullname.getText().toString().toLowerCase();
         ic = edit_ic.getText().toString();
         age = edit_age.getText().toString();
         location = edit_location.getText().toString();
-        description = edit_description.getText().toString();
+        description = edit_description.getText().toString().toLowerCase();
 
 
         if(fullname.isEmpty())

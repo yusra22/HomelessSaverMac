@@ -81,6 +81,9 @@
         <activity android:name=".StreetView" />
         <activity android:name=".testsms.testsms" />
 
+        <uses-library android:name="org.apache.http.legacy"
+            android:required="false"/>
+
     </application>
 
 </manifest>

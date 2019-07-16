@@ -161,7 +161,7 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
                 description = dataSnapshot.child("description").getValue().toString();
                 posteruid = dataSnapshot.child("uid").getValue().toString();
 
-                Postfullname.setText(fullname);
+                Postfullname.setText(fullname.substring(0, 1).toUpperCase() + fullname.substring(1));
                 Postage.setText("Age " + age);
                 Postic.setText(ic);
                 Postlocation.setText(location);
@@ -341,6 +341,7 @@ public class activity_homeless_details extends AppCompatActivity implements OnMa
                 Intent streetview = new Intent(activity_homeless_details.this, StreetView.class);
                 streetview.putExtra("PostKey", PostLat);
                 streetview.putExtra("PostKey2", PostLng);
+                streetview.putExtra("PostKey3", location);
                 startActivity(streetview);
                 Animatoo.animateShrink(activity_homeless_details.this);
                 break;

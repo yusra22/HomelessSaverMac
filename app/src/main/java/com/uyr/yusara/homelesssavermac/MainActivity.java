@@ -117,6 +117,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View navView = navigationView.getHeaderView(0);
         NavProfileImage = (CircleImageView)navView.findViewById(R.id.nav_image);
 
+        Menu menuNav;
+        MenuItem nav_itempads,nav_itemcomads,nav_itemaddservices,nav_itemaddreport;
+
+        menuNav = navigationView.getMenu();
+        nav_itempads = menuNav.findItem(R.id.nav_peopleads);
+        nav_itemaddreport = menuNav.findItem(R.id.add_reports);
+        nav_itemcomads = menuNav.findItem(R.id.nav_communityads) ;
+        nav_itemaddservices = menuNav.findItem(R.id.add_services);
+
+        nav_itempads.setVisible(false);
+        nav_itemaddreport.setVisible(false);
+        nav_itemcomads.setVisible(false);
+        nav_itemaddservices.setVisible(false);
 
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
 
@@ -137,18 +150,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         menuNav = navigationView.getMenu();
                         nav_itempads = menuNav.findItem(R.id.nav_peopleads);
                         nav_itemaddreport = menuNav.findItem(R.id.add_reports);
-
-                        nav_itempads.setVisible(false);
-                        nav_itemaddreport.setVisible(false);
-                    } else if (usersData.getRole().equalsIgnoreCase("People"))
-                    {
-                        menuNav= navigationView.getMenu();
                         nav_itemcomads = menuNav.findItem(R.id.nav_communityads) ;
                         nav_itemaddservices = menuNav.findItem(R.id.add_services);
 
+                        nav_itempads.setVisible(false);
+                        nav_itemaddreport.setVisible(false);
+                        nav_itemcomads.setVisible(true);
+                        nav_itemaddservices.setVisible(true);
+
+                    } else if (usersData.getRole().equalsIgnoreCase("People"))
+                    {
+                        menuNav= navigationView.getMenu();
+                        nav_itempads = menuNav.findItem(R.id.nav_peopleads);
+                        nav_itemaddreport = menuNav.findItem(R.id.add_reports);
+                        nav_itemcomads = menuNav.findItem(R.id.nav_communityads) ;
+                        nav_itemaddservices = menuNav.findItem(R.id.add_services);
+
+                        nav_itempads.setVisible(true);
+                        nav_itemaddreport.setVisible(true);
                         nav_itemcomads.setVisible(false);
                         nav_itemaddservices.setVisible(false);
-                    } else {
+                    } else
+                    {
 
                         Toast.makeText(MainActivity.this, "Your Account has been disabled", Toast.LENGTH_LONG).show();
                         FirebaseAuth.getInstance().signOut();
@@ -156,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         startActivity(new Intent(MainActivity.this, Login.class));
                         Animatoo.animateFade(MainActivity.this);
 
-                        }
+                    }
                 }
 
             }

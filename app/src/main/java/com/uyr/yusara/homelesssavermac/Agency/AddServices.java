@@ -331,14 +331,14 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
 
     public void UpdateBtnPost()
     {
-        agencyname = post_agencyname.getText().toString();
-        categories = post_categories.getText().toString();
-        location = post_location.getText().toString();
-        officenumber = post_officenumber.getText().toString();
-        email = post_email.getText().toString();
-        website = post_website.getText().toString();
-        facebook = post_facebook.getText().toString();
-        twitter = post_twitter.getText().toString();
+        agencyname = post_agencyname.getText().toString().toLowerCase();
+        categories = post_categories.getText().toString().toLowerCase();
+        location = post_location.getText().toString().toLowerCase();
+        officenumber = post_officenumber.getText().toString().toLowerCase();
+        email = post_email.getText().toString().toLowerCase();
+        website = post_website.getText().toString().toLowerCase();
+        facebook = post_facebook.getText().toString().toLowerCase();
+        twitter = post_twitter.getText().toString().toLowerCase();
         scheduletype = post_selectscheduletype.getText().toString();
 
         if(agencyname.isEmpty())
@@ -460,18 +460,6 @@ public class AddServices extends AppCompatActivity implements View.OnClickListen
                             {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(AddServices.this, "Post update successfully ", Toast.LENGTH_SHORT).show();
-
-                                    progressDialog.show();
-                                    Handler handler = new Handler();
-                                    handler.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-
-                                            progressDialog.dismiss();
-
-
-                                        }
-                                    }, 2000);
 
 
 /*                                    final HashMap postnotification = new HashMap();

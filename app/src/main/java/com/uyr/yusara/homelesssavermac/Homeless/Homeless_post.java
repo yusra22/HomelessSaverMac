@@ -167,7 +167,7 @@ public class Homeless_post extends AppCompatActivity {
 
                 final String PostKey = getRef(position).getKey();
 
-                holder.post_fullname.setText(model.getFullname());
+                holder.post_fullname.setText(model.getFullname().substring(0, 1).toUpperCase() + model.getFullname().substring(1));
                 holder.post_ages.setText(model.getAge());
                 holder.post_gender.setText(model.getGender());
                 holder.post_martialstatus.setText(model.getMartialstatus());
@@ -303,7 +303,7 @@ public class Homeless_post extends AppCompatActivity {
 
                 final String PostKey = getRef(position).getKey();
 
-                holder.post_fullname.setText(model.getFullname());
+                holder.post_fullname.setText(model.getFullname().substring(0, 1).toUpperCase() + model.getFullname().substring(1));
                 holder.post_ages.setText(model.getAge());
                 holder.post_gender.setText(model.getGender());
                 holder.post_martialstatus.setText(model.getMartialstatus());
@@ -439,7 +439,7 @@ public class Homeless_post extends AppCompatActivity {
 
                 final String PostKey = getRef(position).getKey();
 
-                holder.post_fullname.setText(model.getFullname());
+                holder.post_fullname.setText(model.getFullname().substring(0, 1).toUpperCase() + model.getFullname().substring(1));
                 holder.post_ages.setText(model.getAge());
                 holder.post_gender.setText(model.getGender());
                 holder.post_martialstatus.setText(model.getMartialstatus());
@@ -575,7 +575,7 @@ public class Homeless_post extends AppCompatActivity {
 
                 final String PostKey = getRef(position).getKey();
 
-                holder.post_fullname.setText(model.getFullname());
+                holder.post_fullname.setText(model.getFullname().substring(0, 1).toUpperCase() + model.getFullname().substring(1));
                 holder.post_ages.setText(model.getAge());
                 holder.post_gender.setText(model.getGender());
                 holder.post_martialstatus.setText(model.getMartialstatus());
@@ -711,7 +711,7 @@ public class Homeless_post extends AppCompatActivity {
 
                 final String PostKey = getRef(position).getKey();
 
-                holder.post_fullname.setText(model.getFullname());
+                holder.post_fullname.setText(model.getFullname().substring(0, 1).toUpperCase() + model.getFullname().substring(1));
                 holder.post_ages.setText(model.getAge());
                 holder.post_gender.setText(model.getGender());
                 holder.post_martialstatus.setText(model.getMartialstatus());
@@ -848,7 +848,7 @@ public class Homeless_post extends AppCompatActivity {
 
                 final String PostKey = getRef(position).getKey();
 
-                holder.post_fullname.setText(model.getFullname());
+                holder.post_fullname.setText(model.getFullname().substring(0, 1).toUpperCase() + model.getFullname().substring(1));
                 holder.post_ages.setText(model.getAge());
                 holder.post_gender.setText(model.getGender());
                 holder.post_martialstatus.setText(model.getMartialstatus());

@@ -102,7 +102,7 @@ public class MyAgencyPost extends AppCompatActivity {
                     @Override
                     protected void onBindViewHolder(@NonNull PostsViewHolder holder, final int position, @NonNull Posts model)
                     {
-                        holder.productname.setText(model.getAgencyname());
+                        holder.productname.setText(model.getAgencyname().substring(0, 1).toUpperCase() + model.getAgencyname().substring(1));
                         holder.productprice.setText(model.getEmail());
                         holder.productdate.setText(model.getDate());
                         holder.productstatus.setText(model.getTags());
